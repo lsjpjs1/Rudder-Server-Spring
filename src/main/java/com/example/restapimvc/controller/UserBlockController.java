@@ -18,9 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserBlockController {
     private final UserBlockService userBlockService;
 
+    /**
+     * /users/blockUser
+     * @param createUserBlockRequest Long blockUserInfoId : 차단할 userInfoId
+     * @return 201, Long userBlockId, UserInfo userInfo, UserInfo blockedUserInfo
+     */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserBlock> createUserBlock(@RequestBody UserBlockDTO.CreateUserBlockRequest createUserBlockRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
                 .body(userBlockService.createUserBlock(createUserBlockRequest));
     }
 }
