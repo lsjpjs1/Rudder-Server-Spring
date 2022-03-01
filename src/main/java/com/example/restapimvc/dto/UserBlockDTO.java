@@ -1,17 +1,15 @@
 package com.example.restapimvc.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-public class UserInteractionDTO {
+public class UserBlockDTO {
 
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class BlockUserRequest {
+    @Builder
+    public static class CreateUserBlockRequest {
         private Long blockUserInfoId;
 
         @Override
@@ -22,9 +20,5 @@ public class UserInteractionDTO {
         }
     }
 
-    @Getter
-    @AllArgsConstructor
-    public static class BlockUserResponse {
-        private boolean isSuccess;
-    }
+
 }
