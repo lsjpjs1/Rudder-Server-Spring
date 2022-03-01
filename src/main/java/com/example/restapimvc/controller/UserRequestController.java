@@ -19,7 +19,9 @@ public class UserRequestController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserRequest> createUserRequest(@RequestBody UserRequestDTO.CreateUserRequestRequest createUserRequestRequest) {
-        return ResponseEntity.ok(userRequestService.createUserRequestResponse(createUserRequestRequest));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userRequestService.createUserRequestResponse(createUserRequestRequest));
     }
 
 }
