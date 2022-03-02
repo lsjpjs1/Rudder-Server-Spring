@@ -2,6 +2,7 @@ package com.example.restapimvc.repository;
 
 import com.example.restapimvc.domain.QCategory;
 import com.example.restapimvc.domain.QUserSelectCategory;
+import com.example.restapimvc.domain.School;
 import com.example.restapimvc.dto.CategoryDTO;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
@@ -19,7 +20,7 @@ public class CategoryQueryRepository {
     private final QCategory category = QCategory.category;
     private final QUserSelectCategory userSelectCategory = QUserSelectCategory.userSelectCategory;
 
-    public List<CategoryDTO.CommonCategoryResponse> findCommonCategory(long userInfoId, long schoolId) {
+    public List<CategoryDTO.CommonCategoryResponse> findCommonCategory(long userInfoId, School school) {
 
         return jpaQueryFactory
                 .select(
@@ -36,7 +37,7 @@ public class CategoryQueryRepository {
                         )
                 )
                 .from(category)
-                .where(category.school.schoolId.eq(schoolId).and(category.categoryEnable.eq(true)))
+                .where(category.school.schoolId.eq(school.getSchoolId()).and(category.categoryEnable.eq(true)))
                 .orderBy(category.categoryOrder.asc())
                 .fetch();
 

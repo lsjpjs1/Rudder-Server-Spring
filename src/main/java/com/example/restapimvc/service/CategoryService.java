@@ -20,6 +20,6 @@ public class CategoryService {
     public List<CategoryDTO.CommonCategoryResponse> getCommonCategories() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInfo userInfo = (UserInfo) principal;
-        return categoryQueryRepository.findCommonCategory(userInfo.getUserInfoId(), userInfo.getSchoolId());
+        return categoryQueryRepository.findCommonCategory(userInfo.getUserInfoId(), userInfo.getSchool());
     }
 }

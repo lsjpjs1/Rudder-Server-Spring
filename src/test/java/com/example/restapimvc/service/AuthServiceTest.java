@@ -47,7 +47,7 @@ public class AuthServiceTest {
 
     @Test
     public void allTest(){
-        List<CategoryDTO.CommonCategoryResponse> categories = categoryQueryRepository.findCommonCategory(99l,1l);
+        List<CategoryDTO.CommonCategoryResponse> categories = categoryQueryRepository.findCommonCategory(99l,schoolRepository.getById(1L));
         categories.forEach(
                 (cat)->{
                     System.out.println(cat.toString());
