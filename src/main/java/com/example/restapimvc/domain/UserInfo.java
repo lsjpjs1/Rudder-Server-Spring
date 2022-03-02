@@ -20,7 +20,9 @@ public class UserInfo {
 
     private String userId;
 
-    private Integer schoolId;
+    @ManyToOne(targetEntity = School.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    private School school;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
@@ -30,16 +32,16 @@ public class UserInfo {
         return "UserInfo{" +
                 "userInfoId=" + userInfoId +
                 ", userId='" + userId + '\'' +
-                ", schoolId=" + schoolId +
+                ", school=" + school +
                 ", userPassword='" + userPassword + '\'' +
                 '}';
     }
 
     @Builder
-    public UserInfo(long userInfoId, String userId, int schoolId, String userPassword){
+    public UserInfo(long userInfoId, String userId, School school, String userPassword){
         this.userInfoId = userInfoId;
         this.userId = userId;
-        this.schoolId = schoolId;
+        this.school = school;
         this.userPassword = userPassword;
     }
 
