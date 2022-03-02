@@ -50,7 +50,7 @@ public class TokenProvider {
         //Payloads of JWT
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put(AUTHORITIES_KEY, authorities);
-        userInfo.clearUserPassword(); // 비밀번호 부분 지우기
+
         HashMap<String, Object> userInfoHashMap = ObjectMappingUtil.objectToHashMap(userInfo);
         hashMap.putAll(userInfoHashMap);
 

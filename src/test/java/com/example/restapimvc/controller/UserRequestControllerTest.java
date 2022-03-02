@@ -36,7 +36,9 @@ class UserRequestControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic2Nob29sSWQiOjEsInVzZXJJZCI6ImZmZiIsInVzZXJJbmZvSWQiOjk3fQ.NhisxLB9CXDjJt5MBiqczKi7DxoBB8l21GAnKEk_2dcc40KHka7xi_RM0gaAPzuSfDpE5Kfis_P2MPr2-S69Jg"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(print())
+                ;
 
 
     }
