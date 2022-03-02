@@ -16,7 +16,7 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long categoryId;
+    private Long categoryId;
 
     private String categoryName;
 
@@ -26,9 +26,9 @@ public class Category implements Serializable {
 
     private String categoryType;
 
-    private int categoryOrder;
+    private Integer categoryOrder;
 
-    private boolean categoryEnable;
+    private Boolean categoryEnable;
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long schoolId;
+    private Long schoolId;
 
     private String schoolName;
 

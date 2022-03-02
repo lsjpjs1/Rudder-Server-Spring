@@ -15,7 +15,7 @@ public class UserSelectCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
-    private long userSelectCategoryId;
+    private Long userSelectCategoryId;
 
     @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id")

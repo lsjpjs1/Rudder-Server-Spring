@@ -15,11 +15,11 @@ public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userInfoId;
+    private Long userInfoId;
 
     private String userId;
 
-    private int schoolId;
+    private Integer schoolId;
 
     private String userPassword;
 

@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class UserRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long requestId;
+    private Long requestId;
 
     @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id")
