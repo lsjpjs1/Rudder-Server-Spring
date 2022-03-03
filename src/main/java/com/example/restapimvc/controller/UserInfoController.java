@@ -19,6 +19,11 @@ public class UserInfoController {
 
     private final UserInfoService userInfoService;
 
+    /**
+     * /users/updateNickname
+     * @param updateNicknameRequest String nickname
+     * @return 201, UserInfo
+     */
     @PatchMapping(value = "/nickname",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserInfo> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         return ResponseEntity
