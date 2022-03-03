@@ -14,5 +14,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long>{
     Optional<UserInfo> findUserInfoByUserId(String userId);
 
     Optional<UserInfo> findUserInfoByUserInfoId(Long userInfoId);
+
+    Optional<UserInfo> findUserInfoByUserNickname(String userNickname);
 }
 

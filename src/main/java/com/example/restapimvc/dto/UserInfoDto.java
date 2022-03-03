@@ -18,4 +18,12 @@ public class UserInfoDto {
         private String notificationToken;
         private String os;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateNicknameRequest {
+        private String nickname;
+    }
 }

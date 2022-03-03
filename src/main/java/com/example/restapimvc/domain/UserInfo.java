@@ -1,10 +1,8 @@
 package com.example.restapimvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,12 +18,17 @@ public class UserInfo {
 
     private String userId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(targetEntity = School.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private School school;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
+
+    @Setter
+    private String userNickname;
+
 
     @Override
     public String toString() {
