@@ -1,6 +1,8 @@
 package com.example.restapimvc.security;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,8 +24,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserInfoRepository userInfoRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userInfo = userInfoRepository.findUserInfoByUserId(username).orElseThrow(()->new UsernameNotFoundException("Id cannot found"));
+    public UserDetails loadUserByUsername(String username) {
+        UserInfo userInfo = userInfoRepository.findUserInfoByUserId(username).orElseThrow(()->new CustomException(ErrorCode.USER_ID_NOT_FOUND));
         return createUserDetails(userInfo);
     }
 

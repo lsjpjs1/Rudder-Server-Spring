@@ -24,7 +24,7 @@ public class UserBlockService {
     public UserBlock createUserBlock(UserBlockDTO.CreateUserBlockRequest createUserBlockRequest){
         UserInfo userInfo = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> blockedUserInfo = userInfoRepository.findUserInfoByUserInfoId(createUserBlockRequest.getBlockUserInfoId());
-        blockedUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
+        blockedUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
         Optional<UserBlock> userBlockAlreadyExist = userBlockRepository.findByUserInfoAndBlockedUserInfo(userInfo, blockedUserInfo.get());
         userBlockAlreadyExist.ifPresent(
                 s -> {

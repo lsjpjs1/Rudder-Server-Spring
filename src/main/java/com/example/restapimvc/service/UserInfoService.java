@@ -25,7 +25,7 @@ public class UserInfoService {
         );
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> targetUserInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId());
-        targetUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
+        targetUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
         log.debug(targetUserInfo.get().toString());
         targetUserInfo.get().setUserNickname(updateNicknameRequest.getNickname());
         userInfoRepository.save(targetUserInfo.get());
