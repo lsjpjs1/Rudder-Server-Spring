@@ -26,4 +26,6 @@ public class UserInfoDto {
     public static class UpdateNicknameRequest {
         private String nickname;
     }
+
+
 }

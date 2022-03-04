@@ -1,8 +1,11 @@
 package com.example.restapimvc.controller;
 
+
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.dto.UserInfoDto;
-import com.example.restapimvc.service.UserInfoService;
+import com.example.restapimvc.dto.UserProfileDto;
+import com.example.restapimvc.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,24 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user-infos")
+@RequestMapping("user-profiles")
 @RequiredArgsConstructor
-public class UserInfoController {
+public class UserProfileController {
 
-    private final UserInfoService userInfoService;
+    private final UserProfileService userProfileService;
 
-    /**
-     * /users/updateNickname
-     * @param updateNicknameRequest String nickname
-     * @return 201, UserInfo
-     */
-    @PatchMapping(value = "/nickname",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserInfo> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
+    @PatchMapping(value = "/profileImage",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserProfile> updateUserProfileImage(@RequestBody UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(userInfoService.updateUserNickname(updateNicknameRequest))
+                .body(userProfileService.updateUserProfileImage(updateProfileImageRequest))
                 ;
     }
-
-
 }

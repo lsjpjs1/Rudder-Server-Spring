@@ -23,11 +23,19 @@ public class UserInfo {
     @JoinColumn(name = "school_id")
     private School school;
 
+    @Setter
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
 
     @Setter
     private String userNickname;
+
+
 
 
     @Override

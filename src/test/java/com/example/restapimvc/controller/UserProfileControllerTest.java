@@ -1,7 +1,7 @@
 package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.UserInfoDto;
-import com.example.restapimvc.dto.UserRequestDTO;
+import com.example.restapimvc.dto.UserProfileDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserInfoControllerTest {
+class UserProfileControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,10 +26,10 @@ class UserInfoControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void updateUserNickname() throws Exception {
-        String content = objectMapper.writeValueAsString(new UserInfoDto.UpdateNicknameRequest("helloSpring123456"));
+    void updateUserProfileImage() throws Exception {
+        String content = objectMapper.writeValueAsString(new UserProfileDto.UpdateProfileImageRequest(2L));
 
-        mockMvc.perform(patch("/user-infos/nickname")
+        mockMvc.perform(patch("/user-profiles/profileImage")
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -38,9 +37,5 @@ class UserInfoControllerTest {
                 .andExpect(status().isCreated())
                 .andDo(print())
         ;
-
-
     }
-
-
 }
