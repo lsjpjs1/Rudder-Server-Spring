@@ -12,7 +12,7 @@ public class UtilTest {
     public void objectMapperTest() {
         ObjectMapper objectMapper = new ObjectMapper();
         UserInfo userInfo = UserInfo.builder()
-                .userInfoId(1)
+                .userInfoId(1L)
                 .userId("123")
                 .build();
         HashMap<String, Object> map = objectMapper.convertValue(userInfo, HashMap.class);

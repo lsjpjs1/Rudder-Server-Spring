@@ -23,7 +23,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
     @PatchMapping(value = "/profileImage",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserProfile> updateUserProfileImage(@RequestBody UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
+    public ResponseEntity<UserProfileDto.UserProfileResponse> updateUserProfileImage(@RequestBody UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userProfileService.updateUserProfileImage(updateProfileImageRequest))

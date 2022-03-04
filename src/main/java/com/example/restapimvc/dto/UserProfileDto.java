@@ -1,9 +1,8 @@
 package com.example.restapimvc.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Column;
 
 public class UserProfileDto {
     @Getter
@@ -13,4 +12,18 @@ public class UserProfileDto {
     public static class UpdateProfileImageRequest {
         private Long profileImageId;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class UserProfileResponse {
+        private Long profileId;
+
+        private String profileBody;
+
+        private Long profileImageId;
+    }
+
 }

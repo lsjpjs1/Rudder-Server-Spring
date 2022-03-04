@@ -1,6 +1,7 @@
 package com.example.restapimvc.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,4 +16,6 @@ public class UserProfileImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id")
     private Long userProfileImageId;
+
+
 }

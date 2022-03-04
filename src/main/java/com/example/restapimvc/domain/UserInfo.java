@@ -1,6 +1,7 @@
 package com.example.restapimvc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -24,7 +25,6 @@ public class UserInfo {
     private School school;
 
     @Setter
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
@@ -49,7 +49,7 @@ public class UserInfo {
     }
 
     @Builder
-    public UserInfo(long userInfoId, String userId, School school, String userPassword){
+    public UserInfo(Long userInfoId, String userId, School school, String userPassword){
         this.userInfoId = userInfoId;
         this.userId = userId;
         this.school = school;
