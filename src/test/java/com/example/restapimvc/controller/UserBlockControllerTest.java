@@ -27,7 +27,7 @@ class UserBlockControllerTest {
 
     @Test
     void createUserBlock() throws Exception {
-        String content = objectMapper.writeValueAsString(UserBlockDTO.CreateUserBlockRequest.builder().blockUserInfoId(104L).build());
+        String content = objectMapper.writeValueAsString(UserBlockDTO.CreateUserBlockRequest.builder().blockUserInfoId(105L).build());
 
         mockMvc.perform(post("/user-blocks")
                         .content(content)

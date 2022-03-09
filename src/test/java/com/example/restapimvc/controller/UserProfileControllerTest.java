@@ -27,7 +27,7 @@ class UserProfileControllerTest {
 
     @Test
     void updateUserProfileImage() throws Exception {
-        String content = objectMapper.writeValueAsString(new UserProfileDto.UpdateProfileImageRequest(5L));
+        String content = objectMapper.writeValueAsString(new UserProfileDto.UpdateProfileImageRequest(6L));
 
         mockMvc.perform(patch("/user-profiles/profileImage")
                         .content(content)

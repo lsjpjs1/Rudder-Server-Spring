@@ -8,6 +8,7 @@ import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.UserBlockRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import com.example.restapimvc.util.mapper.UserBlockMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,9 @@ public class UserBlockService {
 
     private final UserInfoRepository userInfoRepository;
 
-    public UserBlock createUserBlock(UserBlockDTO.CreateUserBlockRequest createUserBlockRequest){
+    private final UserBlockMapper userBlockMapper;
+
+    public UserBlockDTO.CreateBlockUserResponse createUserBlock(UserBlockDTO.CreateUserBlockRequest createUserBlockRequest){
         UserInfo userInfo = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> blockedUserInfo = userInfoRepository.findUserInfoByUserInfoId(createUserBlockRequest.getBlockUserInfoId());
         blockedUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
@@ -32,6 +35,6 @@ public class UserBlockService {
                 }
         );
         UserBlock userBlock = UserBlock.builder().blockedUserInfo(blockedUserInfo.get()).userInfo(userInfo).build();
-        return userBlockRepository.save(userBlock);
+        return userBlockMapper.entityToCreateBlockUserResponse(userBlockRepository.save(userBlock));
     }
 }

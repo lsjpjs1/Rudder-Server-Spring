@@ -25,7 +25,7 @@ public class UserInfoController {
      * @return 201, UserInfo
      */
     @PatchMapping(value = "/nickname",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserInfo> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
+    public ResponseEntity<UserInfoDto.UserInfoResponse> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userInfoService.updateUserNickname(updateNicknameRequest))

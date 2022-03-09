@@ -7,6 +7,7 @@ import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserProfileImageRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,10 @@ public class UserInfoService {
 
     private final UserInfoRepository userInfoRepository;
 
+    private final UserInfoMapper userInfoMapper;
 
 
-    public UserInfo updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
+    public UserInfoDto.UserInfoResponse updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         userInfoRepository.findUserInfoByUserNickname(updateNicknameRequest.getNickname()).ifPresent(
                 p -> {throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);}
         );
@@ -32,7 +34,7 @@ public class UserInfoService {
         targetUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
         targetUserInfo.get().setUserNickname(updateNicknameRequest.getNickname());
         userInfoRepository.save(targetUserInfo.get());
-        return targetUserInfo.get();
+        return userInfoMapper.entityToUserInfoResponse(targetUserInfo.get());
     }
 
 

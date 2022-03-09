@@ -36,7 +36,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
-
+    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     // QueryDSL
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor(
@@ -45,9 +45,15 @@ dependencies {
             "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
     compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+
+
 
 }
 
@@ -59,6 +65,11 @@ sourceSets {
         }
     }
 }
+
+compileJava {
+    options.compilerArgs += [ '-Amapstruct.defaultComponentModel=spring' ]
+}
+
 
 test {
     useJUnitPlatform()

@@ -29,13 +29,13 @@ class UserRequestControllerTest {
 
     @Test
     void createUserRequest() throws Exception {
-        String content = objectMapper.writeValueAsString(new UserRequestDTO.CreateUserRequestRequest("hihi"));
+        String content = objectMapper.writeValueAsString(new UserRequestDTO.CreateUserRequestRequest("hihi2"));
 
         mockMvc.perform(post("/user-requests")
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic2Nob29sSWQiOjEsInVzZXJJZCI6ImZmZiIsInVzZXJJbmZvSWQiOjk3fQ.NhisxLB9CXDjJt5MBiqczKi7DxoBB8l21GAnKEk_2dcc40KHka7xi_RM0gaAPzuSfDpE5Kfis_P2MPr2-S69Jg"))
+                        .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwidXNlck5pY2tuYW1lIjoi7ZuIIiwidXNlcklkIjoiYWJjZCIsInVzZXJJbmZvSWQiOjIxOH0.yHc24cssGa9BNE_Xfhw2CNKrHacQ9amuxEBdXGbJPPp7avUFRnGldj--uucsZUMji38rS74J56Wzv8aRUv7fMA"))
                 .andExpect(status().isCreated())
                 .andDo(print())
                 ;

@@ -24,7 +24,7 @@ public class UserBlockController {
      * @return 201, Long userBlockId, UserInfo userInfo, UserInfo blockedUserInfo
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserBlock> createUserBlock(@RequestBody UserBlockDTO.CreateUserBlockRequest createUserBlockRequest) {
+    public ResponseEntity<UserBlockDTO.CreateBlockUserResponse> createUserBlock(@RequestBody UserBlockDTO.CreateUserBlockRequest createUserBlockRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userBlockService.createUserBlock(createUserBlockRequest));

@@ -22,7 +22,7 @@ public class UserRequestController {
      * @return 201, Long requestId, UserInfo userInfo, String body
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserRequest> createUserRequest(@RequestBody UserRequestDTO.CreateUserRequestRequest createUserRequestRequest) {
+    public ResponseEntity<UserRequestDTO.UserRequestResponse> createUserRequest(@RequestBody UserRequestDTO.CreateUserRequestRequest createUserRequestRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userRequestService.createUserRequestResponse(createUserRequestRequest));

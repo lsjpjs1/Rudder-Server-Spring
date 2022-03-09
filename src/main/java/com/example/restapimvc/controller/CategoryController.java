@@ -19,8 +19,7 @@ public class CategoryController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CategoryDTO.CommonCategoryResponse>> getCommonCategories() {
-        List<CategoryDTO.CommonCategoryResponse> commonCategories = categoryService.getCommonCategories();
-        return ResponseEntity.ok(commonCategories);
+        return ResponseEntity.ok(categoryService.getCommonCategories());
     }
 
 

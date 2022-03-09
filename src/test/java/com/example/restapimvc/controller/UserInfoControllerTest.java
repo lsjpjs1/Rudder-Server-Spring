@@ -28,7 +28,7 @@ class UserInfoControllerTest {
 
     @Test
     void updateUserNickname() throws Exception {
-        String content = objectMapper.writeValueAsString(new UserInfoDto.UpdateNicknameRequest("helloSpring123456"));
+        String content = objectMapper.writeValueAsString(new UserInfoDto.UpdateNicknameRequest("helloSpring1234567"));
 
         mockMvc.perform(patch("/user-infos/nickname")
                         .content(content)

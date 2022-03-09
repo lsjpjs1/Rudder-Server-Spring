@@ -5,6 +5,9 @@ jasypt:
     password: ${JASYPT_PASSWORD}
 
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   datasource:
     url: ENC(O8ytIxFrnwnqYnNa3XPnDz3+CPe0Rv6rcx4O6TadMbh7EdFe435B6ldT4KJtDsjea1nOQCg+G0tDECugVTRrwzMx+2rg55SkRa8iRpY+SjnBTKZjgtFmc0Ev9PMrKEXu)
     username: ENC(H81AMAIMb8TG9vYT1O0b2A==)

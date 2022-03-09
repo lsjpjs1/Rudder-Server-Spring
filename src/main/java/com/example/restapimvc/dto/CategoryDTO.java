@@ -16,6 +16,7 @@ public class CategoryDTO {
         private String categoryName;
         private String isMember;
         private String categoryType;
+
     }
 
     @Getter
@@ -25,6 +26,8 @@ public class CategoryDTO {
         private String categoryName;
         private Boolean isSelect;
     }
+
+
 
     public enum CategoryMemberType {
         NOT_MEMBER("f"),

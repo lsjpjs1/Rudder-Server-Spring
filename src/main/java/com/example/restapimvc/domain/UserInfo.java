@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table
+@ToString
 public class UserInfo {
 
     @Id
@@ -25,6 +26,7 @@ public class UserInfo {
     private School school;
 
     @Setter
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
@@ -38,15 +40,6 @@ public class UserInfo {
 
 
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userInfoId=" + userInfoId +
-                ", userId='" + userId + '\'' +
-                ", school=" + school +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
-    }
 
     @Builder
     public UserInfo(Long userInfoId, String userId, School school, String userPassword){
