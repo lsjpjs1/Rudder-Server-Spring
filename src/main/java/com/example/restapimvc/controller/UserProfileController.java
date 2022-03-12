@@ -22,6 +22,13 @@ public class UserProfileController {
 
     private final UserProfileService userProfileService;
 
+    /**
+     * /users/updateUserProfileImage
+     * @param updateProfileImageRequest Long profileImageId : 해당 프로필 이미지 id로 업데이트
+     * @return 201, String userId, String userNickname,
+     * UserProfile userProfile{Long profileId, Long profileImageId, String profileBody}
+     * @throws 404, PROFILE_IMAGE_ID_NOT_FOUND: 해당 프로필 이미지 id가 존재하지 않음
+     */
     @PatchMapping(value = "/profileImage",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserInfoDto.UserInfoWithProfileResponse> updateUserProfileImage(@RequestBody UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
         return ResponseEntity

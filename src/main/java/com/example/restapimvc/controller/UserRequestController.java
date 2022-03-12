@@ -19,7 +19,8 @@ public class UserRequestController {
     /**
      * /users/addUserRequest
      * @param createUserRequestRequest String body : 유저의 요청 내용(고객의 소리)
-     * @return 201, Long requestId, UserInfo userInfo, String body
+     * @return 201, String body,
+     * UserInfo userInfo{Long userInfoId, String userId, String userNickname}
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserRequestDTO.UserRequestResponse> createUserRequest(@RequestBody UserRequestDTO.CreateUserRequestRequest createUserRequestRequest) {

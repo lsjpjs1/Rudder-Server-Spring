@@ -21,7 +21,11 @@ public class UserBlockController {
     /**
      * /users/blockUser
      * @param createUserBlockRequest Long blockUserInfoId : 차단할 userInfoId
-     * @return 201, Long userBlockId, UserInfo userInfo, UserInfo blockedUserInfo
+     * @return 201, Long userBlockId,
+     * UserInfo userInfo{Long userInfoId, String userId, String userNickname},
+     * UserInfo blockedUserInfo{Long userInfoId, String userId, String userNickname}
+     * @throws 404, USER_INFO_NOT_FOUND blockUserInfoId가 존재하지 않음
+     * @throws 409, DUPLICATE_RESOURCE 이미 차단한 유저
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserBlockDTO.CreateBlockUserResponse> createUserBlock(@RequestBody UserBlockDTO.CreateUserBlockRequest createUserBlockRequest) {

@@ -22,7 +22,8 @@ public class UserInfoController {
     /**
      * /users/updateNickname
      * @param updateNicknameRequest String nickname
-     * @return 201, UserInfo
+     * @return 201, String userId, String userNickname
+     * @throws 409, DUPLICATE_RESOURCE 이미 존재하는 닉네임
      */
     @PatchMapping(value = "/nickname",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserInfoDto.UserInfoResponse> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {

@@ -14,6 +14,7 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
+    //간단한 자기소개 내용
     private String profileBody;
 
     @Setter
