@@ -1,5 +1,7 @@
 package com.example.restapimvc.domain;
 
+import com.example.restapimvc.enums.UserInfoOsType;
+import com.example.restapimvc.util.converter.UserInfoOsConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +14,8 @@ import javax.persistence.*;
 @Entity
 @Table
 @ToString
+@Builder
+@AllArgsConstructor
 public class UserInfo {
 
     @Id
@@ -38,15 +42,15 @@ public class UserInfo {
     private String userNickname;
 
 
+    @Convert(converter = UserInfoOsConverter.class)
+    @Setter
+    private UserInfoOsType os;
+
+    @Setter
+    private String notificationToken;
 
 
 
-    @Builder
-    public UserInfo(Long userInfoId, String userId, School school, String userPassword){
-        this.userInfoId = userInfoId;
-        this.userId = userId;
-        this.school = school;
-        this.userPassword = userPassword;
-    }
+
 
 }

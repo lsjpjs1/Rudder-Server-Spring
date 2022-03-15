@@ -11,6 +11,7 @@ public enum ErrorCode {
     USER_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"UserId cannot found."),
     USER_PROFILE_NOT_FOUND(HttpStatus.NOT_FOUND,"UserProfile cannot found."),
     PROFILE_IMAGE_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"ProfileImageId cannot found."),
+    OS_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND,"OS type cannot found."),
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
         ;

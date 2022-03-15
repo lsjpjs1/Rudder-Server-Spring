@@ -32,10 +32,18 @@ public class UserInfoService {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> targetUserInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId());
         targetUserInfo.get().setUserNickname(updateNicknameRequest.getNickname());
+        System.out.println(targetUserInfo.toString());
         userInfoRepository.save(targetUserInfo.get());
         return userInfoMapper.entityToUserInfoResponse(targetUserInfo.get());
     }
 
+    public void logout() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        UserInfo targetUserInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId()).get();
+        targetUserInfo.setOs(null);
+        targetUserInfo.setNotificationToken(null);
+        userInfoRepository.save(targetUserInfo);
+    }
 
 
 }
