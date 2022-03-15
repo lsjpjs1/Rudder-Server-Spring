@@ -14,14 +14,20 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
-
+// 싱글턴
 public class Sha1PasswordEncoder implements PasswordEncoder {
 
+    private static final Sha1PasswordEncoder instance = new Sha1PasswordEncoder();
     private final String HMAC_SHA1 = "HmacSHA1";
 
     @Value("${password.secret}")
     private String SECRET_KEY;
 
+    private Sha1PasswordEncoder() {}
+
+    public static Sha1PasswordEncoder getInstance() {
+        return instance;
+    }
     private final Log logger = LogFactory.getLog(getClass());
     @SneakyThrows
     @Override

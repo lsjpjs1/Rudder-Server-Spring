@@ -9,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table
+@AllArgsConstructor
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +32,10 @@ public class UserProfile {
     }
 
     @Builder
-    public UserProfile(Long profileId, String profileBody, Long profileImageId) {
-        this.profileId = profileId;
+    public UserProfile(String profileBody, Long profileImageId) {
         this.profileBody = profileBody;
         this.profileImageId = profileImageId;
     }
 
-    public UserProfileDto.UserProfileResponse toResponseObject() {
-        return UserProfileDto.UserProfileResponse.builder()
-                .profileId(profileId)
-                .profileBody(profileBody)
-                .profileImageId(profileImageId)
-                .build();
-    }
+
 }

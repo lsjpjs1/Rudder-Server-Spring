@@ -43,4 +43,30 @@ public class UserInfoController {
     }
 
 
+    /**
+     * /signupin/signupinsert
+     * @param signUpRequest
+     *         private String userId;
+     *         private String userPassword;
+     *         private String userEmail;
+     *         private String recommendationCode;
+     *         private Long schoolId;
+     *         private String profileBody;
+     *         private String userNickname;
+     *         private Long userProfileImageId;
+     * @return 204,
+     *         String userId
+     *         String userNickname
+     *         String userEmail
+     *         School school{Long SchoolId, String schoolName}
+     *         UserProfile userProfile{Long profileId, String profileBody, Long profileImageId}
+     */
+    @PostMapping
+    public ResponseEntity<UserInfoDto.UserInfoEntireResponse> signUp(@RequestBody UserInfoDto.SignUpRequest signUpRequest) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userInfoService.signUp(signUpRequest));
+    }
+
+
 }

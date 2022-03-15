@@ -1,12 +1,12 @@
 package com.example.restapimvc.dto;
 
 import com.example.restapimvc.domain.School;
+import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
+import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.FetchType;
@@ -38,6 +38,27 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
+    public static class SignUpRequest {
+        private String userId;
+        private String userPassword;
+        private String userEmail;
+        private String recommendationCode;
+        private Long schoolId;
+        private String profileBody;
+        private String userNickname;
+        private Long userProfileImageId;
+
+        public void passwordEncoding() {
+            userPassword = Sha1PasswordEncoder.getInstance().encode(userPassword);
+        }
+
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class UserInfoResponse {
         private String userId;
         private String userNickname;
@@ -51,6 +72,18 @@ public class UserInfoDto {
         private String userId;
         private String userNickname;
         private UserProfile userProfile;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserInfoEntireResponse {
+        private String userId;
+        private School school;
+        private String userNickname;
+        private UserProfile userProfile;
+        private String userEmail;
     }
 
     @Getter

@@ -55,4 +55,26 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    void signUp() throws Exception {
+        UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
+                .userId("signuptest3")
+                .userEmail("sign2@test.com")
+                .userNickname("signuptest3")
+                .userProfileImageId(2l)
+                .schoolId(1l)
+                .userPassword("123123123a")
+                .build();
+        String content = objectMapper.writeValueAsString(signUpRequest);
+
+        mockMvc.perform(
+                post("/user-infos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(content)
+                )
+                .andDo(print())
+        ;
+    }
 }

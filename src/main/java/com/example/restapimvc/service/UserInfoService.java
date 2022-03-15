@@ -1,12 +1,17 @@
 package com.example.restapimvc.service;
 
+import com.example.restapimvc.domain.School;
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.repository.SchoolRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserProfileImageRepository;
+import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +26,9 @@ import java.util.Optional;
 public class UserInfoService {
 
     private final UserInfoRepository userInfoRepository;
-
+    private final SchoolRepository schoolRepository;
+    private final UserProfileRepository userProfileRepository;
     private final UserInfoMapper userInfoMapper;
-
 
     public UserInfoDto.UserInfoResponse updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         userInfoRepository.findUserInfoByUserNickname(updateNicknameRequest.getNickname()).ifPresent(
@@ -43,6 +48,26 @@ public class UserInfoService {
         targetUserInfo.setOs(null);
         targetUserInfo.setNotificationToken(null);
         userInfoRepository.save(targetUserInfo);
+    }
+
+    public UserInfoDto.UserInfoEntireResponse signUp(UserInfoDto.SignUpRequest signUpRequest) {
+        signUpRequest.passwordEncoding();
+        School school = schoolRepository.findById(signUpRequest.getSchoolId()).get();
+        UserProfile userProfile = UserProfile.builder()
+                .profileBody(signUpRequest.getProfileBody())
+                .profileImageId(signUpRequest.getUserProfileImageId())
+                .build();
+        userProfileRepository.save(userProfile);
+        UserInfo userInfo = UserInfo.builder()
+                .userId(signUpRequest.getUserId())
+                .userPassword(signUpRequest.getUserPassword())
+                .userEmail(signUpRequest.getUserEmail())
+                .school(school)
+                .userProfile(userProfile)
+                .userNickname(signUpRequest.getUserNickname())
+                .build();
+        userInfoRepository.save(userInfo);
+        return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 
 

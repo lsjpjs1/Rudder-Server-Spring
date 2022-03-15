@@ -1,5 +1,6 @@
 package com.example.restapimvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class School {
 
     private String schoolName;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String regex;
 
     @Override

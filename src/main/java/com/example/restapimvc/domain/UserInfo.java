@@ -49,6 +49,8 @@ public class UserInfo {
     @Setter
     private String notificationToken;
 
+    private String userEmail;
+
 
 
 
