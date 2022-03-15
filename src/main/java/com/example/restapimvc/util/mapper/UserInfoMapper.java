@@ -9,4 +9,5 @@ public interface UserInfoMapper {
     UserInfoDto.UserInfoResponse entityToUserInfoResponse(UserInfo userInfo);
 
     UserInfoDto.UserInfoWithProfileResponse entityToUserInfoWithUserProfileResponse(UserInfo userInfo);
+
 }

@@ -53,5 +53,15 @@ public class UserInfoDto {
         private UserProfile userProfile;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class OsResponse {
+        private String userId;
+        private String userNickname;
+        private String os;
+    }
+
 
 }
