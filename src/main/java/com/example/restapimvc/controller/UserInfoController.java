@@ -31,6 +31,7 @@ public class UserInfoController {
     }
 
     /**
+     * /signupin/logout
      * @return 204, 응답 body 없음
      */
     @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
