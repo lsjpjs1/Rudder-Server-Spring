@@ -35,6 +35,12 @@ jwt:
 password:
   secret: ENC(SuduKmAP5a+Xh7kWOwyq6W8cqv2jGIywrVbtj3yxvdA=)
 
+aws:
+  cloud-front:
+    url:
+      high-quality-profile-image: ENC(bIQvhUGwlwVFFGzw4auvYJjfoBSlkyNrmczz8DYnRBl3EYSm8uwU+hMLzmLdKVpGbY+nHlmTr4xWEEoy73qsZA==)
+      preview-profile-image: ENC(789tqAtbft19agxcYos04rlPeSzz4Qu+Og1p924PJlfCmqmm9B3vXWUhJcyq/fgsQByN1hzPlMnPluehbczvIxlvTphy5WiM)
+
 logging:
   level:
     org:

@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/notice").permitAll()
+                .antMatchers("/user-profile-images").permitAll()
                 .antMatchers("/user-infos").permitAll()
                 .antMatchers("/user-infos/**/**/duplication-check").permitAll()
                 .antMatchers("/auth").permitAll()
