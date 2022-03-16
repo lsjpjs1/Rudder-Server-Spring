@@ -34,7 +34,7 @@ class UserProfileControllerTest {
                         .content(content)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwidXNlck5pY2tuYW1lIjoi7ZuIIiwidXNlcklkIjoiYWJjZCIsInVzZXJJbmZvSWQiOjIxOH0.yHc24cssGa9BNE_Xfhw2CNKrHacQ9amuxEBdXGbJPPp7avUFRnGldj--uucsZUMji38rS74J56Wzv8aRUv7fMA"))
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwidXNlck5pY2tuYW1lIjoi7ZuIIiwidXNlcklkIjoiYWJjZCIsInVzZXJJbmZvSWQiOjIxOH0.yHc24cssGa9BNE_Xfhw2CNKrHacQ9amuxEBdXGbJPPp7avUFRnGldj--uucsZUMji38rS74J56Wzv8aRUv7fMA"))
                 .andExpect(status().isCreated())
                 .andDo(print())
         ;
@@ -45,7 +45,7 @@ class UserProfileControllerTest {
         mockMvc.perform(get("/user-profiles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJvcyI6IkFORFJPSUQiLCJhdXRoIjoiUk9MRV9VU0VSIiwidXNlck5pY2tuYW1lIjoi7ZuIIiwidXNlckVtYWlsIjoieG9ydWRmbDc3MkBuYXZlci5jb20iLCJ1c2VySWQiOiJhYmNkIiwidXNlckluZm9JZCI6MjE4LCJub3RpZmljYXRpb25Ub2tlbiI6ImZqdlozVlFHU1BPbkp6ZzFjME1OT006QVBBOTFiR3pRWTZKdTJaeXRvZHJsemR1T2dLSTFiMy00ZDhtSmxhTkdENXk1STgwRGZYYnMxUDVRcXZmN2Zuc09Fak5GUFJsZGlkM3VsRDRiRkVUUWpDUzJ1NzBpZXZ5R0Q3Sy0xb1lmdkxmeVVfY0ZZWmlXb2tnUWZ2NVowNVBxUXluV3RFbUZLRzAifQ.bIZIXnIFs_RMq0oxT4kWbYZ-CPdWcErEtomY4GlA7TCjJ_Km5lw_cNmYabHHGHnBWIpNWZABCzQrgqmYVgeQZw"))
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJvcyI6IkFORFJPSUQiLCJhdXRoIjoiUk9MRV9VU0VSIiwidXNlck5pY2tuYW1lIjoi7ZuIIiwidXNlckVtYWlsIjoieG9ydWRmbDc3MkBuYXZlci5jb20iLCJ1c2VySWQiOiJhYmNkIiwidXNlckluZm9JZCI6MjE4LCJub3RpZmljYXRpb25Ub2tlbiI6ImZqdlozVlFHU1BPbkp6ZzFjME1OT006QVBBOTFiR3pRWTZKdTJaeXRvZHJsemR1T2dLSTFiMy00ZDhtSmxhTkdENXk1STgwRGZYYnMxUDVRcXZmN2Zuc09Fak5GUFJsZGlkM3VsRDRiRkVUUWpDUzJ1NzBpZXZ5R0Q3Sy0xb1lmdkxmeVVfY0ZZWmlXb2tnUWZ2NVowNVBxUXluV3RFbUZLRzAifQ.bIZIXnIFs_RMq0oxT4kWbYZ-CPdWcErEtomY4GlA7TCjJ_Km5lw_cNmYabHHGHnBWIpNWZABCzQrgqmYVgeQZw"))
                 .andDo(print())
         ;
     }
