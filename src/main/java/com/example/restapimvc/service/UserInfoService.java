@@ -8,16 +8,13 @@ import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.SchoolRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
-import com.example.restapimvc.repository.UserProfileImageRepository;
 import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
-import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Slf4j
@@ -70,13 +67,22 @@ public class UserInfoService {
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 
-    public UserInfoDto.IsUserIdDuplicatedResponse isUserIdDuplicated(String userId) {
+    public UserInfoDto.IsDuplicatedResponse isUserIdDuplicated(String userId) {
         Optional<UserInfo> userInfoByUserId = userInfoRepository.findUserInfoByUserId(userId);
-        UserInfoDto.IsUserIdDuplicatedResponse isUserIdDuplicatedResponse = new UserInfoDto.IsUserIdDuplicatedResponse(Boolean.FALSE);
+        UserInfoDto.IsDuplicatedResponse isUserIdDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
         if(userInfoByUserId.isPresent()){
             isUserIdDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
         }
         return isUserIdDuplicatedResponse;
+    }
+
+    public UserInfoDto.IsDuplicatedResponse isUserNicknameDuplicated(String nickname) {
+        Optional<UserInfo> userInfoByUserNickname = userInfoRepository.findUserInfoByUserNickname(nickname);
+        UserInfoDto.IsDuplicatedResponse isDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
+        if(userInfoByUserNickname.isPresent()){
+            isDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
+        }
+        return isDuplicatedResponse;
     }
 
 }

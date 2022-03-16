@@ -90,7 +90,7 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class IsUserIdDuplicatedResponse {
+    public static class IsDuplicatedResponse {
         private Boolean isDuplicated;
     }
 
