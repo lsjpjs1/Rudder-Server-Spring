@@ -90,6 +90,14 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class IsUserIdDuplicatedResponse {
+        private Boolean isDuplicated;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class OsResponse {
         private String userId;
         private String userNickname;

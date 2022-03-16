@@ -70,5 +70,13 @@ public class UserInfoService {
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 
+    public UserInfoDto.IsUserIdDuplicatedResponse isUserIdDuplicated(String userId) {
+        Optional<UserInfo> userInfoByUserId = userInfoRepository.findUserInfoByUserId(userId);
+        UserInfoDto.IsUserIdDuplicatedResponse isUserIdDuplicatedResponse = new UserInfoDto.IsUserIdDuplicatedResponse(Boolean.FALSE);
+        if(userInfoByUserId.isPresent()){
+            isUserIdDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
+        }
+        return isUserIdDuplicatedResponse;
+    }
 
 }

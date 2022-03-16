@@ -77,4 +77,15 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    void isUserIdDuplicated() throws Exception {
+        mockMvc.perform(
+                        post("/user-infos/userId/fff/duplicationCheck")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
+    }
 }

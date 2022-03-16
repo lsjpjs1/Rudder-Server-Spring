@@ -68,5 +68,17 @@ public class UserInfoController {
                 .body(userInfoService.signUp(signUpRequest));
     }
 
+    /**
+     * /signupin/checkduplication
+     * @param userId String userId
+     * @return 200, Boolean isDuplicated
+     */
+    @PostMapping(value = "/userId/{userId}/duplicationCheck")
+    public ResponseEntity<UserInfoDto.IsUserIdDuplicatedResponse> isUserIdDuplicated(@PathVariable("userId") String userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userInfoService.isUserIdDuplicated(userId));
+    }
+
 
 }

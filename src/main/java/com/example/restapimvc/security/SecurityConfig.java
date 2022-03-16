@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user-infos").permitAll()
+                .antMatchers("/user-infos/userId/{userId}/duplicationCheck").permitAll()
                 .antMatchers("/auth").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
                 .and()
