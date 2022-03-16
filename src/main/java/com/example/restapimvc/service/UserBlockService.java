@@ -28,11 +28,8 @@ public class UserBlockService {
         UserInfo userInfo = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> blockedUserInfo = userInfoRepository.findUserInfoByUserInfoId(createUserBlockRequest.getBlockUserInfoId());
         blockedUserInfo.orElseThrow(()-> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
-        Optional<UserBlock> userBlockAlreadyExist = userBlockRepository.findByUserInfoAndBlockedUserInfo(userInfo, blockedUserInfo.get());
-        userBlockAlreadyExist.ifPresent(
-                s -> {
-                    throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
-                }
+        userBlockRepository.findByUserInfoAndBlockedUserInfo(userInfo, blockedUserInfo.get()).ifPresent(
+                s -> {throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);}
         );
         UserBlock userBlock = UserBlock.builder().blockedUserInfo(blockedUserInfo.get()).userInfo(userInfo).build();
         return userBlockMapper.entityToCreateBlockUserResponse(userBlockRepository.save(userBlock));
