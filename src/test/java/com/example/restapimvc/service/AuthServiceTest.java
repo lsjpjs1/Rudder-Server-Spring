@@ -57,7 +57,7 @@ public class AuthServiceTest {
     @Test
     public void loginTest(){
         System.out.println();
-        UserInfoDto.LoginRequest loginRequest = new UserInfoDto.LoginRequest("fff","123123123a","token","android");
+        UserInfoDto.LoginRequest loginRequest = new UserInfoDto.LoginRequest("abcd","123123123a","token","android");
         TokenDto tokenDto = authService.login(loginRequest);
         System.out.println(tokenDto.getAccessToken());
     }

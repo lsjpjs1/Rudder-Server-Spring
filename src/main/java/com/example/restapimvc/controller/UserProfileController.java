@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user-profiles")
@@ -36,4 +33,18 @@ public class UserProfileController {
                 .body(userProfileService.updateUserProfileImage(updateProfileImageRequest))
                 ;
     }
+
+
+    /**
+     * /signupin/profileImageUrl
+     * @return 200, Long profileId, String profileBody, Long profileImageId
+     * @throws 404, USER_PROFILE_NOT_FOUND 해당 유저의 profileId가 존재하지 않을 때
+     */
+    @GetMapping
+    public ResponseEntity<UserProfileDto.UserProfileResponse> getUserProfile() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userProfileService.getUserProfile());
+    }
+
 }

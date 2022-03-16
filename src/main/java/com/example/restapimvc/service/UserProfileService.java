@@ -11,6 +11,7 @@ import com.example.restapimvc.repository.UserProfileImageRepository;
 import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
+import com.example.restapimvc.util.mapper.UserProfileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
@@ -29,6 +30,7 @@ public class UserProfileService {
     private final UserInfoRepository userInfoRepository;
 
     private final UserInfoMapper userInfoMapper;
+    private final UserProfileMapper userProfileMapper;
 
     public UserInfoDto.UserInfoWithProfileResponse updateUserProfileImage(UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
         userProfileImageRepository.findById(updateProfileImageRequest.getProfileImageId())
@@ -41,5 +43,14 @@ public class UserProfileService {
         return userInfoMapper.entityToUserInfoWithUserProfileResponse(userInfo);
 
 
+    }
+
+    public UserProfileDto.UserProfileResponse getUserProfile() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        UserInfo userInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId()).get();
+        if (userInfo.getUserProfile()==null) {
+            throw new CustomException(ErrorCode.USER_PROFILE_NOT_FOUND);
+        }
+        return userProfileMapper.entityToUserProfileResponse(userInfo.getUserProfile());
     }
 }

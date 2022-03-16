@@ -44,7 +44,6 @@ public class TokenProvider {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-        System.out.println(authentication.getName());
         UserInfo userInfo = userInfoRepository.findUserInfoByUserId(authentication.getName()).get();
 
         //Payloads of JWT
