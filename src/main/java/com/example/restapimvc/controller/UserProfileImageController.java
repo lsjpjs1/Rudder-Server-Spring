@@ -25,6 +25,7 @@ public class UserProfileImageController {
      *                      String previewUrl
      *                      ]
      *              }
+     *              예시) {"userProfileImages":[{"userProfileImageId":1,"highQualityUrl":"http://d17a6yjghl1rix.cloudfront.net/profile_image_hd/1","previewUrl":"http://d17a6yjghl1rix.cloudfront.net/profile_image_preview/1"},{"userProfileImageId":2,"highQualityUrl":"http://d17a6yjghl1rix.cloudfront.net/profile_image_hd/2","previewUrl":"http://d17a6yjghl1rix.cloudfront.net/profile_image_preview/2"}]}
      */
     @GetMapping
     public ResponseEntity<UserProfileImageDTO.UserProfileImageResponse> getUserProfileImages() {
