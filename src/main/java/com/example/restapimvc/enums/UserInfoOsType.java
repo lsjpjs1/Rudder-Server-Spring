@@ -45,5 +45,15 @@ public enum UserInfoOsType implements EnumEntityConvertable {
         return isNewest;
     }
 
+    public static UserInfoOsType fromString(String s) {
+        UserInfoOsType targetUserInfoOsType = null;
+        for(UserInfoOsType userInfoOsType: values()){
+            if(userInfoOsType.getStr().equals(s)) {
+                targetUserInfoOsType = userInfoOsType;
+            }
+        }
+        return targetUserInfoOsType;
+    }
+
 
 }

@@ -16,9 +16,20 @@ public class AuthController {
 
     private final AuthService authService;
 
+
+    /**
+     * @param loginRequest String userId, String userPassword, String notificationToken, String os
+     * @return 200, String accessToken
+     * @throws 406 BAD_REQUEST_CONTENT, userId 혹은 userPassword null인 경우
+     * @throws 404 USER_ID_NOT_FOUND, 존재하지 않는 userId
+     * @throws 401 PASSWORD_WRONG, 비밀번호 틀림
+     */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TokenDto> login(@RequestBody UserInfoDto.LoginRequest loginRequest){
-        return ResponseEntity.ok(authService.login(loginRequest));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authService.login(loginRequest));
+
     }
 
     /**

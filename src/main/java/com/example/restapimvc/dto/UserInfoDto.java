@@ -19,6 +19,7 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @ToString
     public static class LoginRequest {
         private String userId;
         private String userPassword;
