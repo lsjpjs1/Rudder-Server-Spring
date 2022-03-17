@@ -5,6 +5,19 @@ jasypt:
     password: ${JASYPT_PASSWORD}
 
 spring:
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rudderverify@gmail.com
+    password: ENC(Hff2VoiBjkgVqZDoOoRDueEroW/xo3vL)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   jackson:
     serialization:
       fail-on-empty-beans: false

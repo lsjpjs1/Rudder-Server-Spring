@@ -11,6 +11,7 @@ public enum ErrorCode {
 
     USER_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "User information cannot found from token. Please sign in again."),
     USER_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"UserId cannot found."),
+    USER_EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND,"UserEmail cannot found."),
     USER_PROFILE_NOT_FOUND(HttpStatus.NOT_FOUND,"UserProfile cannot found."),
     PROFILE_IMAGE_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"ProfileImageId cannot found."),
     OS_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND,"OS type cannot found."),
@@ -18,6 +19,8 @@ public enum ErrorCode {
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
+
+    SEND_EMAIL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to send email")
         ;
     private final HttpStatus httpStatus;
     private final String message;

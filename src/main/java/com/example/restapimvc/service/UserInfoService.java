@@ -4,17 +4,21 @@ import com.example.restapimvc.domain.School;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.dto.UserInfoDto;
+import com.example.restapimvc.enums.MailRequestEnum;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.SchoolRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import com.example.restapimvc.util.MailUtil;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.Optional;
 
 @Slf4j
@@ -26,10 +30,13 @@ public class UserInfoService {
     private final SchoolRepository schoolRepository;
     private final UserProfileRepository userProfileRepository;
     private final UserInfoMapper userInfoMapper;
+    private final MailUtil mailUtil;
 
     public UserInfoDto.UserInfoResponse updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         userInfoRepository.findUserInfoByUserNickname(updateNicknameRequest.getNickname()).ifPresent(
-                p -> {throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);}
+                p -> {
+                    throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
+                }
         );
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         Optional<UserInfo> targetUserInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId());
@@ -70,7 +77,7 @@ public class UserInfoService {
     public UserInfoDto.IsDuplicatedResponse isUserIdDuplicated(String userId) {
         Optional<UserInfo> userInfoByUserId = userInfoRepository.findUserInfoByUserId(userId);
         UserInfoDto.IsDuplicatedResponse isUserIdDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
-        if(userInfoByUserId.isPresent()){
+        if (userInfoByUserId.isPresent()) {
             isUserIdDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
         }
         return isUserIdDuplicatedResponse;
@@ -79,10 +86,22 @@ public class UserInfoService {
     public UserInfoDto.IsDuplicatedResponse isUserNicknameDuplicated(String nickname) {
         Optional<UserInfo> userInfoByUserNickname = userInfoRepository.findUserInfoByUserNickname(nickname);
         UserInfoDto.IsDuplicatedResponse isDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
-        if(userInfoByUserNickname.isPresent()){
+        if (userInfoByUserNickname.isPresent()) {
             isDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
         }
         return isDuplicatedResponse;
+    }
+
+    public void forgotUserId(String userEmail) {
+        UserInfo userInfo = userInfoRepository.findUserInfoByUserEmail(userEmail)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        try {
+            mailUtil.sendMail(MailRequestEnum.FORGOT_USER_ID.getMailRequest(userEmail, userInfo.getUserId()));
+        } catch (MessagingException e) {
+            log.error(e.getMessage());
+            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
+        }
+
     }
 
 }

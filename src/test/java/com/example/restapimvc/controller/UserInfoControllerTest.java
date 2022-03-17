@@ -99,4 +99,15 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    void forgotUserId() throws Exception {
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs1213@naver.com/find-user-id")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
+    }
 }

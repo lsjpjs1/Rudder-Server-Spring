@@ -91,6 +91,22 @@ public class UserInfoController {
                 .body(userInfoService.isUserNicknameDuplicated(nickname));
     }
 
+    /**
+     * /signupin/sendIdToEmail
+     * @param userEmail
+     * @return 204
+     * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
+     * @throws 500 SEND_EMAIL_FAIL, 이메일 전송 실패
+     */
+    @PostMapping(value = "/user-email/{userEmail}/find-user-id")
+    public ResponseEntity forgotUserId(@PathVariable("userEmail") String userEmail) {
+        userInfoService.forgotUserId(userEmail);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
 
 
 
