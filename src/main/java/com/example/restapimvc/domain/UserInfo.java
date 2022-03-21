@@ -1,6 +1,8 @@
 package com.example.restapimvc.domain;
 
 import com.example.restapimvc.enums.UserInfoOsType;
+import com.example.restapimvc.security.Sha1PasswordEncoder;
+import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.converter.UserInfoOsConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -50,6 +52,18 @@ public class UserInfo {
     private String notificationToken;
 
     private String userEmail;
+
+    public void passwordEncoding() {
+        userPassword = Sha1PasswordEncoder.getInstance().encode(userPassword);
+    }
+
+    public String passwordReset() {
+        String newPassword = RandomNumber.generatePassword();
+        userPassword=newPassword;
+        passwordEncoding();
+        return newPassword;
+    }
+
 
 
 

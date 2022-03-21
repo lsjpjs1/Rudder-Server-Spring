@@ -109,7 +109,7 @@ public class UserInfoController {
 
     /**
      * /signupin/sendPwVerificationCode
-     * @param userEmail
+     * @param userEmail String
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
      * @throws 500 SEND_EMAIL_FAIL, 이메일 전송 실패
@@ -123,7 +123,25 @@ public class UserInfoController {
                 ;
     }
 
-
+    /**
+     * /signupin/checkCode
+     * @param userEmail String
+     * @param forgotUserPasswordRequest String verificationCode
+     * @return 204
+     * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
+     * @throws 404 VERIFICATION_CODE_NOT_FOUND, 해당 이메일로 전송된 verificationCode가 없을 때
+     * @throws 404 VERIFICATION_CODE_WRONG, verificationCode 틀림
+     * @throws 500 SEND_EMAIL_FAIL, 이메일 전송 실패
+     */
+    @PostMapping(value = "/user-email/{userEmail}/find-user-password")
+    public ResponseEntity forgotUserPassword(@PathVariable("userEmail") String userEmail,
+                                             @RequestBody UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
+        userInfoService.forgotUserPassword(userEmail,forgotUserPasswordRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
 
 
 }

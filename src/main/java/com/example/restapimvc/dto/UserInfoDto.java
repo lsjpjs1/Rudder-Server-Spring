@@ -50,9 +50,7 @@ public class UserInfoDto {
         private String userNickname;
         private Long userProfileImageId;
 
-        public void passwordEncoding() {
-            userPassword = Sha1PasswordEncoder.getInstance().encode(userPassword);
-        }
+
 
     }
 
@@ -63,6 +61,14 @@ public class UserInfoDto {
     public static class UserInfoResponse {
         private String userId;
         private String userNickname;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ForgotUserPasswordRequest {
+        private String verificationCode;
     }
 
     @Getter

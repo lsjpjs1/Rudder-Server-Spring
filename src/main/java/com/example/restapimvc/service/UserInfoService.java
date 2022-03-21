@@ -1,5 +1,6 @@
 package com.example.restapimvc.service;
 
+import com.example.restapimvc.domain.EmailVerification;
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
@@ -7,6 +8,7 @@ import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.enums.MailRequestEnum;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.repository.EmailVerificationRepository;
 import com.example.restapimvc.repository.SchoolRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserProfileRepository;
@@ -30,6 +32,7 @@ public class UserInfoService {
     private final UserInfoRepository userInfoRepository;
     private final SchoolRepository schoolRepository;
     private final UserProfileRepository userProfileRepository;
+    private final EmailVerificationRepository emailVerificationRepository;
     private final UserInfoMapper userInfoMapper;
     private final MailUtil mailUtil;
 
@@ -56,7 +59,6 @@ public class UserInfoService {
     }
 
     public UserInfoDto.UserInfoEntireResponse signUp(UserInfoDto.SignUpRequest signUpRequest) {
-        signUpRequest.passwordEncoding();
         School school = schoolRepository.findById(signUpRequest.getSchoolId()).get();
         UserProfile userProfile = UserProfile.builder()
                 .profileBody(signUpRequest.getProfileBody())
@@ -71,6 +73,7 @@ public class UserInfoService {
                 .userProfile(userProfile)
                 .userNickname(signUpRequest.getUserNickname())
                 .build();
+        userInfo.passwordEncoding();
         userInfoRepository.save(userInfo);
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
@@ -108,12 +111,47 @@ public class UserInfoService {
     public void sendVerificationCode(String userEmail) {
         userInfoRepository.findUserInfoByUserEmail(userEmail)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        String verificationCode = RandomNumber.generateVerificationCode();
+        EmailVerification emailVerification = EmailVerification.builder()
+                .email(userEmail)
+                .verificationCode(verificationCode)
+                .build();
+        emailVerificationRepository.save(emailVerification);
         try {
-            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail, RandomNumber.generateVerificationCode()));
+            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail, verificationCode));
         } catch (MessagingException e) {
             log.error(e.getMessage());
             throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
         }
     }
+
+    public void forgotUserPassword(String userEmail,
+                                   UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
+        UserInfo userInfo = userInfoRepository.findUserInfoByUserEmail(userEmail)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        checkVerificationCode(userInfo,forgotUserPasswordRequest);
+        String newPassword = userInfo.passwordReset();
+        userInfoRepository.save(userInfo);
+        try {
+            mailUtil.sendMail(MailRequestEnum.FORGOT_USER_PASSWORD.getMailRequest(userEmail, newPassword));
+        } catch (MessagingException e) {
+            log.error(e.getMessage());
+            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
+        }
+
+    }
+
+    private void checkVerificationCode(UserInfo userInfo,
+                                       UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
+        EmailVerification emailVerification = emailVerificationRepository.findTopByEmailOrderByVerificationIdDesc(userInfo.getUserEmail())
+                .orElseThrow(() -> new CustomException(ErrorCode.VERIFICATION_CODE_NOT_FOUND));
+        System.out.println(emailVerification.getVerificationCode());
+        System.out.println(forgotUserPasswordRequest.getVerificationCode());
+        if(!emailVerification.getVerificationCode().equals(forgotUserPasswordRequest.getVerificationCode())) {
+            throw new CustomException(ErrorCode.VERIFICATION_CODE_WRONG);
+        }
+
+    }
+
 
 }

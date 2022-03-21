@@ -6,6 +6,7 @@ import java.util.Random;
 public class RandomNumber {
     private static final Random random = new Random();
     private static final int VERIFICATION_CODE_SIZE = 6;
+    private static final int PASSWORD_SIZE = 10;
 
     public static String generateVerificationCode() {
         String verificationCode = "";
@@ -13,5 +14,13 @@ public class RandomNumber {
             verificationCode = verificationCode + random.nextInt(9);
         }
         return verificationCode;
+    }
+
+    public static String generatePassword() {
+        String newPassword = "";
+        for(int i=0; i<PASSWORD_SIZE; i++) {
+            newPassword = newPassword + random.nextInt(9);
+        }
+        return newPassword;
     }
 }

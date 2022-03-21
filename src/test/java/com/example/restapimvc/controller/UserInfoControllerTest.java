@@ -114,9 +114,47 @@ class UserInfoControllerTest {
     @Test
     void sendVerificationCode() throws Exception {
         mockMvc.perform(
-                        post("/user-infos/user-email/lsjpjs12@naver.com/verify")
+                        post("/user-infos/user-email/lsjpjs1@naver.com/verify")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
+    }
+
+    @Test
+    void forgotUserPassword() throws Exception {
+        String content = objectMapper.writeValueAsString(new UserInfoDto.ForgotUserPasswordRequest("377705"));
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs1@naver.com/find-user-password")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+        ;
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs12@naver.com/find-user-password")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+        ;
+        mockMvc.perform(
+                        post("/user-infos/user-email/Jjjj/find-user-password")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+        ;
+        content = objectMapper.writeValueAsString(new UserInfoDto.ForgotUserPasswordRequest("085582"));
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs1@naver.com/find-user-password")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
                 )
                 .andDo(print())
         ;
