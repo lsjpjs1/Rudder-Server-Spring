@@ -110,4 +110,15 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    void sendVerificationCode() throws Exception {
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs12@naver.com/verify")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
+    }
 }

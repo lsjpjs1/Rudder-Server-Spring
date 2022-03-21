@@ -12,6 +12,7 @@ import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import com.example.restapimvc.util.MailUtil;
+import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -102,6 +103,17 @@ public class UserInfoService {
             throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
         }
 
+    }
+
+    public void sendVerificationCode(String userEmail) {
+        userInfoRepository.findUserInfoByUserEmail(userEmail)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
+        try {
+            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail, RandomNumber.generateVerificationCode()));
+        } catch (MessagingException e) {
+            log.error(e.getMessage());
+            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
+        }
     }
 
 }

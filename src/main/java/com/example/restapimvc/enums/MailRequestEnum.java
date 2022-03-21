@@ -24,6 +24,16 @@ public enum MailRequestEnum implements ConvertibleToMailRequest {
                     .body(getBody()+newUserPassword)
                     .build();
         }
+    },
+    VERIFICATION_CODE("Your verification code","Verification code : "){
+        @Override
+        public MailDTO.MailRequest getMailRequest(String receiverEmail,String verificationCode){
+            return MailDTO.MailRequest.builder()
+                    .receiverEmail(receiverEmail)
+                    .subject(getSubject())
+                    .body(getBody()+verificationCode)
+                    .build();
+        }
     }
     ;
     private String subject;

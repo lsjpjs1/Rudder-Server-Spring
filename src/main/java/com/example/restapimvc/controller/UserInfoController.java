@@ -107,6 +107,22 @@ public class UserInfoController {
                 ;
     }
 
+    /**
+     * /signupin/sendPwVerificationCode
+     * @param userEmail
+     * @return 204
+     * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
+     * @throws 500 SEND_EMAIL_FAIL, 이메일 전송 실패
+     */
+    @PostMapping(value = "/user-email/{userEmail}/verify")
+    public ResponseEntity sendVerificationCode(@PathVariable("userEmail") String userEmail) {
+        userInfoService.sendVerificationCode(userEmail);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
 
 
 
