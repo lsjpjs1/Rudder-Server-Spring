@@ -35,6 +35,7 @@ public class UserInfoService {
     private final EmailVerificationRepository emailVerificationRepository;
     private final UserInfoMapper userInfoMapper;
     private final MailUtil mailUtil;
+    private final SchoolService schoolService;
 
     public UserInfoDto.UserInfoResponse updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         userInfoRepository.findUserInfoByUserNickname(updateNicknameRequest.getNickname()).ifPresent(
@@ -78,22 +79,16 @@ public class UserInfoService {
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 
-    public UserInfoDto.IsDuplicatedResponse isUserIdDuplicated(String userId) {
-        Optional<UserInfo> userInfoByUserId = userInfoRepository.findUserInfoByUserId(userId);
-        UserInfoDto.IsDuplicatedResponse isUserIdDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
-        if (userInfoByUserId.isPresent()) {
-            isUserIdDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
+    public void userIdDuplicationCheck(String userId) {
+        if(userInfoRepository.findUserInfoByUserId(userId).isPresent()) {
+            throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
         }
-        return isUserIdDuplicatedResponse;
     }
 
-    public UserInfoDto.IsDuplicatedResponse isUserNicknameDuplicated(String nickname) {
-        Optional<UserInfo> userInfoByUserNickname = userInfoRepository.findUserInfoByUserNickname(nickname);
-        UserInfoDto.IsDuplicatedResponse isDuplicatedResponse = new UserInfoDto.IsDuplicatedResponse(Boolean.FALSE);
-        if (userInfoByUserNickname.isPresent()) {
-            isDuplicatedResponse.setIsDuplicated(Boolean.TRUE);
+    public void userNicknameDuplicationCheck(String nickname) {
+        if(userInfoRepository.findUserInfoByUserNickname(nickname).isPresent()) {
+            throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
         }
-        return isDuplicatedResponse;
     }
 
     public void forgotUserId(String userEmail) {
@@ -151,6 +146,19 @@ public class UserInfoService {
             throw new CustomException(ErrorCode.VERIFICATION_CODE_WRONG);
         }
 
+    }
+
+    public void validateEmail(String userEmail, UserInfoDto.ValidateEmailRequest validateEmailRequest) {
+        if(userInfoRepository.findUserInfoByUserEmail(userEmail).isPresent()) {
+            throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
+        }
+        schoolService.validateEmailRegex(userEmail,validateEmailRequest);
+        try {
+            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail,RandomNumber.generateVerificationCode()));
+        } catch (MessagingException e) {
+            log.error(e.getMessage());
+            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
+        }
     }
 
 

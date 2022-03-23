@@ -16,9 +16,11 @@ public enum ErrorCode {
     PROFILE_IMAGE_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"ProfileImageId cannot found."),
     OS_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND,"OS type cannot found."),
     VERIFICATION_CODE_NOT_FOUND(HttpStatus.NOT_FOUND,"VerificationCode cannot found."),
+    SCHOOL_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"SchoolId cannot found."),
     VERIFICATION_CODE_WRONG(HttpStatus.NOT_FOUND,"VerificationCode is wrong"),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
+    WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
 

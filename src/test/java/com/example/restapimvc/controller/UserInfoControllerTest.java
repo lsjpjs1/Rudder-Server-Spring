@@ -81,7 +81,7 @@ class UserInfoControllerTest {
     @Test
     void isUserIdDuplicated() throws Exception {
         mockMvc.perform(
-                        post("/user-infos/user-id/fff2222/duplication-check")
+                        post("/user-infos/user-id/fff111/duplication-check")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -92,7 +92,7 @@ class UserInfoControllerTest {
     @Test
     void isUserNicknameDuplicated() throws Exception {
         mockMvc.perform(
-                        post("/user-infos/user-nickname/훈123/duplication-check")
+                        post("/user-infos/user-nickname/훈111/duplication-check")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -152,6 +152,19 @@ class UserInfoControllerTest {
         content = objectMapper.writeValueAsString(new UserInfoDto.ForgotUserPasswordRequest("085582"));
         mockMvc.perform(
                         post("/user-infos/user-email/lsjpjs1@naver.com/find-user-password")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+        ;
+    }
+
+    @Test
+    void validateEmail() throws Exception {
+        String content = objectMapper.writeValueAsString(new UserInfoDto.ValidateEmailRequest(3L));
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs2@naver.com/validate")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .content(content)

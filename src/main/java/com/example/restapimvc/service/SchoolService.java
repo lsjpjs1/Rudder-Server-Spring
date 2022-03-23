@@ -2,6 +2,9 @@ package com.example.restapimvc.service;
 
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.dto.SchoolDTO;
+import com.example.restapimvc.dto.UserInfoDto;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.SchoolRepository;
 import com.example.restapimvc.util.mapper.SchoolMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,4 +32,14 @@ public class SchoolService {
         }
         return schoolResponses;
     }
+
+    public void validateEmailRegex(String userEmail,UserInfoDto.ValidateEmailRequest validateEmailRequest) {
+        School school = schoolRepository.findById(validateEmailRequest.getSchoolId())
+                .orElseThrow(() -> new CustomException(ErrorCode.SCHOOL_ID_NOT_FOUND));
+        if(!userEmail.matches(school.getRegex())) {
+            throw new CustomException(ErrorCode.WRONG_EMAIL_FORM);
+        }
+
+    }
+
 }

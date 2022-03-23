@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user-infos/**/**/find-user-id").permitAll()
                 .antMatchers("/user-infos/**/**/find-user-password").permitAll()
                 .antMatchers("/user-infos/user-email/**/verify").permitAll()
+                .antMatchers("/user-infos/user-email/**/validate").permitAll()
                 .antMatchers("/auth").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
                 .and()

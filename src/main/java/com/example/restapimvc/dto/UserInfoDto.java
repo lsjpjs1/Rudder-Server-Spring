@@ -39,6 +39,14 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class ValidateEmailRequest {
+        private Long schoolId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class SignUpRequest {
         private String userId;

@@ -70,25 +70,48 @@ public class UserInfoController {
     /**
      * /signupin/checkduplication
      * @param userId String userId
-     * @return 200, Boolean isDuplicated
+     * @return 204
+     * @throws 409 DUPLICATE_RESOURCE 아이디 중복
      */
     @PostMapping(value = "/user-id/{userId}/duplication-check")
-    public ResponseEntity<UserInfoDto.IsDuplicatedResponse> isUserIdDuplicated(@PathVariable("userId") String userId) {
+    public ResponseEntity userIdDuplicationCheck(@PathVariable("userId") String userId) {
+        userInfoService.userIdDuplicationCheck(userId);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userInfoService.isUserIdDuplicated(userId));
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     /**
      * /signupin/checkDuplicationNickname
      * @param nickname String nickname
-     * @return 200, Boolean isDuplicated
+     * @return 204
+     * @throws 409 DUPLICATE_RESOURCE 닉네임 중복
      */
     @PostMapping(value = "/user-nickname/{nickname}/duplication-check")
-    public ResponseEntity<UserInfoDto.IsDuplicatedResponse> isUserNicknameDuplicated(@PathVariable("nickname") String nickname) {
+    public ResponseEntity userNicknameDuplicationCheck(@PathVariable("nickname") String nickname) {
+        userInfoService.userNicknameDuplicationCheck(nickname);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(userInfoService.isUserNicknameDuplicated(nickname));
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
+
+    /**
+     * /schoolverify/verifyEmail
+     * @param userEmail String userEmail
+     * @param validateEmailRequest Long schoolId
+     * @return 204
+     * @throws 409 DUPLICATE_RESOURCE 이메일 중복
+     * @throws 404 SCHOOL_ID_NOT_FOUND 해당 schoolId 없음
+     * @throws 406 WRONG_EMAIL_FORM 이메일 형식 잘못됨
+     * @throws 500 SEND_EMAIL_FAIL, 이메일 전송 실패
+     */
+    @PostMapping(value = "/user-email/{userEmail}/validate")
+    public ResponseEntity validateEmail(@PathVariable("userEmail") String userEmail,
+                                        @RequestBody UserInfoDto.ValidateEmailRequest validateEmailRequest) {
+        userInfoService.validateEmail(userEmail,validateEmailRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     /**
