@@ -1,7 +1,6 @@
 package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.UserInfoDto;
-import com.example.restapimvc.dto.UserRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -124,7 +122,7 @@ class UserInfoControllerTest {
 
     @Test
     void forgotUserPassword() throws Exception {
-        String content = objectMapper.writeValueAsString(new UserInfoDto.ForgotUserPasswordRequest("377705"));
+        String content = objectMapper.writeValueAsString(new UserInfoDto.CheckVerificationCodeRequest("377705"));
         mockMvc.perform(
                         post("/user-infos/user-email/lsjpjs1@naver.com/find-user-password")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -149,7 +147,7 @@ class UserInfoControllerTest {
                 )
                 .andDo(print())
         ;
-        content = objectMapper.writeValueAsString(new UserInfoDto.ForgotUserPasswordRequest("085582"));
+        content = objectMapper.writeValueAsString(new UserInfoDto.CheckVerificationCodeRequest("085582"));
         mockMvc.perform(
                         post("/user-infos/user-email/lsjpjs1@naver.com/find-user-password")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -165,6 +163,19 @@ class UserInfoControllerTest {
         String content = objectMapper.writeValueAsString(new UserInfoDto.ValidateEmailRequest(3L));
         mockMvc.perform(
                         post("/user-infos/user-email/lsjpjs2@naver.com/validate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+        ;
+    }
+
+    @Test
+    void checkVerificationCode() throws Exception {
+        String content = objectMapper.writeValueAsString(new UserInfoDto.CheckVerificationCodeRequest("377705"));
+        mockMvc.perform(
+                        post("/user-infos/user-email/lsjpjs1@naver.com/check-verification-code")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .content(content)

@@ -75,7 +75,7 @@ public class UserInfoDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ForgotUserPasswordRequest {
+    public static class CheckVerificationCodeRequest {
         private String verificationCode;
     }
 

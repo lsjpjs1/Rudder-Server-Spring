@@ -69,7 +69,7 @@ public class UserInfoController {
 
     /**
      * /signupin/checkduplication
-     * @param userId String userId
+     * @param userId String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 아이디 중복
      */
@@ -83,7 +83,7 @@ public class UserInfoController {
 
     /**
      * /signupin/checkDuplicationNickname
-     * @param nickname String nickname
+     * @param nickname String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 닉네임 중복
      */
@@ -97,7 +97,7 @@ public class UserInfoController {
 
     /**
      * /schoolverify/verifyEmail
-     * @param userEmail String userEmail
+     * @param userEmail String
      * @param validateEmailRequest Long schoolId
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 이메일 중복
@@ -149,7 +149,7 @@ public class UserInfoController {
     /**
      * /signupin/checkCode
      * @param userEmail String
-     * @param forgotUserPasswordRequest String verificationCode
+     * @param checkVerificationCodeRequest String verificationCode
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
      * @throws 404 VERIFICATION_CODE_NOT_FOUND, 해당 이메일로 전송된 verificationCode가 없을 때
@@ -158,8 +158,26 @@ public class UserInfoController {
      */
     @PostMapping(value = "/user-email/{userEmail}/find-user-password")
     public ResponseEntity forgotUserPassword(@PathVariable("userEmail") String userEmail,
-                                             @RequestBody UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
-        userInfoService.forgotUserPassword(userEmail,forgotUserPasswordRequest);
+                                             @RequestBody UserInfoDto.CheckVerificationCodeRequest checkVerificationCodeRequest) {
+        userInfoService.forgotUserPassword(userEmail, checkVerificationCodeRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
+    /**
+     * @param userEmail String
+     * @param checkVerificationCodeRequest String verificationCode
+     * @return 204
+     * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
+     * @throws 404 VERIFICATION_CODE_NOT_FOUND, 해당 이메일로 전송된 verificationCode가 없을 때
+     * @throws 404 VERIFICATION_CODE_WRONG, verificationCode 틀림
+     */
+    @PostMapping(value = "/user-email/{userEmail}/check-verification-code")
+    public ResponseEntity checkVerificationCode(@PathVariable("userEmail") String userEmail,
+                                             @RequestBody UserInfoDto.CheckVerificationCodeRequest checkVerificationCodeRequest) {
+        userInfoService.checkVerificationCode(userEmail, checkVerificationCodeRequest);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build()

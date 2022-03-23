@@ -18,7 +18,6 @@ import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -121,10 +120,10 @@ public class UserInfoService {
     }
 
     public void forgotUserPassword(String userEmail,
-                                   UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
+                                   UserInfoDto.CheckVerificationCodeRequest forgotUserPasswordRequest) {
         UserInfo userInfo = userInfoRepository.findUserInfoByUserEmail(userEmail)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
-        checkVerificationCode(userInfo,forgotUserPasswordRequest);
+        checkVerificationCode(userEmail,forgotUserPasswordRequest);
         String newPassword = userInfo.passwordReset();
         userInfoRepository.save(userInfo);
         try {
@@ -136,12 +135,13 @@ public class UserInfoService {
 
     }
 
-    private void checkVerificationCode(UserInfo userInfo,
-                                       UserInfoDto.ForgotUserPasswordRequest forgotUserPasswordRequest) {
+    public void checkVerificationCode(String userEmail,
+                                       UserInfoDto.CheckVerificationCodeRequest forgotUserPasswordRequest) {
+        UserInfo userInfo = userInfoRepository.findUserInfoByUserEmail(userEmail)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
         EmailVerification emailVerification = emailVerificationRepository.findTopByEmailOrderByVerificationIdDesc(userInfo.getUserEmail())
                 .orElseThrow(() -> new CustomException(ErrorCode.VERIFICATION_CODE_NOT_FOUND));
-        System.out.println(emailVerification.getVerificationCode());
-        System.out.println(forgotUserPasswordRequest.getVerificationCode());
+
         if(!emailVerification.getVerificationCode().equals(forgotUserPasswordRequest.getVerificationCode())) {
             throw new CustomException(ErrorCode.VERIFICATION_CODE_WRONG);
         }
