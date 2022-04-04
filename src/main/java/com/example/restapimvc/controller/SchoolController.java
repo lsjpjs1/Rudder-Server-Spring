@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("schools")
 @RequiredArgsConstructor
 public class SchoolController {
 
@@ -28,7 +27,7 @@ public class SchoolController {
      *              }
      *              예시) {"schools":[{"schoolId":1,"schoolName":"Waseda University"},{"schoolId":2,"schoolName":"Korea University"}]}
      */
-    @GetMapping
+    @GetMapping(value = "/schools")
     public ResponseEntity<SchoolDTO.GetSchoolsResponse> getSchools() {
         return ResponseEntity
                 .status(HttpStatus.OK)

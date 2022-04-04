@@ -1,9 +1,6 @@
 package com.example.restapimvc.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +9,7 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table
+@ToString
 public class Category implements Serializable {
 
     @Id
@@ -30,16 +28,9 @@ public class Category implements Serializable {
 
     private Boolean categoryEnable;
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", categoryType='" + categoryType + '\'' +
-                ", categoryOrder=" + categoryOrder +
-                ", categoryEnable=" + categoryEnable +
-                '}';
-    }
+    private String categoryAbbreviation;
+
+
 
     @Builder
     public Category(String categoryName, School school, String categoryType, int categoryOrder, boolean categoryEnable){

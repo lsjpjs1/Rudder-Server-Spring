@@ -45,6 +45,8 @@ public class TokenProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
         UserInfo userInfo = userInfoRepository.findUserInfoByUserId(authentication.getName()).get();
+        userInfo.getSchool();
+        System.out.println(userInfo.toString());
 
         //Payloads of JWT
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -52,7 +54,7 @@ public class TokenProvider {
 
         HashMap<String, Object> userInfoHashMap = ObjectMappingUtil.objectToHashMap(userInfo);
         hashMap.putAll(userInfoHashMap);
-
+        System.out.println(userInfoHashMap.toString());
 
         String accessToken = Jwts.builder()
                 .setClaims(hashMap)

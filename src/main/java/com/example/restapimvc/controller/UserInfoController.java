@@ -53,7 +53,7 @@ public class UserInfoController {
      *         private String profileBody;
      *         private String userNickname;
      *         private Long userProfileImageId;
-     * @return 204,
+     * @return 201,
      *         String userId
      *         String userNickname
      *         String userEmail

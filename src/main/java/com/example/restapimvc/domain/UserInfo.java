@@ -2,11 +2,11 @@ package com.example.restapimvc.domain;
 
 import com.example.restapimvc.enums.UserInfoOsType;
 import com.example.restapimvc.security.Sha1PasswordEncoder;
+import com.example.restapimvc.serializer.SchoolSerializer;
 import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.converter.UserInfoOsConverter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,8 +26,9 @@ public class UserInfo {
 
     private String userId;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(targetEntity = School.class, fetch = FetchType.LAZY)
+    @JsonSerialize(using = SchoolSerializer.class)
     @JoinColumn(name = "school_id")
     private School school;
 
