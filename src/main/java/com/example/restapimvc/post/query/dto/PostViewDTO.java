@@ -40,11 +40,22 @@ public class PostViewDTO {
         private Integer likeCount;
         private Integer commentCount;
 
-        public static void fillEmptyStringInImageUrls(List<PostViewResponse> postViewResponses) {
+        private static void fillEmptyStringInNullImageUrls(PostViewResponse postViewResponse) {
+            if(postViewResponse==null) {
+                return;
+            }
+
+            if(postViewResponse.imageUrls == null) {
+                postViewResponse.imageUrls = "";
+            }
+        }
+        public static void setImageUrlsNonNull(PostViewResponse postViewResponse) {
+            fillEmptyStringInNullImageUrls(postViewResponse);
+        }
+
+        public static void setImageUrlsNonNull(List<PostViewResponse> postViewResponses) {
             for(PostViewResponse postViewResponse: postViewResponses) {
-                if(postViewResponse.imageUrls == null) {
-                    postViewResponse.imageUrls = "";
-                }
+                fillEmptyStringInNullImageUrls(postViewResponse);
             }
         }
 
@@ -52,22 +63,37 @@ public class PostViewDTO {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class PostViewRequest {
+    public static abstract class PostViewRequest {
         private Long userInfoId;
         private String userId;
         private Long schoolId;
-        private Long categoryId;
-        private String searchBody;
-        private Long endPostId;
 
         public void setAllUserInfo(UserInfo userInfo) {
             userInfoId = userInfo.getUserInfoId();
             userId = userInfo.getUserId();
             schoolId = userInfo.getSchool().getSchoolId();
         }
-
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class PostViewMultipleLookUpRequest extends PostViewRequest{
+        private Long categoryId;
+        private String searchBody;
+        private Long endPostId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class PostViewSingleLookUpRequest extends PostViewRequest{
+        private Long postId;
+    }
+
+
 }

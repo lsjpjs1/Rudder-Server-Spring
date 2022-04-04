@@ -1,11 +1,14 @@
 package com.example.restapimvc.post.query.application;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "board")
+@Getter
 public class PostView {
 
     @Id

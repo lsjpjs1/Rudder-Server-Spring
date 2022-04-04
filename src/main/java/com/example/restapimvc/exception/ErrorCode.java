@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
     PASSWORD_WRONG(HttpStatus.UNAUTHORIZED, "Password is wrong"),
+    NOT_CLUB_MEMBER(HttpStatus.UNAUTHORIZED, "This post can read just club member"),
+    NOT_SCHOOL_MEMBER(HttpStatus.UNAUTHORIZED, "This post can read just school member"),
+
 
     USER_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "User information cannot found from token. Please sign in again."),
     USER_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"UserId cannot found."),
@@ -17,6 +20,9 @@ public enum ErrorCode {
     OS_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND,"OS type cannot found."),
     VERIFICATION_CODE_NOT_FOUND(HttpStatus.NOT_FOUND,"VerificationCode cannot found."),
     SCHOOL_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"SchoolId cannot found."),
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND,"Post cannot found."),
+    POST_DELETED(HttpStatus.NOT_FOUND,"Post was deleted"),
+    POST_WRITER_BLOCKED(HttpStatus.NOT_FOUND,"Writer of post was blocked"),
     VERIFICATION_CODE_WRONG(HttpStatus.NOT_FOUND,"VerificationCode is wrong"),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
