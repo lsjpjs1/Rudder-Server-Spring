@@ -1,7 +1,7 @@
 package com.example.restapimvc.post.controller;
 
 import com.example.restapimvc.domain.UserInfo;
-import com.example.restapimvc.post.query.application.PostViewService;
+import com.example.restapimvc.post.query.application.LookUpPostViewService;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostViewService postViewService;
+    private final LookUpPostViewService lookUpPostViewService;
 
 
     /**
      * /board/renderPost
-     * @param postViewMultipleLookUpRequest
-     *          Long endPostId(nullable)
-     *          Long categoryId(nullable)
-     *          String searchBody(nullable)
+     * @param postViewMultipleLookUpRequest 파라미터 조합해서 사용가능
+     *          Long endPostId(nullable) : endPostId 이후 게시글부터 검색
+     *          Long categoryId(nullable) : categoryId로 검색
+     *          String searchBody(nullable) : 검색어
+     *          Long writerUserInfoId(nullable) : 작성자 userInfoId로 검색
      * @return 200,
      *         List<PostViewResponse> posts{
      *             [
@@ -48,7 +49,7 @@ public class PostController {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(postViewService.getPostViews(userInfoFromToken, postViewMultipleLookUpRequest));
+                .body(lookUpPostViewService.getPostViews(userInfoFromToken, postViewMultipleLookUpRequest));
     }
 
     /**
@@ -82,7 +83,7 @@ public class PostController {
         postViewSingleLookUpRequest.setPostId(postId);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(postViewService.getPostViewByPostId(userInfoFromToken, postViewSingleLookUpRequest));
+                .body(lookUpPostViewService.getPostViewByPostId(userInfoFromToken, postViewSingleLookUpRequest));
     }
 
 }

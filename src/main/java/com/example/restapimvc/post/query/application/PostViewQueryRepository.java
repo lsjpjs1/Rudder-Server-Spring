@@ -60,7 +60,7 @@ public class PostViewQueryRepository {
                                 .and(lessThanPostId(postViewMultipleLookUpRequest.getEndPostId()))
                                 .and(equalCategoryId(postViewMultipleLookUpRequest.getCategoryId()))
                                 .and(searchFromPostBody(postViewMultipleLookUpRequest.getSearchBody()))
-
+                                .and(writerIs(postViewMultipleLookUpRequest.getWriterUserInfoId()))
                 )
                 .groupBy(postView.postId, postView.postTime)
                 .having(
@@ -79,13 +79,11 @@ public class PostViewQueryRepository {
     }
 
 
-
     public PostViewDTO.PostViewResponse findPostByPostId(PostViewDTO.PostViewSingleLookUpRequest postViewSingleLookUpRequest) {
 
         PostViewDTO.PostViewResponse result = getPostViewResponseJPAQueryUntilJoin(getPostViewResponseConstructorExpression(postViewSingleLookUpRequest))
                 .where(
-                        postView.schoolId.eq(postViewSingleLookUpRequest.getSchoolId())
-                                .and(postView.postId.eq(postViewSingleLookUpRequest.getPostId()))
+                        postView.postId.eq(postViewSingleLookUpRequest.getPostId())
                 )
                 .groupBy(postView.postId, postView.postTime)
                 .fetchOne();
@@ -93,8 +91,6 @@ public class PostViewQueryRepository {
         PostViewDTO.PostViewResponse.setImageUrlsNonNull(result);
         return result;
     }
-
-
 
 
     public Optional<PostView> findByPostIdAndBlock(PostViewDTO.PostViewSingleLookUpRequest postViewSingleLookUpRequest) {
@@ -191,5 +187,11 @@ public class PostViewQueryRepository {
             return null;
         }
         return postView.postBody.contains(searchBody);
+    }
+    private BooleanExpression writerIs(Long writerUserInfoId) {
+        if (writerUserInfoId == null) {
+            return null;
+        }
+        return userInfo.userInfoId.eq(writerUserInfoId);
     }
 }

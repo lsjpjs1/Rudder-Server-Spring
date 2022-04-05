@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class PostViewService {
+public class LookUpPostViewService {
     private final PostViewRepository postViewRepository;
     private final PostViewQueryRepository postViewQueryRepository;
 
