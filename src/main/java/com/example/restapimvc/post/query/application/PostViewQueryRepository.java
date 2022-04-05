@@ -1,6 +1,7 @@
 package com.example.restapimvc.post.query.application;
 
 import com.example.restapimvc.domain.*;
+import com.example.restapimvc.post.command.domain.QPostImage;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Projections;
@@ -135,7 +136,7 @@ public class PostViewQueryRepository {
                 .leftJoin(category).on(postView.categoryId.eq(category.categoryId))
                 .leftJoin(userInfo).on(postView.userId.eq(userInfo.userId))
                 .leftJoin(userProfile).on(userInfo.userProfile.profileId.eq(userProfile.profileId))
-                .leftJoin(postImage).on(postView.postId.eq(postImage.postId))
+                .leftJoin(postImage).on(postView.postId.eq(postImage.post.postId))
                 .leftJoin(postLike).on(postView.postId.eq(postLike.postId))
                 .leftJoin(userBlock).on(userInfo.userInfoId.eq(userBlock.blockedUserInfo.userInfoId));
     }

@@ -1,9 +1,6 @@
-package com.example.restapimvc.domain;
+package com.example.restapimvc.post.command.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,13 +9,17 @@ import javax.persistence.*;
 @Entity(name = "board_image")
 @Table
 @AllArgsConstructor
+@ToString
 public class PostImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
     private Long postImageId;
 
-    private Long postId;
+
+    @ManyToOne(targetEntity = Post.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     private String fileName;
 }

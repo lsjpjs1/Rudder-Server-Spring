@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostControllerTest {
+class LookUpPostControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

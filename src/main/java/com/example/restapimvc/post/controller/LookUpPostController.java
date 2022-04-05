@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class PostController {
+public class LookUpPostController {
 
     private final LookUpPostViewService lookUpPostViewService;
 
 
     /**
-     * Legacy: /board/renderPost
+     * Legacy: /board/addPost
      * @param postViewMultipleLookUpRequest 파라미터 조합해서 사용가능
      *          Long endPostId(nullable) : endPostId 이후 게시글부터 검색
      *          Long categoryId(nullable) : categoryId로 검색
