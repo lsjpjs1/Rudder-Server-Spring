@@ -18,7 +18,7 @@ public class SchoolController {
     private final SchoolService schoolService;
 
     /**
-     * /signupin/schoolList
+     * Legacy: /signupin/schoolList
      * @return 200, List<SchoolForResponse> schools{
      *                  List[
      *                      Long schoolId,

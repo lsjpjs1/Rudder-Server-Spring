@@ -16,7 +16,7 @@ public class UserInfoController {
     private final UserInfoService userInfoService;
 
     /**
-     * /users/updateNickname
+     * Legacy: /users/updateNickname
      * @param updateNicknameRequest String nickname
      * @return 201, String userId, String userNickname
      * @throws 409, DUPLICATE_RESOURCE 이미 존재하는 닉네임
@@ -30,7 +30,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/logout
+     * Legacy: /signupin/logout
      * @return 204, 응답 body 없음
      */
     @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,7 +43,7 @@ public class UserInfoController {
 
 
     /**
-     * /signupin/signupinsert
+     * Legacy: /signupin/signupinsert
      * @param signUpRequest
      *         private String userId;
      *         private String userPassword;
@@ -68,7 +68,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/checkduplication
+     * Legacy: /signupin/checkduplication
      * @param userId String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 아이디 중복
@@ -82,7 +82,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/checkDuplicationNickname
+     * Legacy: /signupin/checkDuplicationNickname
      * @param nickname String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 닉네임 중복
@@ -96,7 +96,7 @@ public class UserInfoController {
     }
 
     /**
-     * /schoolverify/verifyEmail
+     * Legacy: /schoolverify/verifyEmail
      * @param userEmail String
      * @param validateEmailRequest Long schoolId
      * @return 204
@@ -115,7 +115,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/sendIdToEmail
+     * Legacy: /signupin/sendIdToEmail
      * @param userEmail
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -131,7 +131,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/sendPwVerificationCode
+     * Legacy: /signupin/sendPwVerificationCode
      * @param userEmail String
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -147,7 +147,7 @@ public class UserInfoController {
     }
 
     /**
-     * /signupin/checkCode
+     * Legacy: /signupin/checkCode
      * @param userEmail String
      * @param checkVerificationCodeRequest String verificationCode
      * @return 204

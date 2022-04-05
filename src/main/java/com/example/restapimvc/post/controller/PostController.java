@@ -17,7 +17,7 @@ public class PostController {
 
 
     /**
-     * /board/renderPost
+     * Legacy: /board/renderPost
      * @param postViewMultipleLookUpRequest 파라미터 조합해서 사용가능
      *          Long endPostId(nullable) : endPostId 이후 게시글부터 검색
      *          Long categoryId(nullable) : categoryId로 검색
@@ -53,7 +53,7 @@ public class PostController {
     }
 
     /**
-     * /board/postFromPostId
+     * Legacy: /board/postFromPostId
      * @param postId Long
      * @return 200
      *                Long postId;
@@ -79,8 +79,10 @@ public class PostController {
     @GetMapping(value = "/posts/{postId}")
     public ResponseEntity<PostViewDTO.PostViewResponse> getPostByPostId(@PathVariable Long postId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        PostViewDTO.PostViewSingleLookUpRequest postViewSingleLookUpRequest = PostViewDTO.PostViewSingleLookUpRequest.builder().build();
-        postViewSingleLookUpRequest.setPostId(postId);
+        PostViewDTO.PostViewSingleLookUpRequest postViewSingleLookUpRequest = 
+                PostViewDTO.PostViewSingleLookUpRequest.builder()
+                .postId(postId)
+                .build();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(lookUpPostViewService.getPostViewByPostId(userInfoFromToken, postViewSingleLookUpRequest));

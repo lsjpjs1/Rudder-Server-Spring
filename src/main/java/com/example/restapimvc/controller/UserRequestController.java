@@ -17,7 +17,7 @@ public class UserRequestController {
     private final UserRequestService userRequestService;
 
     /**
-     * /users/addUserRequest
+     * Legacy: /users/addUserRequest
      * @param createUserRequestRequest String body : 유저의 요청 내용(고객의 소리)
      * @return 201, String body,
      * UserInfo userInfo{Long userInfoId, String userId, String userNickname}

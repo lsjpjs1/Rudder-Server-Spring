@@ -19,7 +19,7 @@ public class UserBlockController {
     private final UserBlockService userBlockService;
 
     /**
-     * /users/blockUser
+     * Legacy: /users/blockUser
      * @param createUserBlockRequest Long blockUserInfoId : 차단할 userInfoId
      * @return 201, Long userBlockId,
      * UserInfo userInfo{Long userInfoId, String userId, String userNickname},

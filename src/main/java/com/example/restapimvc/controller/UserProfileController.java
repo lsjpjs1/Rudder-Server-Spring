@@ -20,7 +20,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
     /**
-     * /users/updateUserProfileImage
+     * Legacy: /users/updateUserProfileImage
      * @param updateProfileImageRequest Long profileImageId : 해당 프로필 이미지 id로 업데이트
      * @return 201, String userId, String userNickname,
      * UserProfile userProfile{Long profileId, Long profileImageId, String profileBody}
@@ -36,7 +36,7 @@ public class UserProfileController {
 
 
     /**
-     * /signupin/profileImageUrl
+     * Legacy: /signupin/profileImageUrl
      * @return 200, Long profileId, String profileBody, Long profileImageId
      * @throws 404, USER_PROFILE_NOT_FOUND 해당 유저의 profileId가 존재하지 않을 때
      */

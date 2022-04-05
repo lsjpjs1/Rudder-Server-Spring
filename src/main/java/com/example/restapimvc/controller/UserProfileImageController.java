@@ -17,7 +17,7 @@ public class UserProfileImageController {
     private final UserProfileImageService userProfileImageService;
 
     /**
-     * /signupin/profileImageList
+     * Legacy: /signupin/profileImageList
      * @return 200, List<UserProfileImageWithURL> userProfileImages{
      *                  List[
      *                      Long userProfileImageId,

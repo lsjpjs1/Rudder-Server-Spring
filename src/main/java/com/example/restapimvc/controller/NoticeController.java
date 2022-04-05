@@ -18,7 +18,7 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     /**
-     * /signupin/getNotice
+     * Legacy: /signupin/getNotice
      * @param noticeRequest String os, String version
      * @return 200, String noticeBody
      */

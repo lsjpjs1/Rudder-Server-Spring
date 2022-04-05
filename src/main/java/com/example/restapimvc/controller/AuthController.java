@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     /**
-     * /signupin/validationToken
+     * Legacy: /signupin/validationToken
      * @return 토큰 유효하면 204
      */
     @PostMapping(value = "/validate",produces = MediaType.APPLICATION_JSON_VALUE)
