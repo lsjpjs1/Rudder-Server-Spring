@@ -36,7 +36,7 @@ public class Post {
     @JoinColumn(name = "post_id")
     private List<PostImage> postImages;
 
-    public void viewPost() {
+    public void view() {
         postMetaData.increaseViewCount();
     }
 

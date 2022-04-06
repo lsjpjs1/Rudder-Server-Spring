@@ -19,7 +19,7 @@ public class WritePostController {
     private final WritePostService writePostService;
 
     /**
-     * Legacy: /board/
+     * Legacy: /board/addPost
      * @param writePostRequest
      *          String postBody(not null)
      *          Long categoryId(not null)

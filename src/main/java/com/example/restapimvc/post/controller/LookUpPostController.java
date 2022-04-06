@@ -17,7 +17,7 @@ public class LookUpPostController {
 
 
     /**
-     * Legacy: /board/addPost
+     * Legacy: /board/renderPost
      * @param postViewMultipleLookUpRequest 파라미터 조합해서 사용가능
      *          Long endPostId(nullable) : endPostId 이후 게시글부터 검색
      *          Long categoryId(nullable) : categoryId로 검색
