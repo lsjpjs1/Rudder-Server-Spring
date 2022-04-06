@@ -38,4 +38,17 @@ public class PostMetaData {
             this.isDelete = true;
         }
     }
+    private void increaseLikeCount() {
+        this.likeCount+=1;
+    }
+    private void decreaseLikeCount() {
+        this.likeCount-=1;
+    }
+    public void calculateLikeCount(Boolean isCanceled) {
+        if (isCanceled) {
+            decreaseLikeCount();
+        } else{
+            increaseLikeCount();
+        }
+    }
 }
