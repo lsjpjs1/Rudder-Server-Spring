@@ -8,9 +8,10 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
     PASSWORD_WRONG(HttpStatus.UNAUTHORIZED, "Password is wrong"),
-    NOT_CLUB_MEMBER(HttpStatus.UNAUTHORIZED, "This post can read just club member"),
-    NOT_SCHOOL_MEMBER(HttpStatus.UNAUTHORIZED, "This post can read just school member"),
 
+    NOT_CLUB_MEMBER(HttpStatus.FORBIDDEN, "This post can read just club member"),
+    NOT_SCHOOL_MEMBER(HttpStatus.FORBIDDEN, "This post can read just school member"),
+    NO_PERMISSION(HttpStatus.FORBIDDEN, "You don't have permission"),
 
     USER_INFO_NOT_FOUND(HttpStatus.NOT_FOUND, "User information cannot found from token. Please sign in again."),
     USER_ID_NOT_FOUND(HttpStatus.NOT_FOUND,"UserId cannot found."),
@@ -27,6 +28,8 @@ public enum ErrorCode {
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),
+    ALREADY_PROCESSED(HttpStatus.NOT_ACCEPTABLE,"This work has already been processed"),
+
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
 

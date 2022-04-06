@@ -73,8 +73,8 @@ public class LookUpPostController {
      * @throws 404 POST_NOT_FOUND 존재하지 않는 postId
      * @throws 404 POST_DELETED 삭제된 게시글
      * @throws 404 POST_WRITER_BLOCKED 차단한 사용자가 올린 글
-     * @throws 401 NOT_CLUB_MEMBER 동아리 회원 아님
-     * @throws 401 NOT_SCHOOL_MEMBER 다른 학교 게시글 접근할 때
+     * @throws 403 NOT_CLUB_MEMBER 동아리 회원 아님
+     * @throws 403 NOT_SCHOOL_MEMBER 다른 학교 게시글 접근할 때
      */
     @GetMapping(value = "/posts/{postId}")
     public ResponseEntity<PostViewDTO.PostViewResponse> getPostByPostId(@PathVariable Long postId) {

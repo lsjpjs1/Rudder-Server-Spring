@@ -40,4 +40,6 @@ public class WritePostService {
         System.out.println(post);
         return postMapper.entityToWritePostResponse(post);
     }
+
+
 }
