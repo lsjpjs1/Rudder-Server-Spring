@@ -16,6 +16,7 @@ public class DeletePostController {
     private final DeletePostService deletePostService;
 
     /**
+     * Lecacy: /board/deletePost
      * @param postId Long
      * @return 204
      * @throws 404 POST_NOT_FOUND, 존재하지 않는 postId
