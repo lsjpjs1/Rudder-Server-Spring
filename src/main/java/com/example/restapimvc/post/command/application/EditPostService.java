@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.restapimvc.exception.ErrorCode.BAD_REQUEST_CONTENT;
+
 @Service
 @RequiredArgsConstructor
 public class EditPostService {
@@ -21,6 +23,9 @@ public class EditPostService {
 
     @Transactional
     public CommonPostDto.CommonPostResponse editPost(UserInfo userInfo, EditPostDto.EditPostRequest editPostRequest) {
+        if (editPostRequest.getPostBody() == null) {
+            throw new CustomException(BAD_REQUEST_CONTENT);
+        }
         Post post = postRepository.findById(editPostRequest.getPostId())
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         if (!userInfo.getUserId().equals(post.getUserId())) {

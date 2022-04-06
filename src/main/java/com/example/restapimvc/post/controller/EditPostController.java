@@ -18,6 +18,21 @@ public class EditPostController {
 
     private final EditPostService editPostService;
 
+    /**
+     * @param postId Long
+     * @param editPostRequest
+     *          String postBody 수정할 게시글 내용
+     * @return 200
+     *         Long postId;
+     *         String userId;
+     *         String postBody;
+     *         Long categoryId;
+     *         Long schoolId;
+     *         Timestamp postTime;
+     * @throws 404 POST_NOT_FOUND 존재하지 않는 postId
+     * @throws 403 NO_PERMISSION 수정하려는 게시글이 내 게시글이 아님
+     * @throws 406 BAD_REQUEST_CONTENT 파라미터에 null값 넘어옴
+     */
     @PatchMapping(value = "/posts/{postId}")
     public ResponseEntity<CommonPostDto.CommonPostResponse> editPost(
             @PathVariable Long postId,
