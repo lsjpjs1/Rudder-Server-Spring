@@ -4,8 +4,8 @@ import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.post.command.domain.Post;
-import com.example.restapimvc.post.command.domain.PostMetaData;
 import com.example.restapimvc.post.command.domain.PostRepository;
+import com.example.restapimvc.post.command.dto.CommonPostDto;
 import com.example.restapimvc.post.command.dto.WritePostDto;
 import com.example.restapimvc.util.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class WritePostService {
     private final EntityManager entityManager;
 
     @Transactional
-    public WritePostDto.WritePostResponse writePost(UserInfo userInfo, WritePostDto.WritePostRequest writePostRequest) {
+    public CommonPostDto.CommonPostResponse writePost(UserInfo userInfo, WritePostDto.WritePostRequest writePostRequest) {
         if (writePostRequest.getPostBody()==null || writePostRequest.getCategoryId()==null) {
             throw new CustomException(ErrorCode.BAD_REQUEST_CONTENT);
         }
@@ -38,7 +38,7 @@ public class WritePostService {
         postRepository.save(post);
         entityManager.refresh(post);
         System.out.println(post);
-        return postMapper.entityToWritePostResponse(post);
+        return postMapper.entityToCommonPostResponse(post);
     }
 
 

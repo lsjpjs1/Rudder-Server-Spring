@@ -2,17 +2,14 @@ package com.example.restapimvc.post.command.dto;
 
 import lombok.*;
 
-import java.sql.Timestamp;
+public class EditPostDto {
 
-public class WritePostDto {
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    @ToString
-    public static class WritePostRequest {
+    public static class EditPostRequest {
+        private Long postId;
         private String postBody;
-        private Long categoryId;
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.restapimvc.post.command.domain;
 
+import com.example.restapimvc.post.command.dto.EditPostDto;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -39,8 +40,8 @@ public class Post {
         postMetaData.increaseViewCount();
     }
 
-    public void edit(String editPostBody) {
-        this.postBody = editPostBody;
+    public void edit(EditPostDto.EditPostRequest editPostRequest) {
+        this.postBody = editPostRequest.getPostBody();
         postMetaData.setEditFlagTrue();
     }
 

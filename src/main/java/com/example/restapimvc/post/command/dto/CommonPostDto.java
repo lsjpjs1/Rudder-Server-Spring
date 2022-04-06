@@ -4,15 +4,19 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
-public class WritePostDto {
+public class CommonPostDto {
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @ToString
-    public static class WritePostRequest {
+    @Builder
+    public static class CommonPostResponse {
+        private Long postId;
+        private String userId;
         private String postBody;
         private Long categoryId;
+        private Long schoolId;
+        private Timestamp postTime;
     }
-
 }
