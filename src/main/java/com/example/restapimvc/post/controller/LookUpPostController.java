@@ -75,6 +75,7 @@ public class LookUpPostController {
      * @throws 404 POST_WRITER_BLOCKED 차단한 사용자가 올린 글
      * @throws 403 NOT_CLUB_MEMBER 동아리 회원 아님
      * @throws 403 NOT_SCHOOL_MEMBER 다른 학교 게시글 접근할 때
+     * @throws 406 IMAGE_UPLOAD_NOT_COMPLETE 이미지 업로드가 완료되지 않음
      */
     @GetMapping(value = "/posts/{postId}")
     public ResponseEntity<PostViewDTO.PostViewResponse> getPostByPostId(@PathVariable Long postId) {

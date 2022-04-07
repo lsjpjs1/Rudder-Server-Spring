@@ -43,6 +43,7 @@ public class PostViewQueryRepository {
                 .where(
                         postView.schoolId.eq(postViewMultipleLookUpRequest.getSchoolId())
                                 .and(postView.isDelete.isFalse())
+                                .and(postView.isImageUploading.isFalse())
                                 .and(
                                         new CaseBuilder()
                                                 .when(category.categoryType.eq("club").not()).then(Boolean.TRUE)

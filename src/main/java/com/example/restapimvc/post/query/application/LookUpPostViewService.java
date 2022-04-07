@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @RequiredArgsConstructor
 public class LookUpPostViewService {
@@ -33,6 +34,9 @@ public class LookUpPostViewService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_CLUB_MEMBER));
         if (postView.getSchoolId()!=postViewSingleLookUpRequest.getSchoolId()) {
             throw new CustomException(ErrorCode.NOT_SCHOOL_MEMBER);
+        }
+        if (postView.getIsImageUploading()) {
+            throw new CustomException(ErrorCode.IMAGE_UPLOAD_NOT_COMPLETE);
         }
 
         return postViewQueryRepository.findPostByPostId(postViewSingleLookUpRequest);

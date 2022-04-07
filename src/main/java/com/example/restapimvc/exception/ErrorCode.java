@@ -29,6 +29,7 @@ public enum ErrorCode {
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),
     ALREADY_PROCESSED(HttpStatus.NOT_ACCEPTABLE,"This work has already been processed"),
+    IMAGE_UPLOAD_NOT_COMPLETE(HttpStatus.NOT_ACCEPTABLE,"Image upload not complete yet"),
 
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
