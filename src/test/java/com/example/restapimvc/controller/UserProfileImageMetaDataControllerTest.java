@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserProfileImageControllerTest {
+class UserProfileImageMetaDataControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

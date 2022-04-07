@@ -50,6 +50,11 @@ password:
   secret: ENC(SuduKmAP5a+Xh7kWOwyq6W8cqv2jGIywrVbtj3yxvdA=)
 
 aws:
+  s3:
+    image-bucket: ENC(OOKgTrqBQOjmTARJt9kRFHOt/nfOddSAhL94InLdLXwqcPkRttOATw==)
+    region: ap-northeast-2
+    access-key-id: ENC(QHhOtFo3PU6+xznfgJo3YHuBglKgv/k4fvwbhLbJY3Q=)
+    secret-access-key: ENC(xZV/pJfloHs13GFlQbYDD14SH6KC56L2MPKK9itCDYAMOz+q/tr9jbODAmWyjSMhnNpwzhHfMQc=)
   cloud-front:
     url:
       high-quality-profile-image: ENC(bIQvhUGwlwVFFGzw4auvYJjfoBSlkyNrmczz8DYnRBl3EYSm8uwU+hMLzmLdKVpGbY+nHlmTr4xWEEoy73qsZA==)

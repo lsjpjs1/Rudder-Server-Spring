@@ -1,8 +1,10 @@
 package com.example.restapimvc.post.command.dto;
 
+import com.example.restapimvc.common.FileMetaData;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WritePostDto {
     @Getter
@@ -15,5 +17,22 @@ public class WritePostDto {
         private Long categoryId;
         private Boolean isImageExist;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class ImageUploadUrlRequest {
+
+
+        private List<FileMetaData> imageMetaData;
+
+
+    }
+
+
+
 
 }
