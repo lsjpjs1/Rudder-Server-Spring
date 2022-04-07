@@ -44,7 +44,7 @@ public class WritePostController {
 
 
     /**
-     * /board/getUploadSignedUrls
+     * Legacy: /board/getUploadSignedUrls 기존에 한번에 처리되는 로직 두개로 분리함, 프론트에서 이미지 업로드가 완료되면 "/posts/{postId}/image" api를 호츨해야함
      * @param imageUploadUrlRequest
      *          List imageMetaData[
      *              String fileName 파일 이름
@@ -63,6 +63,35 @@ public class WritePostController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(postImageUploadService.getImageUploadUrl(imageUploadUrlRequest))
+                ;
+    }
+
+    /**
+     * Legacy: /board/getUploadSignedUrls 기존에 한번에 처리되는 로직 두개로 분리함, 프론트에서 이미지 업로드가 완료되면 이 api를 호츨해야함
+     * @param postId Long
+     * @param completeImageUploadRequest
+     *          List fileNames[
+     *              String...
+     *          ]
+     *          ex) {"fileNames":["file1","file2","file3"]}
+     * @return 201
+     *          Long postId
+     *          List postImages[
+     *              Long postImageId
+     *              String fileName
+     *          ]
+     *          ex) {"postId":1485,"postImages":[{"postImageId":337,"fileName":"file1"},{"postImageId":339,"fileName":"file3"},{"postImageId":338,"fileName":"file2"}]}
+     * @throws 406 BAD_REQUEST_CONTENT null이나 빈 fileNames
+     * @throws 404 POST_NOT_FOUND 존재하지 않는 postId
+     * @throws 403 NO_PERMISSION 내가 쓴 글이 아님
+     */
+    @PostMapping(value = "/posts/{postId}/image")
+    public ResponseEntity<WritePostDto.CompleteImageUploadResponse> completeImageUpload(@PathVariable Long postId, @RequestBody WritePostDto.CompleteImageUploadRequest completeImageUploadRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        completeImageUploadRequest.setPostId(postId);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(postImageUploadService.completeImageUpload(userInfoFromToken,completeImageUploadRequest))
                 ;
     }
 

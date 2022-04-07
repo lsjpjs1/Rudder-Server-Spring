@@ -3,6 +3,7 @@ package com.example.restapimvc.util.mapper;
 import com.example.restapimvc.post.command.domain.Post;
 import com.example.restapimvc.post.command.dto.CommonPostDto;
 import com.example.restapimvc.post.command.dto.PostMetaDataDto;
+import com.example.restapimvc.post.command.dto.WritePostDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,4 +14,6 @@ public interface PostMapper {
 
     @Mapping(target="likeCount", source="postMetaData.likeCount")
     PostMetaDataDto.LikePostResponse entityToLikePostResponse(Post post);
+
+    WritePostDto.CompleteImageUploadResponse entityToCompleteImageUploadResponse(Post post);
 }

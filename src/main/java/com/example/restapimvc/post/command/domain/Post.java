@@ -3,15 +3,13 @@ package com.example.restapimvc.post.command.domain;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.post.command.dto.EditPostDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,10 +35,10 @@ public class Post {
     @Embedded
     private PostMetaData postMetaData;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PostImage> postImages;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<PostImage> postImages;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "userId")
     private Map<String, PostLike> postLikes;
 
@@ -55,6 +53,24 @@ public class Post {
     public void edit(EditPostDto.EditPostRequest editPostRequest) {
         this.postBody = editPostRequest.getPostBody();
         postMetaData.setEditFlagTrue();
+    }
+
+    public void completeImageUpload(List<String> fileNames) {
+        postMetaData.finishImageUpload();
+        appendPostImages(fileNames);
+    }
+
+    private void appendPostImages(List<String> fileNames) {
+        if (postImages==null) {
+            postImages = new LinkedHashSet<>();
+        }
+        if (postImages.isEmpty()) {
+            postImages = new LinkedHashSet<>();
+        }
+
+        for (String fileName: fileNames) {
+            postImages.add(PostImage.builder().post(this).fileName(fileName).build());
+        }
     }
 
     public void delete() {

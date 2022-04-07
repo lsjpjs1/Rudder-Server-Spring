@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Embeddable
 @Getter
@@ -30,6 +31,7 @@ public class PostMetaData {
     private Boolean isEdit;
 
     private Boolean isImageUploading;
+
 
 
     public void increaseViewCount() {
@@ -62,5 +64,22 @@ public class PostMetaData {
         } else{
             increaseLikeCount();
         }
+    }
+
+    public void finishImageUpload() {
+        this.isImageUploading=false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PostMetaData that = (PostMetaData) o;
+        return Objects.equals(postTime, that.postTime) && Objects.equals(commentCount, that.commentCount) && Objects.equals(likeCount, that.likeCount) && Objects.equals(viewCount, that.viewCount) && Objects.equals(isDelete, that.isDelete) && Objects.equals(isEdit, that.isEdit) && Objects.equals(isImageUploading, that.isImageUploading);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postTime, commentCount, likeCount, viewCount, isDelete, isEdit, isImageUploading);
     }
 }

@@ -10,7 +10,6 @@ public class ObjectMappingUtil {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static HashMap<String, Object> objectToHashMap(Object object) {
-        System.out.println(object.toString());
         return objectMapper.convertValue(object, HashMap.class);
     }
 

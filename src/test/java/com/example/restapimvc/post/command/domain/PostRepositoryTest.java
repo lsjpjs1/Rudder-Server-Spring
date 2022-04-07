@@ -18,7 +18,5 @@ class PostRepositoryTest {
     @Transactional
     public void findTest() {
         Post post = postRepository.findById(1453l).get();
-        System.out.println(post);
-
     }
 }

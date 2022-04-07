@@ -46,16 +46,12 @@ public class TokenProvider {
                 .collect(Collectors.joining(","));
         UserInfo userInfo = userInfoRepository.findUserInfoByUserId(authentication.getName()).get();
         userInfo.getSchool();
-        System.out.println(userInfo.toString());
-
         //Payloads of JWT
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put(AUTHORITIES_KEY, authorities);
 
         HashMap<String, Object> userInfoHashMap = ObjectMappingUtil.objectToHashMap(userInfo);
         hashMap.putAll(userInfoHashMap);
-        System.out.println(userInfoHashMap.toString());
-
         String accessToken = Jwts.builder()
                 .setClaims(hashMap)
                 .signWith(key,SignatureAlgorithm.HS512)
