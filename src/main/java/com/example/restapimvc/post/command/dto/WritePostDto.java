@@ -13,6 +13,7 @@ public class WritePostDto {
     public static class WritePostRequest {
         private String postBody;
         private Long categoryId;
+        private Boolean isImageExist;
     }
 
 }

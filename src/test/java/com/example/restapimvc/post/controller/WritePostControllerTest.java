@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,7 +24,7 @@ class WritePostControllerTest {
     private ObjectMapper objectMapper;
     @Test
     void writePostTest() throws Exception {
-                String content = objectMapper.writeValueAsString(new WritePostDto.WritePostRequest(null,1l));
+                String content = objectMapper.writeValueAsString(new WritePostDto.WritePostRequest("hey",1l, Boolean.FALSE));
 
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)

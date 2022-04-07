@@ -33,7 +33,7 @@ public class WritePostController {
      * @throws 406 BAD_REQUEST_CONTENT, 파라미터로 null값 넘어올 때
      */
     @PostMapping(value = "/posts")
-    public ResponseEntity<CommonPostDto.CommonPostResponse> forgotUserPassword(@RequestBody WritePostDto.WritePostRequest writePostRequest) {
+    public ResponseEntity<CommonPostDto.CommonPostResponse> writePost(@RequestBody WritePostDto.WritePostRequest writePostRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.CREATED)

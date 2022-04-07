@@ -19,7 +19,7 @@ public class EditPostMetaDataController {
     private final EditPostMetaDataService editPostMetaDataService;
 
     /**
-     * Legacy: /board
+     * Legacy: /board/addPostViewCount
      * @param postId Long
      * @return 204
      * @throws 404 POST_NOT_FOUND 존재하지 않는 postId
@@ -34,11 +34,12 @@ public class EditPostMetaDataController {
     }
 
     /**
-     * Legacy: /board
+     * Legacy: /board/addLike
      * @param postId Long
      * @return 200
      *          Long postId
      *          Integer likeCount
+     *          Boolean isImageExist 이미지 있으면 true
      * @throws 404 POST_NOT_FOUND 존재하지 않는 postId
      */
     @PatchMapping(value = "/posts/{postId}/like-count")

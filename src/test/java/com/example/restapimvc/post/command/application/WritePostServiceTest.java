@@ -24,6 +24,6 @@ class WritePostServiceTest {
     void writePost() {
         UserInfo userInfo = userInfoRepository.findUserInfoByUserId("abcd").get();
         userInfo.getSchool();
-        writePostService.writePost(userInfo,new WritePostDto.WritePostRequest(null,1l));
+        writePostService.writePost(userInfo,new WritePostDto.WritePostRequest(null,1l,Boolean.TRUE));
     }
 }

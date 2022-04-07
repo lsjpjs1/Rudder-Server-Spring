@@ -4,6 +4,7 @@ import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.post.command.domain.Post;
+import com.example.restapimvc.post.command.domain.PostMetaData;
 import com.example.restapimvc.post.command.domain.PostRepository;
 import com.example.restapimvc.post.command.dto.CommonPostDto;
 import com.example.restapimvc.post.command.dto.WritePostDto;
@@ -37,7 +38,10 @@ public class WritePostService {
                 .build();
         postRepository.save(post);
         entityManager.refresh(post);
-        System.out.println(post);
+        if (writePostRequest.getIsImageExist()) {
+            post.setImageUploading();
+            postRepository.save(post);
+        }
         return postMapper.entityToCommonPostResponse(post);
     }
 

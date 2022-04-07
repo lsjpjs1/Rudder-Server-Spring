@@ -48,6 +48,10 @@ public class Post {
         postMetaData.increaseViewCount();
     }
 
+    public void setImageUploading() {
+        postMetaData.setIsImageUploadingTrue();
+    }
+
     public void edit(EditPostDto.EditPostRequest editPostRequest) {
         this.postBody = editPostRequest.getPostBody();
         postMetaData.setEditFlagTrue();

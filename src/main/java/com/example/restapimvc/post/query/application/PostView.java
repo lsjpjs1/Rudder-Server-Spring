@@ -23,6 +23,7 @@ public class PostView {
     private Boolean isEdit;
     private Integer commentCount;
     private Integer likeCount;
+    private Boolean isImageUploading;
 
 
 }

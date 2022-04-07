@@ -1,15 +1,20 @@
 package com.example.restapimvc.post.command.domain;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.PrePersist;
 import java.sql.Timestamp;
 
 @Embeddable
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PostMetaData {
     private Timestamp postTime;
 
@@ -24,8 +29,15 @@ public class PostMetaData {
 
     private Boolean isEdit;
 
+    private Boolean isImageUploading;
+
+
     public void increaseViewCount() {
         this.viewCount +=1;
+    }
+
+    public void setIsImageUploadingTrue() {
+        this.isImageUploading = true;
     }
 
     public void setEditFlagTrue() {
