@@ -1,6 +1,5 @@
 package com.example.restapimvc.service;
 
-import com.example.restapimvc.domain.Category;
 import com.example.restapimvc.dto.CategoryDTO;
 import com.example.restapimvc.dto.TokenDto;
 import com.example.restapimvc.dto.UserInfoDto;

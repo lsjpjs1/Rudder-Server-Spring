@@ -1,5 +1,6 @@
-package com.example.restapimvc.domain;
+package com.example.restapimvc.category.command.domain;
 
+import com.example.restapimvc.domain.School;
 import lombok.*;
 
 import javax.persistence.*;

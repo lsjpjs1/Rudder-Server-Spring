@@ -1,5 +1,6 @@
 package com.example.restapimvc.domain;
 
+import com.example.restapimvc.category.command.domain.Category;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

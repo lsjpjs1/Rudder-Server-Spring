@@ -1,6 +1,6 @@
 package com.example.restapimvc.repository;
 
-import com.example.restapimvc.domain.QCategory;
+import com.example.restapimvc.category.command.domain.QCategory;
 import com.example.restapimvc.domain.QUserSelectCategory;
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.dto.CategoryDTO;

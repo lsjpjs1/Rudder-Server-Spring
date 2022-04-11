@@ -1,5 +1,6 @@
 package com.example.restapimvc.post.query.application;
 
+import com.example.restapimvc.category.command.domain.QCategory;
 import com.example.restapimvc.domain.*;
 import com.example.restapimvc.post.command.domain.QPostImage;
 import com.example.restapimvc.post.command.domain.QPostLike;
