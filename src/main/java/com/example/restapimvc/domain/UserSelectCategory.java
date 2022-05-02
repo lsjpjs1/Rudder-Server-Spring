@@ -1,6 +1,6 @@
 package com.example.restapimvc.domain;
 
-import com.example.restapimvc.category.command.domain.Category;
+import com.example.restapimvc.dao.CategoryDao;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,14 +22,14 @@ public class UserSelectCategory {
     @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = CategoryDao.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryDao categoryDao;
 
     @Builder
-    public UserSelectCategory(UserInfo userInfo, Category category) {
+    public UserSelectCategory(UserInfo userInfo, CategoryDao categoryDao) {
         this.userInfo = userInfo;
-        this.category = category;
+        this.categoryDao = categoryDao;
     }
 
 

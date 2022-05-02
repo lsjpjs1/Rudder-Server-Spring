@@ -1,17 +1,17 @@
-package com.example.restapimvc.category.command.domain;
+package com.example.restapimvc.dao;
 
 import com.example.restapimvc.domain.School;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "category")
 @Table
-@Builder
-@AllArgsConstructor
-public class Category {
+@ToString
+public class CategoryDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,16 @@ public class Category {
     private Boolean categoryEnable;
 
     private String categoryAbbreviation;
+
+
+
+    @Builder
+    public CategoryDao(String categoryName, School school, String categoryType, int categoryOrder, boolean categoryEnable){
+        this.categoryName = categoryName;
+        this.school = school;
+        this.categoryType = categoryType;
+        this.categoryOrder = categoryOrder;
+        this.categoryEnable = categoryEnable;
+    }
 
 }

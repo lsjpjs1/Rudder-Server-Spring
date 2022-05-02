@@ -1,6 +1,6 @@
 package com.example.restapimvc.post.query.dto;
 
-import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.serializer.ParseImageUrlsSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
@@ -63,24 +63,10 @@ public class PostViewDTO {
 
     @Getter
     @Setter
-    public static abstract class PostViewRequest {
-        private Long userInfoId;
-        private String userId;
-        private Long schoolId;
-
-        public void setAllUserInfo(UserInfo userInfo) {
-            userInfoId = userInfo.getUserInfoId();
-            userId = userInfo.getUserId();
-            schoolId = userInfo.getSchool().getSchoolId();
-        }
-    }
-
-    @Getter
-    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class PostViewMultipleLookUpRequest extends PostViewRequest{
+    public static class PostViewMultipleLookUpRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long categoryId;
         private String searchBody;
         private Long endPostId;
@@ -92,7 +78,7 @@ public class PostViewDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class PostViewSingleLookUpRequest extends PostViewRequest{
+    public static class PostViewSingleLookUpRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long postId;
     }
 

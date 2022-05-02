@@ -1,6 +1,8 @@
 package com.example.restapimvc.post.query.application;
 
-import com.example.restapimvc.category.command.domain.QCategory;
+
+import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.dao.QCategoryDao;
 import com.example.restapimvc.domain.*;
 import com.example.restapimvc.post.command.domain.QPostImage;
 import com.example.restapimvc.post.command.domain.QPostLike;
@@ -29,7 +31,7 @@ public class PostViewQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final QPostView postView = QPostView.postView;
-    private final QCategory category = QCategory.category;
+    private final QCategoryDao category = QCategoryDao.categoryDao;
     private final QUserInfo userInfo = QUserInfo.userInfo;
     private final QUserProfile userProfile = QUserProfile.userProfile;
     private final QPostImage postImage = QPostImage.postImage;
@@ -144,7 +146,7 @@ public class PostViewQueryRepository {
                 .leftJoin(userBlock).on(userInfo.userInfoId.eq(userBlock.blockedUserInfo.userInfoId));
     }
 
-    private ConstructorExpression<PostViewDTO.PostViewResponse> getPostViewResponseConstructorExpression(PostViewDTO.PostViewRequest postViewRequest) {
+    private ConstructorExpression<PostViewDTO.PostViewResponse> getPostViewResponseConstructorExpression(WithUserInfo.AbstractWithUserInfo postViewRequest) {
         return Projections.constructor(PostViewDTO.PostViewResponse.class,
                 postView.postId,
                 userInfo.userInfoId.max(),

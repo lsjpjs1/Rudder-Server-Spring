@@ -1,6 +1,6 @@
 package com.example.restapimvc.repository;
 
-import com.example.restapimvc.category.command.domain.QCategory;
+import com.example.restapimvc.dao.QCategoryDao;
 import com.example.restapimvc.domain.QUserSelectCategory;
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.dto.CategoryDTO;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CategoryQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-    private final QCategory category = QCategory.category;
+    private final QCategoryDao category = QCategoryDao.categoryDao;
     private final QUserSelectCategory userSelectCategory = QUserSelectCategory.userSelectCategory;
 
     public List<CategoryDTO.CommonCategoryResponse> findCommonCategory(long userInfoId, School school) {
@@ -31,7 +31,7 @@ public class CategoryQueryRepository {
                                         .select(userSelectCategory)
                                         .from(userSelectCategory)
                                         .where(userSelectCategory.userInfo.userInfoId.eq(userInfoId)
-                                                .and(userSelectCategory.category.categoryId.eq(category.categoryId)))
+                                                .and(userSelectCategory.categoryDao.categoryId.eq(category.categoryId)))
                                         .exists()
                                         .as("isSelect")
                         )
