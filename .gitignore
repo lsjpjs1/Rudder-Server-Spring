@@ -5,7 +5,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-src/main/java/com/example/scraper/
+src/main/java/com/example/restapimvc/scraper/result
 ### STS ###
 .apt_generated
 .classpath
