@@ -74,4 +74,4 @@ cloud-front:
     post-image: ENC(h17vZyscy5+AKY7sfuOTdk9oM4WGOlrW95Q+RiOFMAELbX7/dfFPaVrD9Bh+P/YO)
     profile-image-preview: ENC(Qmx949ysNK61i1n27cFNXd3H0lWGS2OZzRziUSNrgggcJR7oWCTfGNl3iPfYizniBcWQL4IMu1761J5iotcUGHTqZj+HWeZT)
 server:
-  port: 3000
+  port: 8080
