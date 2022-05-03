@@ -37,12 +37,12 @@ public class JobDaoQueryRepository {
                         )
                 )
                 .from(jobDao)
+                .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .where(
                         lessThanJobId(jobDaoRequest.getEndJobId())
                                 .and(searchFromJobSummary(jobDaoRequest.getSearchBody()))
                 )
                 .groupBy(jobDao.jobId)
-                .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .orderBy(jobDao.jobId.desc())
                 .limit(20)
                 .fetch();
@@ -62,11 +62,18 @@ public class JobDaoQueryRepository {
                                 jobDao.uploadDate,
                                 jobDao.location,
                                 jobDao.url,
-                                jobDao.expireDate
+                                jobDao.expireDate,
+                                new CaseBuilder()
+                                        .when(jobFavorite.userInfoId.eq(jobDaoDetailRequest.getUserInfoId())).then(1)
+                                        .otherwise(0)
+                                        .max()
+                                        .eq(1)
                         )
                 )
                 .from(jobDao)
+                .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .where(jobDao.jobId.eq(jobDaoDetailRequest.getJobId()))
+                .groupBy(jobDao.jobId)
                 .fetchOne();
 
     }
