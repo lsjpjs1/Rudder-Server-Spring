@@ -2,6 +2,7 @@ package com.example.restapimvc.job.query.application;
 
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,11 @@ public class JobDaoQueryRepository {
                                 jobDao.uploadDate
                         )
                 )
+                .where(
+                        lessThanJobId(jobDaoRequest.getEndJobId())
+                )
                 .from(jobDao)
+                .orderBy(jobDao.jobId.desc())
                 .limit(20)
                 .fetch();
         return jobs;
@@ -53,5 +58,11 @@ public class JobDaoQueryRepository {
                 .where(jobDao.jobId.eq(jobDaoDetailRequest.getJobId()))
                 .fetchOne();
 
+    }
+    private BooleanExpression lessThanJobId(Long endJobId) {
+        if (endJobId == null) {
+            return null; // BooleanExpression 자리에 null이 반환되면 조건문에서 자동으로 제거된다
+        }
+        return jobDao.jobId.lt(endJobId);
     }
 }
