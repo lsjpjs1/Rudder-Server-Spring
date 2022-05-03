@@ -28,6 +28,14 @@ public class LookUpJobController {
                 .body(lookUpJobService.getJobs(userInfoFromToken, jobDaoRequest));
     }
 
+    @GetMapping(value = "/jobs/my-favorite")
+    public ResponseEntity<JobDaoDto.JobDaoResponseWrapper> getMyFavoriteJobs(@ModelAttribute JobDaoDto.MyFavoriteJobDaoRequest myFavoriteJobDaoRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(lookUpJobService.getMyFavoriteJobs(userInfoFromToken, myFavoriteJobDaoRequest));
+    }
+
     @GetMapping(value = "/jobs/{jobId}")
     public ResponseEntity<JobDaoDto.JobDaoDetailResponse> getJobByJobId(@PathVariable Long jobId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();

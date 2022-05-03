@@ -23,6 +23,15 @@ public class JobDaoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    public static class MyFavoriteJobDaoRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Long endJobId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class JobDaoDetailRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long jobId;
     }

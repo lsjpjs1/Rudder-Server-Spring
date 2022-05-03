@@ -22,6 +22,13 @@ public class LookUpJobService {
     }
 
     @Transactional
+    public JobDaoDto.JobDaoResponseWrapper getMyFavoriteJobs(UserInfo userInfo, JobDaoDto.MyFavoriteJobDaoRequest myFavoriteJobDaoRequest) {
+        myFavoriteJobDaoRequest.setAllUserInfo(userInfo);
+        return new JobDaoDto.JobDaoResponseWrapper(jobDaoQueryRepository.findMyFavoriteJobs(myFavoriteJobDaoRequest));
+
+    }
+
+    @Transactional
     public JobDaoDto.JobDaoDetailResponse getJobByJobId(UserInfo userInfo, JobDaoDto.JobDaoDetailRequest jobDaoDetailRequest) {
         jobDaoDetailRequest.setAllUserInfo(userInfo);
         return jobDaoQueryRepository.findJobByJobId(jobDaoDetailRequest);
