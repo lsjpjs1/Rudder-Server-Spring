@@ -1,7 +1,6 @@
 package com.example.restapimvc.job.query.dto;
 
 import com.example.restapimvc.common.WithUserInfo;
-import com.example.restapimvc.post.query.dto.PostViewDTO;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -33,13 +32,14 @@ public class JobDaoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class JobDaoResponse {
+    public static class JobDaoSummaryResponse {
         private Long jobId;
         private String jobTitle;
         private String jobType;
         private String companyName;
         private String salary;
         private Timestamp uploadDate;
+        private Boolean isFavorite;
     }
 
     @Getter
@@ -66,6 +66,6 @@ public class JobDaoDto {
     @NoArgsConstructor
     @ToString
     public static class JobDaoResponseWrapper {
-        private List<JobDaoResponse> jobs;
+        private List<JobDaoSummaryResponse> jobs;
     }
 }

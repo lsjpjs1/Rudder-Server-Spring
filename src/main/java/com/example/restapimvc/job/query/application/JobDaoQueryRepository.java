@@ -1,9 +1,10 @@
 package com.example.restapimvc.job.query.application;
 
-import com.example.restapimvc.job.command.domain.Job;
+import com.example.restapimvc.job.command.domain.QJobFavorite;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,24 +17,32 @@ public class JobDaoQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
     private final QJobDao jobDao = QJobDao.jobDao;
+    private final QJobFavorite jobFavorite = QJobFavorite.jobFavorite;
 
-    public List<JobDaoDto.JobDaoResponse> findJobs(JobDaoDto.JobDaoRequest jobDaoRequest) {
-        List<JobDaoDto.JobDaoResponse> jobs = jpaQueryFactory
+    public List<JobDaoDto.JobDaoSummaryResponse> findJobs(JobDaoDto.JobDaoRequest jobDaoRequest) {
+        List<JobDaoDto.JobDaoSummaryResponse> jobs = jpaQueryFactory
                 .select(
-                        Projections.constructor(JobDaoDto.JobDaoResponse.class,
+                        Projections.constructor(JobDaoDto.JobDaoSummaryResponse.class,
                                 jobDao.jobId,
                                 jobDao.jobTitle,
                                 jobDao.jobType,
                                 jobDao.companyName,
                                 jobDao.salary,
-                                jobDao.uploadDate
+                                jobDao.uploadDate,
+                                new CaseBuilder()
+                                        .when(jobFavorite.userInfoId.eq(jobDaoRequest.getUserInfoId())).then(1)
+                                        .otherwise(0)
+                                        .max()
+                                        .eq(1)
                         )
                 )
+                .from(jobDao)
                 .where(
                         lessThanJobId(jobDaoRequest.getEndJobId())
                                 .and(searchFromJobSummary(jobDaoRequest.getSearchBody()))
                 )
-                .from(jobDao)
+                .groupBy(jobDao.jobId)
+                .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .orderBy(jobDao.jobId.desc())
                 .limit(20)
                 .fetch();
