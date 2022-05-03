@@ -66,6 +66,6 @@ public class JobDaoDto {
     @NoArgsConstructor
     @ToString
     public static class JobDaoResponseWrapper {
-        private List<JobDaoResponse> jobResponses;
+        private List<JobDaoResponse> jobs;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.restapimvc.job.query.application;
 
+import com.example.restapimvc.job.command.domain.Job;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -30,6 +31,7 @@ public class JobDaoQueryRepository {
                 )
                 .where(
                         lessThanJobId(jobDaoRequest.getEndJobId())
+                                .and(searchFromJobSummary(jobDaoRequest.getSearchBody()))
                 )
                 .from(jobDao)
                 .orderBy(jobDao.jobId.desc())
@@ -59,10 +61,19 @@ public class JobDaoQueryRepository {
                 .fetchOne();
 
     }
+
+    private BooleanExpression searchFromJobSummary(String searchBody) {
+        if (searchBody == null) {
+            return null;
+        }
+        return jobDao.searchSummary.contains(searchBody);
+    }
+
     private BooleanExpression lessThanJobId(Long endJobId) {
         if (endJobId == null) {
             return null; // BooleanExpression 자리에 null이 반환되면 조건문에서 자동으로 제거된다
         }
         return jobDao.jobId.lt(endJobId);
     }
+
 }
