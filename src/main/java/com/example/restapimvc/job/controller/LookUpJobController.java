@@ -5,7 +5,7 @@ import com.example.restapimvc.job.query.application.LookUpJobService;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,29 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "Job 조회")
 public class LookUpJobController {
     private final LookUpJobService lookUpJobService;
 
+    @ApiOperation(value = "job 목록 복수조회")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(
+                            name = "endJobId"
+                            , value = "paging 기준이 되는 jobId"
+                            , required = false
+                            , dataType = "Long"
+                            , paramType = "query"
+                    )
+                    ,
+                    @ApiImplicitParam(
+                            name = "searchBody"
+                            , value = "검색 내용"
+                            , required = false
+                            , dataType = "String"
+                            , paramType = "query"
+                    )
+            })
     @GetMapping(value = "/jobs")
     public ResponseEntity<JobDaoDto.JobDaoResponseWrapper> getJobs(@ModelAttribute JobDaoDto.JobDaoRequest jobDaoRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
@@ -29,6 +49,7 @@ public class LookUpJobController {
                 .body(lookUpJobService.getJobs(userInfoFromToken, jobDaoRequest));
     }
 
+    @ApiOperation(value = "내가 즐겨찾기한 job 목록 조회")
     @GetMapping(value = "/jobs/my-favorite")
     public ResponseEntity<JobDaoDto.JobDaoResponseWrapper> getMyFavoriteJobs(@ModelAttribute JobDaoDto.MyFavoriteJobDaoRequest myFavoriteJobDaoRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
@@ -37,6 +58,7 @@ public class LookUpJobController {
                 .body(lookUpJobService.getMyFavoriteJobs(userInfoFromToken, myFavoriteJobDaoRequest));
     }
 
+    @ApiOperation(value = "JobId로 조회")
     @GetMapping(value = "/jobs/{jobId}")
     public ResponseEntity<JobDaoDto.JobDaoDetailResponse> getJobByJobId(@PathVariable Long jobId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
