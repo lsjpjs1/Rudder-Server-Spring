@@ -14,6 +14,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +24,15 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
+                .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build().apiInfo(generateApiInfo()).directModelSubstitute(Timestamp.class, Long.class);
+    }
+
+    private ApiInfo generateApiInfo() {
+        return new ApiInfo("demo", "demo.", "Version 1.0", "urn:tos", "test", "Apache 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0");
     }
 }

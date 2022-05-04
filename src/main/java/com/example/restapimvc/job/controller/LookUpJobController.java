@@ -53,7 +53,10 @@ public class LookUpJobController {
                             , paramType = "path"
                     )
             })
-
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공", response = JobDaoDto.JobDaoDetailResponse.class),
+            @ApiResponse(code = 404, message = "1.JOB_NOT_FOUND(존재하지 않는 jobId) \t\n", response = ErrorResponse.class)
+    })
     @GetMapping(value = "/jobs/{jobId}")
     public ResponseEntity<JobDaoDto.JobDaoDetailResponse> getJobByJobId(@PathVariable Long jobId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();

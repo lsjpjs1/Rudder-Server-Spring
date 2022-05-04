@@ -1,6 +1,8 @@
 package com.example.restapimvc.job.query.application;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,8 @@ public class LookUpJobService {
 
     @Transactional
     public JobDaoDto.JobDaoDetailResponse getJobByJobId(UserInfo userInfo, JobDaoDto.JobDaoDetailRequest jobDaoDetailRequest) {
+        jobDaoRepository.findById(jobDaoDetailRequest.getJobId())
+                .orElseThrow(()->new CustomException(ErrorCode.JOB_NOT_FOUND));
         jobDaoDetailRequest.setAllUserInfo(userInfo);
         return jobDaoQueryRepository.findJobByJobId(jobDaoDetailRequest);
 
