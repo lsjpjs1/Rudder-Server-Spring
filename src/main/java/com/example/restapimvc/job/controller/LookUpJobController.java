@@ -1,6 +1,7 @@
 package com.example.restapimvc.job.controller;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.job.query.application.LookUpJobService;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
@@ -23,26 +24,9 @@ public class LookUpJobController {
     private final LookUpJobService lookUpJobService;
 
     @ApiOperation(value = "job 목록 복수조회")
-    @ApiImplicitParams(
-            {
-                    @ApiImplicitParam(
-                            name = "endJobId"
-                            , value = "paging 기준이 되는 jobId"
-                            , required = false
-                            , dataType = "Long"
-                            , paramType = "query"
-                    )
-                    ,
-                    @ApiImplicitParam(
-                            name = "searchBody"
-                            , value = "검색 내용"
-                            , required = false
-                            , dataType = "String"
-                            , paramType = "query"
-                    )
-            })
     @GetMapping(value = "/jobs")
     public ResponseEntity<JobDaoDto.JobDaoResponseWrapper> getJobs(@ModelAttribute JobDaoDto.JobDaoRequest jobDaoRequest) {
+        System.out.println(jobDaoRequest.toString());
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -59,6 +43,17 @@ public class LookUpJobController {
     }
 
     @ApiOperation(value = "JobId로 조회")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(
+                            name = "jobId"
+                            , value = "조회할 jobId"
+                            , required = true
+                            , dataType = "Long"
+                            , paramType = "path"
+                    )
+            })
+
     @GetMapping(value = "/jobs/{jobId}")
     public ResponseEntity<JobDaoDto.JobDaoDetailResponse> getJobByJobId(@PathVariable Long jobId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();

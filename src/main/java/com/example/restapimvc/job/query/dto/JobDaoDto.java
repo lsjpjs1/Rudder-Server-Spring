@@ -1,6 +1,7 @@
 package com.example.restapimvc.job.query.dto;
 
 import com.example.restapimvc.common.WithUserInfo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -13,8 +14,19 @@ public class JobDaoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class JobDaoRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(
+                name = "endJobId"
+                , value = "paging 기준이 되는 jobId"
+                , required = false
+                , dataType = "Long")
         private Long endJobId;
+        @ApiModelProperty(
+                name = "searchBody"
+                , value = "검색 내용"
+                , required = false
+                , dataType = "String")
         private String searchBody;
     }
 
@@ -24,6 +36,11 @@ public class JobDaoDto {
     @NoArgsConstructor
     @Builder
     public static class MyFavoriteJobDaoRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(
+                name = "endJobId"
+                , value = "paging 기준이 되는 jobId"
+                , required = false
+                , dataType = "Long")
         private Long endJobId;
     }
 
