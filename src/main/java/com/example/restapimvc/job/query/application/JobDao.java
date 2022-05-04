@@ -30,6 +30,7 @@ public class JobDao {
     private String location;
     private String salary;
     private String searchSummary;
+    private String jobDescription;
 
     public static JobDao from(FindTarget findTarget) {
         return JobDao.builder()

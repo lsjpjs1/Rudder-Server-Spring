@@ -4,6 +4,7 @@ import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.job.command.domain.QJobFavorite;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.querydsl.core.types.ConstructorExpression;
+import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -89,7 +90,8 @@ public class JobDaoQueryRepository {
                                         .when(jobFavorite.userInfoId.eq(jobDaoDetailRequest.getUserInfoId())).then(1)
                                         .otherwise(0)
                                         .max()
-                                        .eq(1)
+                                        .eq(1),
+                                jobDao.jobDescription
                         )
                 )
                 .from(jobDao)

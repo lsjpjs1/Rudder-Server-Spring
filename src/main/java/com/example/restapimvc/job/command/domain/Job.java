@@ -33,6 +33,7 @@ public class Job {
     private String location;
     private String salary;
     private String searchSummary;
+    private String jobDescription;
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "userInfoId")
