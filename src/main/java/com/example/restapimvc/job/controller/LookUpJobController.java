@@ -5,6 +5,7 @@ import com.example.restapimvc.job.query.application.LookUpJobService;
 import com.example.restapimvc.job.query.dto.JobDaoDto;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
