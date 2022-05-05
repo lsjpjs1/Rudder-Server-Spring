@@ -91,7 +91,8 @@ public class JobDaoQueryRepository {
                                         .otherwise(0)
                                         .max()
                                         .eq(1),
-                                jobDao.jobDescription
+                                jobDao.jobDescription,
+                                jobDao.companyImageUrl
                         )
                 )
                 .from(jobDao)

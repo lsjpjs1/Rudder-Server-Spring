@@ -31,6 +31,7 @@ public class JobDao {
     private String salary;
     private String searchSummary;
     private String jobDescription;
+    private String companyImageUrl;
 
     public static JobDao from(FindTarget findTarget) {
         return JobDao.builder()

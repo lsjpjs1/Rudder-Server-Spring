@@ -85,6 +85,7 @@ public class JobDaoDto {
         private String expireDate;
         private Boolean isFavorite;
         private String jobDescription;
+        private String companyImageUrl;
     }
 
     @Getter

@@ -34,6 +34,7 @@ public class Job {
     private String salary;
     private String searchSummary;
     private String jobDescription;
+    private String companyImageUrl;
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "userInfoId")
