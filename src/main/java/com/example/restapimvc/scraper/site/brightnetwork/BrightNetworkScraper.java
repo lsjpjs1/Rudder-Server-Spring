@@ -76,6 +76,7 @@ public class BrightNetworkScraper extends AbstractJobScraper {
                 .expireIn(findExpire())
                 .jobType(findJobType())
                 .location(findLocation())
+                .jobDescription(findJobDescription())
                 .build();
         getFindTargets().add(findTarget);
         System.out.println(findTarget);
@@ -86,6 +87,15 @@ public class BrightNetworkScraper extends AbstractJobScraper {
         getDriver().get(INIT_URL);
     }
 
+    private String findJobDescription() {
+        String jobDescription = "";
+        try {
+            jobDescription = getDriver()
+                    .findElement(By.xpath("//section[@class='section__description mt-5']"))
+                    .getText();
+        } catch (Exception e) {e.printStackTrace();}
+        return jobDescription;
+    }
     private String findLocation() {
         String location = "";
         try {
@@ -139,7 +149,7 @@ public class BrightNetworkScraper extends AbstractJobScraper {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            CsvUtil.toCsv(brightNetworkScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/res_bright_network_220422.csv",false);
+            CsvUtil.toCsv(brightNetworkScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/test_bright_network.csv",false);
         }
     }
 }
