@@ -62,6 +62,7 @@ public class ProspectsScraper extends AbstractJobScraper {
                 .jobType(findJobType())
                 .salary(findSalary())
                 .location(findLocation())
+                .jobDescription(findJobDescription())
                 .build();
         getFindTargets().add(findTarget);
         System.out.println(findTarget.toCsvString());
@@ -71,6 +72,16 @@ public class ProspectsScraper extends AbstractJobScraper {
     @Override
     public void goInitPage() {
         getDriver().get(INIT_URL);
+    }
+
+    private String findJobDescription() {
+        String jobDescription = "";
+        try {
+            jobDescription = getDriver()
+                    .findElement(By.xpath("//div[@class='col-md-8']/div[@data-ua-category='Key interaction']"))
+                    .getText();
+        } catch (Exception e) {e.printStackTrace();}
+        return jobDescription;
     }
 
     private String findJobType() {
@@ -163,7 +174,7 @@ public class ProspectsScraper extends AbstractJobScraper {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            CsvUtil.toCsv(prospectsScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/res_prospects_220422.csv",false);
+            CsvUtil.toCsv(prospectsScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/test_prospects.csv",false);
         }
     }
 }
