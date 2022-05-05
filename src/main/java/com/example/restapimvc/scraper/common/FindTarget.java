@@ -13,7 +13,6 @@ import java.util.Objects;
 public class FindTarget implements CsvConvertible{
     private String companyName;
     private String jobTitle;
-    private String uploadAt;
     private String url;
     private String jobType;
     private String expireIn;

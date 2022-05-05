@@ -76,10 +76,9 @@ public class IndeedScraper extends AbstractJobScraper {
     @Override
     public void collectTargets(String currentUrl) {
         FindTarget findTarget = FindTarget.builder()
-                .companyName(getDriver().findElement(By.cssSelector("meta[property='og:description']")).getAttribute("content"))
-                .jobTitle(getDriver().findElement(By.cssSelector("meta[id='indeed-share-message']")).getAttribute("content"))
+                .companyName(findCompanyName())
+                .jobTitle(findJobTitle())
                 .url(currentUrl)
-                .uploadAt(getDriver().findElement(By.className("jobsearch-HiringInsights-entry--text")).getText())
                 .jobType(findJobType())
                 .location(findLocation())
                 .salary(findSalary())
@@ -91,6 +90,23 @@ public class IndeedScraper extends AbstractJobScraper {
     @Override
     public void goInitPage() {
         getDriver().get(getListPageLink());
+    }
+
+    private String findJobTitle() {
+        String jobTitle = "";
+        try {
+            jobTitle = getDriver().findElement(By.cssSelector("meta[id='indeed-share-message']")).getAttribute("content");
+        } catch (Exception e) {e.printStackTrace();}
+        return jobTitle;
+    }
+
+    private String findCompanyName() {
+        String companyName = "";
+        try {
+            wait(By.cssSelector("meta[property='og:description']"),8);
+            companyName = getDriver().findElement(By.cssSelector("meta[property='og:description']")).getAttribute("content");
+        } catch (Exception e) {e.printStackTrace();}
+        return companyName;
     }
 
     private String findLocation() {
@@ -148,7 +164,7 @@ public class IndeedScraper extends AbstractJobScraper {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            CsvUtil.toCsv(indeedScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/res_indeed_220422.csv",false);
+            CsvUtil.toCsv(indeedScraper.getFindTargets(),"/Users/sunghonpark/RESTApiMVC/src/main/java/com/example/scraper/result/indeed_test.csv",false);
         }
 
 
