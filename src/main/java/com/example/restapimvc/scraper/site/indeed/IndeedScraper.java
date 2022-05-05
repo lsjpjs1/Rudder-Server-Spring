@@ -82,6 +82,7 @@ public class IndeedScraper extends AbstractJobScraper {
                 .jobType(findJobType())
                 .location(findLocation())
                 .salary(findSalary())
+                .jobDescription(findJobDescription())
                 .build();
         getFindTargets().add(findTarget);
         System.out.println(findTarget.toString());
@@ -90,6 +91,16 @@ public class IndeedScraper extends AbstractJobScraper {
     @Override
     public void goInitPage() {
         getDriver().get(getListPageLink());
+    }
+
+    private String findJobDescription() {
+        String jobDescription = "";
+        try {
+            jobDescription = getDriver()
+                    .findElement(By.xpath("//div[@id='jobDescriptionText']"))
+                    .getText();
+        } catch (Exception e) {e.printStackTrace();}
+        return jobDescription;
     }
 
     private String findJobTitle() {
