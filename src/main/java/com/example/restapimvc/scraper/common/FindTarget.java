@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.Objects;
 
 @Builder
@@ -61,9 +62,9 @@ public class FindTarget implements CsvConvertible{
         stringBuilder.append(" ");
         stringBuilder.append(location);
         stringBuilder.append(" ");
-        stringBuilder.append(companyImageUrl);
+        stringBuilder.append(jobDescription);
         stringBuilder.append(" ");
-        return stringBuilder.toString();
+        return stringBuilder.toString().replaceAll("-"," ").toLowerCase();
 
     }
 
