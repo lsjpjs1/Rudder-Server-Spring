@@ -19,6 +19,8 @@ public class FindTarget implements CsvConvertible{
     private String expireIn;
     private String location;
     private String salary;
+    private String jobDescription;
+    private String companyImageUrl;
 
     @Override
     public boolean equals(Object o) {
@@ -59,6 +61,8 @@ public class FindTarget implements CsvConvertible{
         stringBuilder.append(jobType);
         stringBuilder.append(" ");
         stringBuilder.append(location);
+        stringBuilder.append(" ");
+        stringBuilder.append(companyImageUrl);
         stringBuilder.append(" ");
         return stringBuilder.toString();
 

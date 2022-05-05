@@ -43,6 +43,8 @@ public class JobDao {
                 .location(findTarget.getLocation())
                 .salary(findTarget.getSalary())
                 .searchSummary(findTarget.getSearchSummary())
+                .jobDescription(findTarget.getJobDescription())
+                .companyImageUrl(findTarget.getCompanyImageUrl())
                 .build();
     }
 
