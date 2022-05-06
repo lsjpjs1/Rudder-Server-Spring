@@ -34,6 +34,7 @@ public enum ErrorCode {
 
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
+    EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, "Email already exists."),
 
     SEND_EMAIL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to send email")
         ;

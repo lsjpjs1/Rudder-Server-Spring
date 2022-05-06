@@ -44,6 +44,8 @@ public class UserInfo {
     @Setter
     private String userNickname;
 
+    @Setter
+    private Integer userType;
 
     @Convert(converter = UserInfoOsConverter.class)
     @Setter

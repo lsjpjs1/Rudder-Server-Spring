@@ -57,23 +57,50 @@ class UserInfoControllerTest {
     @Test
     void signUp() throws Exception {
         UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userId("signuptest3")
-                .userEmail("sign2@test.com")
-                .userNickname("signuptest3")
-                .userProfileImageId(2l)
-                .schoolId(1l)
+                .userEmail("lsjpjs1@naver.com")
                 .userPassword("123123123a")
                 .build();
         String content = objectMapper.writeValueAsString(signUpRequest);
 
         mockMvc.perform(
-                post("/user-infos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(content)
+                        post("/user-infos")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(content)
                 )
                 .andDo(print())
         ;
+//
+//        signUpRequest = UserInfoDto.SignUpRequest.builder()
+//                .userEmail("lsjpjs1@korea.ac.kr")
+//                .userPassword("123123123a")
+//                .build();
+//        content = objectMapper.writeValueAsString(signUpRequest);
+//
+//        mockMvc.perform(
+//                        post("/user-infos")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .content(content)
+//                )
+//                .andDo(print())
+//        ;
+//
+//        signUpRequest = UserInfoDto.SignUpRequest.builder()
+//                .userEmail("lsjpjs1@seoul.ac.kr")
+//                .userPassword("123123123a")
+//                .build();
+//        content = objectMapper.writeValueAsString(signUpRequest);
+//
+//        mockMvc.perform(
+//                        post("/user-infos")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .content(content)
+//                )
+//                .andDo(print())
+//        ;
+
     }
 
     @Test

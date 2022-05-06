@@ -1,17 +1,12 @@
 package com.example.restapimvc.service;
 
-import com.example.restapimvc.domain.EmailVerification;
-import com.example.restapimvc.domain.School;
-import com.example.restapimvc.domain.UserInfo;
-import com.example.restapimvc.domain.UserProfile;
+import com.example.restapimvc.domain.*;
+import com.example.restapimvc.dto.MailDTO;
 import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.enums.MailRequestEnum;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
-import com.example.restapimvc.repository.EmailVerificationRepository;
-import com.example.restapimvc.repository.SchoolRepository;
-import com.example.restapimvc.repository.UserInfoRepository;
-import com.example.restapimvc.repository.UserProfileRepository;
+import com.example.restapimvc.repository.*;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import com.example.restapimvc.util.MailUtil;
 import com.example.restapimvc.util.RandomNumber;
@@ -19,8 +14,12 @@ import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,13 +27,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserInfoService {
 
+    private static final String EMAIL_VERIFICATION_URL = "https://rudderuni.com:8090/user-infos/";
     private final UserInfoRepository userInfoRepository;
     private final SchoolRepository schoolRepository;
     private final UserProfileRepository userProfileRepository;
     private final EmailVerificationRepository emailVerificationRepository;
+    private final EmailVerificationRenewRepository emailVerificationRenewRepository;
     private final UserInfoMapper userInfoMapper;
     private final MailUtil mailUtil;
     private final SchoolService schoolService;
+
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     public UserInfoDto.UserInfoResponse updateUserNickname(UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         userInfoRepository.findUserInfoByUserNickname(updateNicknameRequest.getNickname()).ifPresent(
@@ -57,25 +61,64 @@ public class UserInfoService {
         userInfoRepository.save(targetUserInfo);
     }
 
+    @Transactional
     public UserInfoDto.UserInfoEntireResponse signUp(UserInfoDto.SignUpRequest signUpRequest) {
-        School school = schoolRepository.findById(signUpRequest.getSchoolId()).get();
-        UserProfile userProfile = UserProfile.builder()
-                .profileBody(signUpRequest.getProfileBody())
-                .profileImageId(signUpRequest.getUserProfileImageId())
-                .build();
+        if(userInfoRepository.findUserInfoByUserEmail(signUpRequest.getUserEmail()).isPresent()) {
+            throw new CustomException(ErrorCode.EMAIL_ALREADY_EXIST);
+        }
+        School targetSchool = isEmailInSchools(signUpRequest.getUserEmail())
+                .orElseThrow(()-> new CustomException(ErrorCode.WRONG_EMAIL_FORM));
+        UserProfile userProfile = UserProfile.builder().build();
         userProfileRepository.save(userProfile);
+        entityManager.refresh(userProfile);
         UserInfo userInfo = UserInfo.builder()
-                .userId(signUpRequest.getUserId())
+                .userId(signUpRequest.getUserEmail())
                 .userPassword(signUpRequest.getUserPassword())
                 .userEmail(signUpRequest.getUserEmail())
-                .school(school)
+                .school(targetSchool)
                 .userProfile(userProfile)
-                .userNickname(signUpRequest.getUserNickname())
+                .userNickname(randomNicknameGenerate())
+                .userType(1)
                 .build();
         userInfo.passwordEncoding();
         userInfoRepository.save(userInfo);
+        String randomCode = RandomNumber.generateRandomCode(40) + System.currentTimeMillis();
+        try {
+            sendVerificationMail(userInfo,randomCode);
+        } catch (MessagingException e) {
+            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
+        }
+        emailVerificationRenewRepository.save(EmailVerificationRenew.builder().emailVerificationCode(randomCode).userInfo(userInfo).build());
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
+
+    private void sendVerificationMail(UserInfo userInfo, String randomCode) throws MessagingException {
+        String verificationUrl = EMAIL_VERIFICATION_URL + userInfo.getUserInfoId() + "/verification/" + randomCode;
+        mailUtil.sendMail(
+                MailDTO.MailRequest.builder()
+                .receiverEmail(userInfo.getUserEmail())
+                .subject("Rudder verification")
+                .body(verificationUrl)
+                .build()
+        );
+    }
+
+    private String randomNicknameGenerate(){
+        return System.currentTimeMillis()+RandomNumber.generateRandomCode();
+    }
+
+    private Optional<School> isEmailInSchools(String email) {
+        List<School> schools = schoolRepository.findAll();
+        School targetSchool = null;
+        for(School school : schools){
+            if(school.validateEmailRegex(email)){
+                targetSchool = school;
+                break;
+            }
+        }
+        return Optional.ofNullable(targetSchool);
+    }
+
 
     public void userIdDuplicationCheck(String userId) {
         if(userInfoRepository.findUserInfoByUserId(userId).isPresent()) {
@@ -104,7 +147,7 @@ public class UserInfoService {
     public void sendVerificationCode(String userEmail) {
         userInfoRepository.findUserInfoByUserEmail(userEmail)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_EMAIL_NOT_FOUND));
-        String verificationCode = RandomNumber.generateVerificationCode();
+        String verificationCode = RandomNumber.generateRandomCode();
         EmailVerification emailVerification = EmailVerification.builder()
                 .email(userEmail)
                 .verificationCode(verificationCode)
@@ -153,7 +196,7 @@ public class UserInfoService {
         }
         schoolService.validateEmailRegex(userEmail,validateEmailRequest);
         try {
-            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail,RandomNumber.generateVerificationCode()));
+            mailUtil.sendMail(MailRequestEnum.VERIFICATION_CODE.getMailRequest(userEmail,RandomNumber.generateRandomCode()));
         } catch (MessagingException e) {
             log.error(e.getMessage());
             throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);

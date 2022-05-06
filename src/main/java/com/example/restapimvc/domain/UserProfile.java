@@ -2,6 +2,7 @@ package com.example.restapimvc.domain;
 
 import com.example.restapimvc.dto.UserProfileDto;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table
 @AllArgsConstructor
+@DynamicInsert
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,7 @@ public class UserProfile {
         this.profileBody = profileBody;
         this.profileImageId = profileImageId;
     }
+
 
 
 }

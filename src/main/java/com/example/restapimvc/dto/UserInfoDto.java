@@ -49,17 +49,8 @@ public class UserInfoDto {
     @NoArgsConstructor
     @Builder
     public static class SignUpRequest {
-        private String userId;
-        private String userPassword;
         private String userEmail;
-        private String recommendationCode;
-        private Long schoolId;
-        private String profileBody;
-        private String userNickname;
-        private Long userProfileImageId;
-
-
-
+        private String userPassword;
     }
 
     @Getter
