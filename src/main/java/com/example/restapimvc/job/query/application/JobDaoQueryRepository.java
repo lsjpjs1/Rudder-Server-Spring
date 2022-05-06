@@ -31,7 +31,7 @@ public class JobDaoQueryRepository {
                 .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .where(
                         lessThanJobId(jobDaoRequest.getEndJobId()),
-                        searchFromJobSummary(jobDaoRequest.getSearchBody().toLowerCase())
+                        searchFromJobSummary(jobDaoRequest.getSearchBody())
                 )
                 .groupBy(jobDao.jobId)
                 .orderBy(jobDao.jobId.desc())
@@ -107,7 +107,7 @@ public class JobDaoQueryRepository {
         if (searchBody == null) {
             return null;
         }
-        return jobDao.searchSummary.contains(searchBody);
+        return jobDao.searchSummary.contains(searchBody.toLowerCase());
     }
 
     private BooleanExpression lessThanJobId(Long endJobId) {
