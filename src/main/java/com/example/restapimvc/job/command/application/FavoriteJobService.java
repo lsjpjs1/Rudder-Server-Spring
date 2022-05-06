@@ -37,4 +37,14 @@ public class FavoriteJobService {
         jobRepository.save(job);
         return jobMapper.entityToFavoriteJobResponse(jobFavorite);
     }
+
+    @Transactional
+    public void deleteFavoriteJob(UserInfo userInfo, JobDto.FavoriteJobRequest favoriteJobRequest) {
+        favoriteJobRequest.setAllUserInfo(userInfo);
+        Job job = jobRepository.findById(favoriteJobRequest.getJobId())
+                .orElseThrow(()->new CustomException(ErrorCode.JOB_NOT_FOUND));
+        JobFavorite jobFavorite = jobFavoriteRepository.findByJobAndUserInfoId(job, favoriteJobRequest.getUserInfoId())
+                .orElseThrow(() -> new CustomException(ErrorCode.JOB_FAVORITE_NOT_FOUND));
+        jobFavoriteRepository.delete(jobFavorite);
+    }
 }

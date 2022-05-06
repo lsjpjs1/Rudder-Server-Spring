@@ -44,4 +44,30 @@ public class FavoriteJobController {
                 .body(favoriteJobService.favoriteJob(userInfoFromToken, favoriteJobRequest))
                 ;
     }
+
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(
+                            name = "jobId"
+                            , value = "즐겨찾기 삭제할 jobId"
+                            , required = true
+                            , dataType = "Long"
+                            , paramType = "path"
+                    )
+            })
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 404, message = "1.JOB_NOT_FOUND(존재하지 않는 jobId) \t\n2.JOB_FAVORITE_NOT_FOUND(user가 해당 job을 즐겨찾기한 적이 없음)", response = ErrorResponse.class)
+    })
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/jobs/{jobId}/favorite")
+    public ResponseEntity deleteJobFavorite(@PathVariable Long jobId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        JobDto.FavoriteJobRequest favoriteJobRequest = JobDto.FavoriteJobRequest.builder().jobId(jobId).build();
+        favoriteJobService.deleteFavoriteJob(userInfoFromToken, favoriteJobRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
 }

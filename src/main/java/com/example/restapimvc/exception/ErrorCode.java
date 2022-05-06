@@ -26,6 +26,7 @@ public enum ErrorCode {
     POST_WRITER_BLOCKED(HttpStatus.NOT_FOUND,"Writer of post was blocked"),
     VERIFICATION_CODE_WRONG(HttpStatus.NOT_FOUND,"VerificationCode is wrong"),
     JOB_NOT_FOUND(HttpStatus.NOT_FOUND,"Job cannot found."),
+    JOB_FAVORITE_NOT_FOUND(HttpStatus.NOT_FOUND,"JobFavorite cannot found."),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),
