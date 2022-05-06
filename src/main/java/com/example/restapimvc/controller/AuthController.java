@@ -23,6 +23,7 @@ public class AuthController {
      * @throws 406 BAD_REQUEST_CONTENT, userId 혹은 userPassword null인 경우
      * @throws 404 USER_ID_NOT_FOUND, 존재하지 않는 userId
      * @throws 401 PASSWORD_WRONG, 비밀번호 틀림
+     * @throws 401 EMAIL_NOT_VERIFIED, 인증되지 않은 이메일
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TokenDto> login(@RequestBody UserInfoDto.LoginRequest loginRequest){

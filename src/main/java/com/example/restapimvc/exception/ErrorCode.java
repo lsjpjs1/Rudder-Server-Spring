@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
     PASSWORD_WRONG(HttpStatus.UNAUTHORIZED, "Password is wrong"),
+    EMAIL_NOT_VERIFIED(HttpStatus.UNAUTHORIZED, "Email is not verified"),
 
     NOT_CLUB_MEMBER(HttpStatus.FORBIDDEN, "This post can read just club member"),
     NOT_SCHOOL_MEMBER(HttpStatus.FORBIDDEN, "This post can read just school member"),

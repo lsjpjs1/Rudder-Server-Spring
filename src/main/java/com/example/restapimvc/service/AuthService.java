@@ -39,6 +39,9 @@ public class AuthService {
         if(!sha1PasswordEncoder.matches(loginRequest.getUserPassword(),userInfo.getUserPassword())) {
             throw new CustomException(ErrorCode.PASSWORD_WRONG);
         }
+        if (userInfo.getUserType().equals(1)) {
+           throw new CustomException(ErrorCode.EMAIL_NOT_VERIFIED);
+        }
 
         userInfo.setOs(UserInfoOsType.fromString(loginRequest.getOs()));
         userInfo.setNotificationToken(loginRequest.getNotificationToken());
