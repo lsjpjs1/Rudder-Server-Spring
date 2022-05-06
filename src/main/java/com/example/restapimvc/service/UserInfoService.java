@@ -202,6 +202,17 @@ public class UserInfoService {
             throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
         }
     }
+    public void verifyUser(Long userInfoId, String verificationCode) {
+        UserInfo userInfo = userInfoRepository.findById(userInfoId).
+                orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+        EmailVerificationRenew emailVerificationRenew = emailVerificationRenewRepository.findTopByUserInfoOrderByEmailVerificationIdDesc(userInfo)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+        if (!emailVerificationRenew.getEmailVerificationCode().equals(verificationCode)) {
+            throw new CustomException(ErrorCode.VERIFICATION_CODE_WRONG);
+        }
+        userInfo.verifyEmail();
+        userInfoRepository.save(userInfo);
+    }
 
 
 }

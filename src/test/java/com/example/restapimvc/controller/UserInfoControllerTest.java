@@ -210,4 +210,8 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    void verifyUser() {
+    }
 }

@@ -114,6 +114,15 @@ public class UserInfoController {
                 .build();
     }
 
+    @GetMapping(value = "/{userInfoId}/verification/{verificationCode}")
+    public ResponseEntity verifyUser(@PathVariable("userInfoId") Long userInfoId,
+                                     @PathVariable("verificationCode") String verificationCode) {
+        userInfoService.verifyUser(userInfoId, verificationCode);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Verification success!");
+    }
+
     /**
      * Legacy: /signupin/sendIdToEmail
      * @param userEmail

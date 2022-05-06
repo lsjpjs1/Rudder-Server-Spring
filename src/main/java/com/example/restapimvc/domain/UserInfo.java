@@ -67,6 +67,10 @@ public class UserInfo {
         return newPassword;
     }
 
+    public void verifyEmail() {
+        this.userType = 0;
+    }
+
 
 
 

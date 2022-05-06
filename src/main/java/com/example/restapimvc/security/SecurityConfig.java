@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user-profile-images").permitAll()
                 .antMatchers("/user-infos").permitAll()
                 .antMatchers("/user-infos/**/**/duplication-check").permitAll()
+                .antMatchers("/user-infos/**/verification/**").permitAll()
                 .antMatchers("/user-infos/**/**/find-user-id").permitAll()
                 .antMatchers("/user-infos/**/**/find-user-password").permitAll()
                 .antMatchers("/user-infos/user-email/**/verify").permitAll()
