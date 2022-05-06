@@ -45,8 +45,8 @@ class AuthControllerTest {
 //        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("pwNull",null,"123","android")));
 //        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest(null,null,"123","android")));
 //        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("notExistId","123123123a","123","android")));
-        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("lsjpjs1@naver.com","123123123a","123","android")));
-//        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("abcd","123123123a","rightCase",null)));
+//        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("lsjpjs1@naver.com","123123123a","123","android")));
+        contents.add(objectMapper.writeValueAsString(new UserInfoDto.LoginRequest("abcd","123123123a","rightCase",null)));
 
 
         for(String content: contents){

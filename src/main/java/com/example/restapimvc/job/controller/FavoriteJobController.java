@@ -32,7 +32,8 @@ public class FavoriteJobController {
             })
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공", response = JobDto.FavoriteJobResponse.class),
-            @ApiResponse(code = 404, message = "1.JOB_NOT_FOUND(존재하지 않는 jobId) \t\n", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "1.JOB_NOT_FOUND(존재하지 않는 jobId) \t\n", response = ErrorResponse.class),
+            @ApiResponse(code = 409, message = "1.JOB_FAVORITE_ALREADY_EXIST(이미 즐겨찾기한 job) \t\n", response = ErrorResponse.class)
     })
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping(value = "/jobs/{jobId}/favorite")

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,8 @@ public class FavoriteJobService {
         favoriteJobRequest.setAllUserInfo(userInfo);
         Job job = jobRepository.findById(favoriteJobRequest.getJobId())
                 .orElseThrow(()->new CustomException(ErrorCode.JOB_NOT_FOUND));
+        jobFavoriteRepository.findByJobAndUserInfoId(job,favoriteJobRequest.getUserInfoId())
+                .ifPresent((t)->{throw new CustomException(ErrorCode.JOB_FAVORITE_ALREADY_EXIST);});
         JobFavorite jobFavorite = JobFavorite.builder()
                 .job(job)
                 .userInfoId(userInfo.getUserInfoId())
