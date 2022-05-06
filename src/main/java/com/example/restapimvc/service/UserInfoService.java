@@ -86,7 +86,6 @@ public class UserInfoService {
         try {
             sendVerificationMail(userInfo,randomCode);
         } catch (MessagingException e) {
-            throw new CustomException(ErrorCode.SEND_EMAIL_FAIL);
         }
         emailVerificationRenewRepository.save(EmailVerificationRenew.builder().emailVerificationCode(randomCode).userInfo(userInfo).build());
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);

@@ -1,7 +1,9 @@
 package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.UserInfoDto;
+import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.service.UserInfoService;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +19,12 @@ public class UserInfoController {
 
     /**
      * Legacy: /users/updateNickname
+     *
      * @param updateNicknameRequest String nickname
      * @return 201, String userId, String userNickname
      * @throws 409, DUPLICATE_RESOURCE 이미 존재하는 닉네임
      */
-    @PatchMapping(value = "/nickname",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/nickname", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserInfoDto.UserInfoResponse> updateUserNickname(@RequestBody UserInfoDto.UpdateNicknameRequest updateNicknameRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -31,6 +34,7 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/logout
+     *
      * @return 204, 응답 body 없음
      */
     @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,26 +46,17 @@ public class UserInfoController {
     }
 
 
-    /**
-     * Legacy: /signupin/signupinsert
-     * @param signUpRequest
-     *         private String userId;
-     *         private String userPassword;
-     *         private String userEmail;
-     *         private String recommendationCode;
-     *         private Long schoolId;
-     *         private String profileBody;
-     *         private String userNickname;
-     *         private Long userProfileImageId;
-     * @return 201,
-     *         String userId
-     *         String userNickname
-     *         String userEmail
-     *         School school{Long SchoolId, String schoolName}
-     *         UserProfile userProfile{Long profileId, String profileBody, Long profileImageId}
-     */
+    @ApiOperation(value = "회원가입")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "성공"),
+            @ApiResponse(code = 406, message = "1.WRONG_EMAIL_FORM(지원하지 않는 이메일 형식)", response = ErrorResponse.class),
+            @ApiResponse(code = 409, message = "1.EMAIL_ALREADY_EXIST(이미 존재하는 이메일)", response = ErrorResponse.class)
+    })
+    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
-    public ResponseEntity<UserInfoDto.UserInfoEntireResponse> signUp(@RequestBody UserInfoDto.SignUpRequest signUpRequest) {
+    public ResponseEntity<UserInfoDto.UserInfoEntireResponse> signUp(
+            @RequestBody UserInfoDto.SignUpRequest signUpRequest
+    ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userInfoService.signUp(signUpRequest));
@@ -69,6 +64,7 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/checkduplication
+     *
      * @param userId String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 아이디 중복
@@ -83,6 +79,7 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/checkDuplicationNickname
+     *
      * @param nickname String
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 닉네임 중복
@@ -97,7 +94,8 @@ public class UserInfoController {
 
     /**
      * Legacy: /schoolverify/verifyEmail
-     * @param userEmail String
+     *
+     * @param userEmail            String
      * @param validateEmailRequest Long schoolId
      * @return 204
      * @throws 409 DUPLICATE_RESOURCE 이메일 중복
@@ -108,7 +106,7 @@ public class UserInfoController {
     @PostMapping(value = "/user-email/{userEmail}/validate")
     public ResponseEntity validateEmail(@PathVariable("userEmail") String userEmail,
                                         @RequestBody UserInfoDto.ValidateEmailRequest validateEmailRequest) {
-        userInfoService.validateEmail(userEmail,validateEmailRequest);
+        userInfoService.validateEmail(userEmail, validateEmailRequest);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -125,6 +123,7 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/sendIdToEmail
+     *
      * @param userEmail
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -141,6 +140,7 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/sendPwVerificationCode
+     *
      * @param userEmail String
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -157,7 +157,8 @@ public class UserInfoController {
 
     /**
      * Legacy: /signupin/checkCode
-     * @param userEmail String
+     *
+     * @param userEmail                    String
      * @param checkVerificationCodeRequest String verificationCode
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -176,7 +177,7 @@ public class UserInfoController {
     }
 
     /**
-     * @param userEmail String
+     * @param userEmail                    String
      * @param checkVerificationCodeRequest String verificationCode
      * @return 204
      * @throws 404 USER_EMAIL_NOT_FOUND, 존재하지 않는 이메일
@@ -185,7 +186,7 @@ public class UserInfoController {
      */
     @PostMapping(value = "/user-email/{userEmail}/check-verification-code")
     public ResponseEntity checkVerificationCode(@PathVariable("userEmail") String userEmail,
-                                             @RequestBody UserInfoDto.CheckVerificationCodeRequest checkVerificationCodeRequest) {
+                                                @RequestBody UserInfoDto.CheckVerificationCodeRequest checkVerificationCodeRequest) {
         userInfoService.checkVerificationCode(userEmail, checkVerificationCodeRequest);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
