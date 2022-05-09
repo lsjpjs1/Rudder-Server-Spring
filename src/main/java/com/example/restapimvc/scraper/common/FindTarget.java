@@ -62,8 +62,6 @@ public class FindTarget implements CsvConvertible{
         stringBuilder.append(" ");
         stringBuilder.append(location);
         stringBuilder.append(" ");
-        stringBuilder.append(jobDescription);
-        stringBuilder.append(" ");
         return stringBuilder.toString().replaceAll("-"," ").toLowerCase();
 
     }
