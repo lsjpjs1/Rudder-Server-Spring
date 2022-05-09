@@ -27,7 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserInfoService {
 
-    private static final String EMAIL_VERIFICATION_URL = "https://rudderuni.com:8090/user-infos/";
+    private static final String EMAIL_VERIFICATION_URL = "https://test.rudderuni.com/user-infos/";
     private final UserInfoRepository userInfoRepository;
     private final SchoolRepository schoolRepository;
     private final UserProfileRepository userProfileRepository;
