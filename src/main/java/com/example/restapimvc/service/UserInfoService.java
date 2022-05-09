@@ -63,31 +63,43 @@ public class UserInfoService {
 
     @Transactional
     public UserInfoDto.UserInfoEntireResponse signUp(UserInfoDto.SignUpRequest signUpRequest) {
-        if(userInfoRepository.findUserInfoByUserEmail(signUpRequest.getUserEmail()).isPresent()) {
-            throw new CustomException(ErrorCode.EMAIL_ALREADY_EXIST);
-        }
         School targetSchool = isEmailInSchools(signUpRequest.getUserEmail())
                 .orElseThrow(()-> new CustomException(ErrorCode.WRONG_EMAIL_FORM));
-        UserProfile userProfile = UserProfile.builder().build();
-        userProfileRepository.save(userProfile);
-        entityManager.refresh(userProfile);
-        UserInfo userInfo = UserInfo.builder()
-                .userId(signUpRequest.getUserEmail())
-                .userPassword(signUpRequest.getUserPassword())
-                .userEmail(signUpRequest.getUserEmail())
-                .school(targetSchool)
-                .userProfile(userProfile)
-                .userNickname(randomNicknameGenerate())
-                .userType(1)
-                .build();
-        userInfo.passwordEncoding();
-        userInfoRepository.save(userInfo);
+        Optional<UserInfo> optionalUserInfo = userInfoRepository.findUserInfoByUserEmail(signUpRequest.getUserEmail());
+        UserInfo userInfo;
+        if(optionalUserInfo.isPresent()) {
+            if(optionalUserInfo.get().getUserType().equals(0)){
+                throw new CustomException(ErrorCode.EMAIL_ALREADY_EXIST);
+            }else{
+                userInfo = optionalUserInfo.get();
+            }
+        }else {
+            UserProfile userProfile = UserProfile.builder().build();
+            userProfileRepository.save(userProfile);
+            entityManager.refresh(userProfile);
+            userInfo = UserInfo.builder()
+                    .userId(signUpRequest.getUserEmail())
+                    .userPassword(signUpRequest.getUserPassword())
+                    .userEmail(signUpRequest.getUserEmail())
+                    .school(targetSchool)
+                    .userProfile(userProfile)
+                    .userNickname(randomNicknameGenerate())
+                    .userType(1)
+                    .build();
+            userInfo.passwordEncoding();
+            userInfoRepository.save(userInfo);
+        }
+
+
         String randomCode = RandomNumber.generateRandomCode(40) + System.currentTimeMillis();
         try {
             sendVerificationMail(userInfo,randomCode);
         } catch (MessagingException e) {
         }
-        emailVerificationRenewRepository.save(EmailVerificationRenew.builder().emailVerificationCode(randomCode).userInfo(userInfo).build());
+        EmailVerificationRenew emailVerificationRenew = emailVerificationRenewRepository.findTopByUserInfoOrderByEmailVerificationIdDesc(userInfo)
+                .orElse(EmailVerificationRenew.builder().userInfo(userInfo).build());
+        emailVerificationRenew.updateVerificationCode(randomCode);
+        emailVerificationRenewRepository.save(emailVerificationRenew);
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 

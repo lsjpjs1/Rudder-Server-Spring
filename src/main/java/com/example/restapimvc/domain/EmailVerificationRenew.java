@@ -20,4 +20,8 @@ public class EmailVerificationRenew {
     private UserInfo userInfo;
 
     private String emailVerificationCode;
+
+    public void updateVerificationCode(String emailVerificationCode) {
+        this.emailVerificationCode = emailVerificationCode;
+    }
 }

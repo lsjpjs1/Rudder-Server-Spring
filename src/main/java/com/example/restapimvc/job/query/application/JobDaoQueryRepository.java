@@ -48,7 +48,8 @@ public class JobDaoQueryRepository {
                 .from(jobDao)
                 .leftJoin(jobFavorite).on(jobDao.jobId.eq(jobFavorite.job.jobId))
                 .where(
-                        isFavoriteByUser(jobDaoRequest.getUserInfoId())
+                        isFavoriteByUser(jobDaoRequest.getUserInfoId()),
+                        lessThanJobId(jobDaoRequest.getEndJobId())
                 )
                 .groupBy(jobDao.jobId)
                 .orderBy(jobDao.jobId.desc())
