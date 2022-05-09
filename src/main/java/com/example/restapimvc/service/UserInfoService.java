@@ -92,10 +92,13 @@ public class UserInfoService {
 
 
         String randomCode = RandomNumber.generateRandomCode(40) + System.currentTimeMillis();
-        try {
-            sendVerificationMail(userInfo,randomCode);
-        } catch (MessagingException e) {
-        }
+        Thread sendEmailThread = new Thread(() -> {
+            try {
+                sendVerificationMail(userInfo, randomCode);
+            } catch (MessagingException e) {
+            }
+        });
+        sendEmailThread.start();
         EmailVerificationRenew emailVerificationRenew = emailVerificationRenewRepository.findTopByUserInfoOrderByEmailVerificationIdDesc(userInfo)
                 .orElse(EmailVerificationRenew.builder().userInfo(userInfo).build());
         emailVerificationRenew.updateVerificationCode(randomCode);
