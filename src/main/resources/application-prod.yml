@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: ENC(O8ytIxFrnwnqYnNa3XPnDz3+CPe0Rv6rcx4O6TadMbh7EdFe435B6ldT4KJtDsjea1nOQCg+G0tDECugVTRrwzMx+2rg55SkRa8iRpY+SjnBTKZjgtFmc0Ev9PMrKEXu)
+    username: ENC(H81AMAIMb8TG9vYT1O0b2A==)
+    password: ENC(odYBvxeQGCrnjJcrU8FfPPnI+XMAy6/A)
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: com.example.restapimvc.querydsl.CustomPGDialect
+
+
+
+  h2:
+    console:
+      enabled: false
+      path: /console
+
+jwt:
+  secret: ENC(YwBliokjkdmTR8ZBhwtrQDyDyy8NDIIeOKC1Xsff5VHwtmZ2F9HT3g4CILYHQigYzAF8JTPAogNlYhkRyyljbcu10iuEvRWBtjeMUIolKJNOZhdJ5HJ5pwhX1GO/uMm4TRq8EcJnUN1sFNVhEnnz1Q==)
+
+password:
+  secret: ENC(SuduKmAP5a+Xh7kWOwyq6W8cqv2jGIywrVbtj3yxvdA=)
+
+aws:
+  s3:
+    image-bucket: ENC(OOKgTrqBQOjmTARJt9kRFHOt/nfOddSAhL94InLdLXwqcPkRttOATw==)
+    region: ap-northeast-2
+    access-key-id: ENC(QHhOtFo3PU6+xznfgJo3YHuBglKgv/k4fvwbhLbJY3Q=)
+    secret-access-key: ENC(xZV/pJfloHs13GFlQbYDD14SH6KC56L2MPKK9itCDYAMOz+q/tr9jbODAmWyjSMhnNpwzhHfMQc=)
+  cloud-front:
+    url:
+      high-quality-profile-image: ENC(bIQvhUGwlwVFFGzw4auvYJjfoBSlkyNrmczz8DYnRBl3EYSm8uwU+hMLzmLdKVpGbY+nHlmTr4xWEEoy73qsZA==)
+      preview-profile-image: ENC(789tqAtbft19agxcYos04rlPeSzz4Qu+Og1p924PJlfCmqmm9B3vXWUhJcyq/fgsQByN1hzPlMnPluehbczvIxlvTphy5WiM)
+
+
+
+cloud-front:
+  url:
+    post-image: ENC(h17vZyscy5+AKY7sfuOTdk9oM4WGOlrW95Q+RiOFMAELbX7/dfFPaVrD9Bh+P/YO)
+    profile-image-preview: ENC(Qmx949ysNK61i1n27cFNXd3H0lWGS2OZzRziUSNrgggcJR7oWCTfGNl3iPfYizniBcWQL4IMu1761J5iotcUGHTqZj+HWeZT)
