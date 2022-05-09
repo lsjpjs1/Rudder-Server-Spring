@@ -26,7 +26,6 @@ public class LookUpJobController {
     @ApiOperation(value = "job 목록 복수조회")
     @GetMapping(value = "/jobs")
     public ResponseEntity<JobDaoDto.JobDaoResponseWrapper> getJobs(@ModelAttribute JobDaoDto.JobDaoRequest jobDaoRequest) {
-        System.out.println(jobDaoRequest.toString());
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
