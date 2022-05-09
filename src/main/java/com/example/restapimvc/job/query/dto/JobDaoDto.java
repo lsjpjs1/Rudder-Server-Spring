@@ -58,6 +58,7 @@ public class JobDaoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class JobDaoSummaryResponse {
         private Long jobId;
         private String jobTitle;
@@ -73,6 +74,7 @@ public class JobDaoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class JobDaoDetailResponse {
         private Long jobId;
         private String jobTitle;

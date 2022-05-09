@@ -10,6 +10,7 @@ public class JobDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class FavoriteJobRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long jobId;
     }
@@ -19,6 +20,7 @@ public class JobDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class FavoriteJobResponse{
         private Long jobFavoriteId;
         private Long jobId;
