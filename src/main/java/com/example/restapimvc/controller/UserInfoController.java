@@ -4,6 +4,7 @@ import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.service.UserInfoService;
 import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,8 +46,7 @@ public class UserInfoController {
                 .build();
     }
 
-
-    @ApiOperation(value = "회원가입")
+    @Operation(summary = "회원가입", description = "Legacy: /signupin/signupinsert")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공"),
             @ApiResponse(code = 406, message = "1.WRONG_EMAIL_FORM(지원하지 않는 이메일 형식)", response = ErrorResponse.class),
