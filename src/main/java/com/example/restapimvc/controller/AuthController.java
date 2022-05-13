@@ -35,8 +35,8 @@ public class AuthController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "1.EMAIL_NOT_VERIFIED(인증되지 않은 이메일)\t\n2.PASSWORD_WRONG(비밀번호 틀림)", response = ErrorResponse.class),
-            @ApiResponse(code = 406, message = "1.USER_ID_NOT_FOUND(존재하지 않는 userId)", response = ErrorResponse.class),
-            @ApiResponse(code = 409, message = "1.BAD_REQUEST_CONTENT(userId 혹은 userPassword null인 경우)", response = ErrorResponse.class)
+            @ApiResponse(code = 404, message = "1.USER_ID_NOT_FOUND(존재하지 않는 userId)", response = ErrorResponse.class),
+            @ApiResponse(code = 406, message = "1.BAD_REQUEST_CONTENT(userId 혹은 userPassword null인 경우)", response = ErrorResponse.class)
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TokenDto> login(@RequestBody UserInfoDto.LoginRequest loginRequest){

@@ -6,8 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class CategoryDaoRepositoryTest {
-    @Autowired
-    CategoryRepository repository;
+
 
 
     @Test
