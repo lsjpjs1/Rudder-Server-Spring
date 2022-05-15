@@ -22,6 +22,15 @@ public class CategoryDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    public static class JoinClubRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Long categoryId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class GetCategoriesResponse {
         private List<CategoryResponse> categories;
     }

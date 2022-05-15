@@ -28,16 +28,19 @@ public enum ErrorCode {
     VERIFICATION_CODE_WRONG(HttpStatus.NOT_FOUND,"VerificationCode is wrong"),
     JOB_NOT_FOUND(HttpStatus.NOT_FOUND,"Job cannot found."),
     JOB_FAVORITE_NOT_FOUND(HttpStatus.NOT_FOUND,"JobFavorite cannot found."),
+    CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND,"Category cannot found."),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),
     ALREADY_PROCESSED(HttpStatus.NOT_ACCEPTABLE,"This work has already been processed"),
     IMAGE_UPLOAD_NOT_COMPLETE(HttpStatus.NOT_ACCEPTABLE,"Image upload not complete yet"),
+    NOT_CLUB_CATEGORY(HttpStatus.NOT_ACCEPTABLE,"CategoryId does not club"),
 
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
     EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, "Email already exists."),
     JOB_FAVORITE_ALREADY_EXIST(HttpStatus.CONFLICT, "Already favorite this job"),
+    ALREADY_CLUB_MEMBER(HttpStatus.CONFLICT, "You are already club member"),
 
     SEND_EMAIL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to send email")
         ;
