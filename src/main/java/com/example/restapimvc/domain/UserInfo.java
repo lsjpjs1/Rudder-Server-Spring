@@ -1,6 +1,7 @@
 package com.example.restapimvc.domain;
 
 import com.example.restapimvc.enums.UserInfoOsType;
+import com.example.restapimvc.post.command.domain.PostLike;
 import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.example.restapimvc.serializer.SchoolSerializer;
 import com.example.restapimvc.util.RandomNumber;
@@ -10,6 +11,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -26,7 +30,7 @@ public class UserInfo {
 
     private String userId;
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(targetEntity = School.class, fetch = FetchType.LAZY)
     @JsonSerialize(using = SchoolSerializer.class)
     @JoinColumn(name = "school_id")
@@ -56,13 +60,16 @@ public class UserInfo {
 
     private String userEmail;
 
+    @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserSelectCategory> userSelectCategories;
+
     public void passwordEncoding() {
         userPassword = Sha1PasswordEncoder.getInstance().encode(userPassword);
     }
 
     public String passwordReset() {
         String newPassword = RandomNumber.generatePassword();
-        userPassword=newPassword;
+        userPassword = newPassword;
         passwordEncoding();
         return newPassword;
     }
@@ -71,9 +78,14 @@ public class UserInfo {
         this.userType = 0;
     }
 
-
-
-
+    public void updateSelectCategories(List<Long> categories) {
+        List<UserSelectCategory> newSelectedCategories = new ArrayList<>();
+        for (Long categoryId : categories) {
+            newSelectedCategories.add(UserSelectCategory.builder().userInfo(this).categoryId(categoryId).build());
+        }
+        userSelectCategories.clear();
+        userSelectCategories.addAll(newSelectedCategories);
+    }
 
 
 }

@@ -22,14 +22,12 @@ public class UserSelectCategory {
     @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
-    @ManyToOne(targetEntity = CategoryDao.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private CategoryDao categoryDao;
+    private Long categoryId;
 
     @Builder
-    public UserSelectCategory(UserInfo userInfo, CategoryDao categoryDao) {
+    public UserSelectCategory(UserInfo userInfo, Long categoryId) {
         this.userInfo = userInfo;
-        this.categoryDao = categoryDao;
+        this.categoryId = categoryId;
     }
 
 

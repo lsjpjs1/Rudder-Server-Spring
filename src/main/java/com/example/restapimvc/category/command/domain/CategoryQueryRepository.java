@@ -31,7 +31,7 @@ public class CategoryQueryRepository {
                         )
                 )
                 .from(category)
-                .leftJoin(userSelectCategory).on(category.categoryId.eq(userSelectCategory.categoryDao.categoryId))
+                .leftJoin(userSelectCategory).on(category.categoryId.eq(userSelectCategory.categoryId))
                 .where(
                         category.school.schoolId.eq(getCategoriesRequest.getSchoolId()),
                         category.categoryEnable.eq(Boolean.TRUE),
@@ -51,7 +51,7 @@ public class CategoryQueryRepository {
                 .when(JPAExpressions.select(userSelectCategory.userSelectCategoryId.count())
                         .from(userSelectCategory)
                         .where(
-                                userSelectCategory.categoryDao.categoryId.eq(category.categoryId)
+                                userSelectCategory.categoryId.eq(category.categoryId)
                                         .and(userSelectCategory.userInfo.userInfoId.eq(getCategoriesRequest.getUserInfoId()))
                         )
                         .gt(0l)).then(Boolean.TRUE)

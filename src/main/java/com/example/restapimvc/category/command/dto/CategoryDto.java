@@ -31,6 +31,15 @@ public class CategoryDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    public static class UserSelectCategoryRequest extends WithUserInfo.AbstractWithUserInfo {
+        private List<Long> categories;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class GetCategoriesResponse {
         private List<CategoryResponse> categories;
     }
