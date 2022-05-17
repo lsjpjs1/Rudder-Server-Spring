@@ -66,7 +66,7 @@ public class PostViewQueryRepository {
                                 .and(lessThanPostId(postViewMultipleLookUpRequest.getEndPostId()))
                                 .and(equalCategoryId(postViewMultipleLookUpRequest.getCategoryId()))
                                 .and(searchFromPostBody(postViewMultipleLookUpRequest.getSearchBody()))
-                                .and(writerIs(postViewMultipleLookUpRequest.getWriterUserInfoId()))
+                                .and(isWriter(postViewMultipleLookUpRequest.getUserInfoId()))
                 )
                 .groupBy(postView.postId, postView.postTime)
                 .having(
@@ -194,10 +194,10 @@ public class PostViewQueryRepository {
         }
         return postView.postBody.contains(searchBody);
     }
-    private BooleanExpression writerIs(Long writerUserInfoId) {
-        if (writerUserInfoId == null) {
+    private BooleanExpression isWriter(Long userInfoId) {
+        if (userInfoId == null) {
             return null;
         }
-        return userInfo.userInfoId.eq(writerUserInfoId);
+        return userInfo.userInfoId.eq(userInfoId);
     }
 }
