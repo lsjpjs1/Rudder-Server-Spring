@@ -33,7 +33,7 @@ public class PostViewDTO {
         private String categoryAbbreviation;
         @JsonSerialize(using = ParseImageUrlsSerializer.class)
         private String imageUrls;
-        private Boolean isLike;
+        private Boolean isLiked;
         private Boolean isMine;
         private String userProfileImageUrl;
         private String userNickname;
