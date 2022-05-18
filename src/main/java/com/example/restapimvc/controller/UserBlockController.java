@@ -3,6 +3,7 @@ package com.example.restapimvc.controller;
 import com.example.restapimvc.domain.UserBlock;
 import com.example.restapimvc.dto.UserBlockDTO;
 import com.example.restapimvc.service.UserBlockService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user-blocks")
 @RequiredArgsConstructor
+@Api( tags = "User 차단 관련")
 public class UserBlockController {
     private final UserBlockService userBlockService;
 

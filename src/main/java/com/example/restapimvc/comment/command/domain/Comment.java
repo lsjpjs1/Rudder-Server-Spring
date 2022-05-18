@@ -28,7 +28,7 @@ public class Comment {
     private Post post;
 
     @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "comment_user_info_id")
     private UserInfo userInfo;
 
     private String commentBody;

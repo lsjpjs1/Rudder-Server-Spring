@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.NoticeDTO;
 import com.example.restapimvc.service.NoticeService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("notice")
 @RequiredArgsConstructor
+@Api( tags = "공지사항 관련")
 public class NoticeController {
 
     private final NoticeService noticeService;

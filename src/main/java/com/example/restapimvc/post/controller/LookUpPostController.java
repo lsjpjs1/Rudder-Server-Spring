@@ -5,6 +5,7 @@ import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.post.query.application.LookUpPostViewService;
 import com.example.restapimvc.post.query.dto.PostViewDTO;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "게시글 조회 관련")
 public class LookUpPostController {
 
     private final LookUpPostViewService lookUpPostViewService;

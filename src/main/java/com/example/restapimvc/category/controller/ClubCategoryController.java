@@ -4,6 +4,7 @@ import com.example.restapimvc.category.command.application.ClubCategoryService;
 import com.example.restapimvc.category.command.dto.CategoryDto;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "동아리 카테고리 관련")
 public class ClubCategoryController {
     private final ClubCategoryService clubCategoryService;
 

@@ -7,6 +7,7 @@ import com.example.restapimvc.post.command.application.EditPostService;
 import com.example.restapimvc.post.command.dto.CommonPostDto;
 import com.example.restapimvc.post.command.dto.EditPostDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "게시글 수정 관련")
 public class EditPostController {
 
     private final EditPostService editPostService;

@@ -3,6 +3,7 @@ package com.example.restapimvc.controller;
 import com.example.restapimvc.domain.UserRequest;
 import com.example.restapimvc.dto.UserRequestDTO;
 import com.example.restapimvc.service.UserRequestService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("user-requests")
 @RequiredArgsConstructor
+@Api( tags = "고객의 소리")
 public class UserRequestController {
 
     private final UserRequestService userRequestService;

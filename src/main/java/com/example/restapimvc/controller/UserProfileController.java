@@ -6,6 +6,7 @@ import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.dto.UserProfileDto;
 import com.example.restapimvc.service.UserProfileService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("user-profiles")
 @RequiredArgsConstructor
+@Api( tags = "유저 프로필 관련")
 public class UserProfileController {
 
     private final UserProfileService userProfileService;

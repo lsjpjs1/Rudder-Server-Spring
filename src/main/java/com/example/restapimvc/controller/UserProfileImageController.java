@@ -3,6 +3,7 @@ package com.example.restapimvc.controller;
 import com.example.restapimvc.dto.UserProfileDto;
 import com.example.restapimvc.dto.UserProfileImageDTO;
 import com.example.restapimvc.service.UserProfileImageService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user-profile-images")
 @RequiredArgsConstructor
+@Api( tags = "유저 프로필 이미지 조회")
 public class UserProfileImageController {
     private final UserProfileImageService userProfileImageService;
 

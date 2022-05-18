@@ -6,6 +6,7 @@ import com.example.restapimvc.post.command.application.EditPostMetaDataService;
 import com.example.restapimvc.post.command.application.EditPostService;
 import com.example.restapimvc.post.command.dto.PostMetaDataDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "게시글 메타정보 조작")
 public class EditPostMetaDataController {
 
     private final EditPostMetaDataService editPostMetaDataService;

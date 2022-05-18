@@ -15,10 +15,11 @@ import java.util.List;
 public class LookUpCommentService {
 
     private final CommentQueryRepository commentQueryRepository;
-//    @Transactional
-//    public CommentDto.GetCommentsResponse getCategories(UserInfo userInfo, CommentDto.GetCommentsRequest getCommentsRequest) {
-//        getCommentsRequest.setAllUserInfo(userInfo);
-//        commentQueryRepository
-//
-//    }
+    @Transactional
+    public CommentDto.GetCommentsResponse getComments(UserInfo userInfo, CommentDto.GetCommentsRequest getCommentsRequest) {
+        getCommentsRequest.setAllUserInfo(userInfo);
+        List<CommentDto.CommentResponse> comments = commentQueryRepository.findComments(getCommentsRequest);
+        return CommentDto.GetCommentsResponse.builder().comments(comments).build();
+
+    }
 }

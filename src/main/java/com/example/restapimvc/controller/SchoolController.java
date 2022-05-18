@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.SchoolDTO;
 import com.example.restapimvc.service.SchoolService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Api( tags = "school 관련")
 public class SchoolController {
 
     private final SchoolService schoolService;
