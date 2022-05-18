@@ -6,6 +6,7 @@ import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.example.restapimvc.serializer.SchoolSerializer;
 import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.converter.UserInfoOsConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
@@ -61,6 +62,7 @@ public class UserInfo {
     private String userEmail;
 
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<UserSelectCategory> userSelectCategories;
 
     public void passwordEncoding() {
