@@ -71,6 +71,7 @@ public class Post {
         for (String fileName: fileNames) {
             postImages.add(PostImage.builder().post(this).fileName(fileName).build());
         }
+
     }
 
     public void delete() {
