@@ -1,5 +1,6 @@
 package com.example.restapimvc.config;
 
+import com.example.restapimvc.security.CustomSecurityContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -26,7 +27,6 @@ public class LogAop {
         // 메서드 정보 받아오기
         Method method = getMethod(joinPoint);
         log.info("======= method name = {} =======", method.getName());
-
         // 파라미터 받아오기
         Object[] args = joinPoint.getArgs();
         if (args.length <= 0) log.info("no parameter");

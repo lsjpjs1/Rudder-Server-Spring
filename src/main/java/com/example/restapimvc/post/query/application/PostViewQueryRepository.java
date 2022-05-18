@@ -16,6 +16,8 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class PostViewQueryRepository {
 
     @Value("${cloud-front.url.profile-image-preview}")
@@ -41,7 +44,7 @@ public class PostViewQueryRepository {
 
 
     public List<PostViewDTO.PostViewResponse> findPosts(PostViewDTO.PostViewMultipleLookUpRequest postViewMultipleLookUpRequest) {
-
+        log.info(postViewMultipleLookUpRequest.toString());
         List<PostViewDTO.PostViewResponse> results = getPostViewResponseJPAQueryUntilJoin(getPostViewResponseConstructorExpression(postViewMultipleLookUpRequest))
                 .where(
                         postView.schoolId.eq(postViewMultipleLookUpRequest.getSchoolId())

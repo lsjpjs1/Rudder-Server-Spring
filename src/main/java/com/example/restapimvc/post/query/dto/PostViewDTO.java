@@ -66,6 +66,7 @@ public class PostViewDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
     public static class PostViewMultipleLookUpRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long categoryId;
         private String searchBody;
