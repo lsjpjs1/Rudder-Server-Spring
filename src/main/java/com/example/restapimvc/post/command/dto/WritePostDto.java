@@ -27,6 +27,8 @@ public class WritePostDto {
     @ToString
     public static class ImageUploadUrlRequest {
         private List<FileMetaData> imageMetaData;
+
+        private Long postId;
     }
 
 

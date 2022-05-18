@@ -72,6 +72,7 @@ public class Post {
             postImages.add(PostImage.builder().post(this).fileName(fileName).build());
 
         }
+
     }
 
     public void delete() {
