@@ -74,9 +74,8 @@ public class WritePostController {
             @ApiResponse(code = 201, message = "성공"),
             @ApiResponse(code = 406, message = "1.BAD_REQUEST_CONTENT(imageMetaData가 빈 배열이거나 Null일때)", response = ErrorResponse.class)
     })
-    @PostMapping(value = "/posts/{postId}/image-upload-url/generate")
-    public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody WritePostDto.ImageUploadUrlRequest imageUploadUrlRequest,@PathVariable Long postId) {
-        imageUploadUrlRequest.setPostId(postId);
+    @PostMapping(value = "/posts/image-upload-url/generate")
+    public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody WritePostDto.ImageUploadUrlRequest imageUploadUrlRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(postImageUploadService.getImageUploadUrl(imageUploadUrlRequest))
