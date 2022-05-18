@@ -54,5 +54,7 @@ public class CategoryDto {
         private String categoryType;
         private String categoryName;
         private String categoryAbbreviation;
+        private Boolean isSelect;
+        private String isMember;
     }
 }
