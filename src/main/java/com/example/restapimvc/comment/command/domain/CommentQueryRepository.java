@@ -33,7 +33,7 @@ public class CommentQueryRepository {
 //                                )
 //                )
 //                .from(comment)
-//                .leftJ
+//                .leftJoin()
 //    }
 
 }
