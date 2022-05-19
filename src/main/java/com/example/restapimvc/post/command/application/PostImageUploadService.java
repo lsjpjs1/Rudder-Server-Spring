@@ -1,10 +1,12 @@
 package com.example.restapimvc.post.command.application;
 
+import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.post.command.domain.FileUploadRepository;
 import com.example.restapimvc.post.command.domain.Post;
+import com.example.restapimvc.post.command.domain.PostImage;
 import com.example.restapimvc.post.command.domain.PostRepository;
 import com.example.restapimvc.post.command.dto.FileDto;
 import com.example.restapimvc.post.command.dto.WritePostDto;
@@ -18,6 +20,8 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +42,18 @@ public class PostImageUploadService {
         if (!post.getUserId().equals(userInfo.getUserId())) {
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
-        post.appendPostImages(imageUploadUrlRequest.getImageMetaData().size());
+        List<String> fileNames = new ArrayList<>();
+        for (int i=0; i<imageUploadUrlRequest.getImageMetaData().size();i++) {
+           fileNames.add(new Date().getTime() + RandomNumber.generateRandomCode(6));
+        }
+        List<FileMetaData> imageMetaData = imageUploadUrlRequest.getImageMetaData();
+        for (int i=0; i<imageMetaData.size();i++) {
+            imageMetaData.get(i).setFileName(fileNames.get(i));
+        }
+
+        post.appendPostImages(fileNames);
         postRepository.save(post);
-        return FileDto.UploadUrlsWrapper.builder().uploadUrls(fileUploadRepository.getFileUploadUrls(imageUploadUrlRequest.getImageMetaData())).build();
+        return FileDto.UploadUrlsWrapper.builder().uploadUrls(fileUploadRepository.getFileUploadUrls(imageMetaData)).build();
     }
 
     @Transactional

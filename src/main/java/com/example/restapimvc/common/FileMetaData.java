@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @ToString
 public class FileMetaData {
+    @Setter
     private String fileName;
     private String contentType;
 }

@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -60,20 +61,24 @@ public class Post {
         postMetaData.finishImageUpload();
     }
 
-    public void appendPostImages(Integer imageCount) {
-        if (postImages==null) {
+    public void appendPostImages(List<String> fileNames) {
+        if (postImages == null) {
             postImages = new LinkedHashSet<>();
         }
         if (postImages.isEmpty()) {
             postImages = new LinkedHashSet<>();
         }
+        postImages.addAll(
+                fileNames.stream()
+                .map(s -> PostImage.builder()
+                        .fileName(s)
+                        .post(this)
+                        .build())
+                .collect(Collectors.toList())
+        );
 
-        for (int i=0;i<imageCount;i++) {
-            postImages.add(PostImage.builder()
-                    .post(this)
-                    .fileName(new Date().getTime()+ RandomNumber.generateRandomCode(6))
-                    .build());
-        }
+
+
     }
 
     public void delete() {
