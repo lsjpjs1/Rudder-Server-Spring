@@ -32,8 +32,6 @@ public class PostViewQueryRepository {
     @Value("${cloud-front.url.profile-image-preview}")
     private String CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL;
 
-    @Value("${cloud-front.url.post-image}")
-    private String CLOUD_FRONT_POST_IMAGE_URL;
 
 
 
@@ -163,7 +161,7 @@ public class PostViewQueryRepository {
                 postView.categoryId.max(),
                 category.categoryName.max(),
                 category.categoryAbbreviation.max(),
-                Expressions.stringTemplate("string_agg({0},{1})", CLOUD_FRONT_POST_IMAGE_URL+postImage.fileName, ","),
+                Expressions.stringTemplate("string_agg({0},{1})", postImage.fileName, ","),
                 new CaseBuilder()
                         .when(postLike.userId.eq(postViewRequest.getUserId())).then(1)
                         .otherwise(0)
