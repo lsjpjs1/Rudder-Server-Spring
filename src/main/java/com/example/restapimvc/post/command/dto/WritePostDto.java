@@ -32,16 +32,6 @@ public class WritePostDto {
     }
 
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @ToString
-    @Builder
-    public static class CompleteImageUploadRequest {
-        private Long postId;
-        private List<String> fileNames;
-    }
 
     @Getter
     @Setter

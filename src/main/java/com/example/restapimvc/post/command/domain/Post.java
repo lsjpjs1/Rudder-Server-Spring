@@ -3,6 +3,7 @@ package com.example.restapimvc.post.command.domain;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.post.command.dto.EditPostDto;
+import com.example.restapimvc.util.RandomNumber;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -55,12 +56,11 @@ public class Post {
         postMetaData.setEditFlagTrue();
     }
 
-    public void completeImageUpload(List<String> fileNames) {
+    public void completeImageUpload() {
         postMetaData.finishImageUpload();
-        appendPostImages(fileNames);
     }
 
-    private void appendPostImages(List<String> fileNames) {
+    public void appendPostImages(Integer imageCount) {
         if (postImages==null) {
             postImages = new LinkedHashSet<>();
         }
@@ -68,11 +68,12 @@ public class Post {
             postImages = new LinkedHashSet<>();
         }
 
-        for (String fileName: fileNames) {
-            postImages.add(PostImage.builder().post(this).fileName(fileName).build());
-
+        for (int i=0;i<imageCount;i++) {
+            postImages.add(PostImage.builder()
+                    .post(this)
+                    .fileName(new Date().getTime()+ RandomNumber.generateRandomCode(6))
+                    .build());
         }
-
     }
 
     public void delete() {

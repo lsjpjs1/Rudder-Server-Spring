@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@Api( tags = "게시글 작성 관련")
+@Api( tags = "게시글 작성 관")
 public class WritePostController {
 
     private final WritePostService writePostService;
@@ -78,16 +78,16 @@ public class WritePostController {
     })
     @PostMapping(value = "/posts/image-upload-url/generate")
     public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody WritePostDto.ImageUploadUrlRequest imageUploadUrlRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(postImageUploadService.getImageUploadUrl(imageUploadUrlRequest))
+                .body(postImageUploadService.getImageUploadUrl(userInfoFromToken,imageUploadUrlRequest))
                 ;
     }
 
     /**
      * Legacy: /board/getUploadSignedUrls 기존에 한번에 처리되는 로직 두개로 분리함, 프론트에서 이미지 업로드가 완료되면 이 api를 호츨해야함
      * @param postId Long
-     * @param completeImageUploadRequest
      *          List fileNames[
      *              String...
      *          ]
@@ -112,12 +112,11 @@ public class WritePostController {
             @ApiResponse(code = 406, message = "1.BAD_REQUEST_CONTENT(null이나 빈 fileNames)", response = ErrorResponse.class)
     })
     @PostMapping(value = "/posts/{postId}/image")
-    public ResponseEntity<WritePostDto.CompleteImageUploadResponse> completeImageUpload(@PathVariable Long postId, @RequestBody WritePostDto.CompleteImageUploadRequest completeImageUploadRequest) {
+    public ResponseEntity<WritePostDto.CompleteImageUploadResponse> completeImageUpload(@PathVariable Long postId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        completeImageUploadRequest.setPostId(postId);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(postImageUploadService.completeImageUpload(userInfoFromToken,completeImageUploadRequest))
+                .body(postImageUploadService.completeImageUpload(userInfoFromToken,postId))
                 ;
     }
 
