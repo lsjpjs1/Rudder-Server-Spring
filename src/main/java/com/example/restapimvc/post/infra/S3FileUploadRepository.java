@@ -6,6 +6,8 @@ import com.example.restapimvc.post.command.dto.FileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
@@ -28,10 +30,14 @@ public class S3FileUploadRepository implements FileUploadRepository {
         S3Presigner s3Presigner = s3PresignerProvider.getS3Presigner();
         List<FileDto.UploadUrl> presignedUrls = new ArrayList<>();
         for (FileMetaData metaData: fileMetaData) {
+            AwsRequestOverrideConfiguration override = AwsRequestOverrideConfiguration.builder()
+                    .putRawQueryParameter("x-amz-acl", "private")
+                    .build();
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(S3_IMAGE_BUCKET)
                     .key(metaData.getFileName())
                     .contentType(metaData.getContentType())
+                    .overrideConfiguration(override)
                     .build();
             PutObjectPresignRequest putObjectPresignRequest = PutObjectPresignRequest.builder()
                     .signatureDuration(Duration.ofMinutes(3))
