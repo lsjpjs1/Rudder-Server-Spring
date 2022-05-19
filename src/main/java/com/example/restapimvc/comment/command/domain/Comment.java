@@ -1,5 +1,6 @@
 package com.example.restapimvc.comment.command.domain;
 
+import com.example.restapimvc.comment.command.dto.CommentDto;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.post.command.domain.Post;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +35,21 @@ public class Comment {
 
     private String commentBody;
 
+    private String userId;
+
     @Embedded
     private CommentMetaData commentMetaData;
 
+
+    public static Comment of(CommentDto.WriteCommentRequest writeCommentRequest, List<Comment> comments, UserInfo userInfo, Post post) {
+        return Comment.builder()
+                .post(post)
+                .userInfo(userInfo)
+                .commentBody(writeCommentRequest.getCommentBody())
+                .userId(writeCommentRequest.getUserId())
+                .commentMetaData(
+                        CommentMetaData.of(writeCommentRequest, comments)
+                )
+                .build();
+    }
 }
