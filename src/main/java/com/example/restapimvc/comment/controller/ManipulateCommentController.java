@@ -40,7 +40,7 @@ public class ManipulateCommentController {
     @Operation(summary = "댓글 수정", description = "Legacy: /comment/editComment")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공"),
-            @ApiResponse(code = 404, message = "1.POST_NOT_FOUND(존재하지 않는 commentId)", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "1.COMMENT_NOT_FOUND(존재하지 않는 commentId)", response = ErrorResponse.class),
             @ApiResponse(code = 403, message = "1.NO_PERMISSION(comment 수정 권한이 없음)", response = ErrorResponse.class)
     })
     @PatchMapping(value = "/comments/{commentId}")
@@ -53,23 +53,27 @@ public class ManipulateCommentController {
                 ;
     }
 
-
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @PatchMapping(value = "/comments/{commentId}/like")
-//    public ResponseEntity likeComment(@PathVariable Long commentId) {
-//        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-//        manipulateCommentService.likeComment(userInfoFromToken,commentId);
-//        return ResponseEntity
-//                .status(HttpStatus.NO_CONTENT)
-//                .build()
-//                ;
-//    }
+    @Operation(summary = "댓글 수정", description = "Legacy: /comment/addLike")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 404, message = "1.COMMENT_NOT_FOUND(존재하지 않는 commentId)", response = ErrorResponse.class)
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping(value = "/comments/{commentId}/like")
+    public ResponseEntity likeComment(@PathVariable Long commentId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        manipulateCommentService.likeComment(userInfoFromToken,commentId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
 
 
     @Operation(summary = "댓글 삭제", description = "Legacy: /comment/deleteComment")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공"),
-            @ApiResponse(code = 404, message = "1.POST_NOT_FOUND(존재하지 않는 postId)", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "1.COMMENT_NOT_FOUND(존재하지 않는 commentId)", response = ErrorResponse.class),
             @ApiResponse(code = 403, message = "1.NO_PERMISSION(comment 수정 권한이 없음)", response = ErrorResponse.class)
 
     })

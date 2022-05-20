@@ -64,11 +64,12 @@ public class ManipulateCommentService {
         commentRepository.save(comment);
     }
 
-//    @Transactional
-//    public void likeComment(UserInfo userInfo, Long commentId) {
-//        Comment comment = commentRepository.findById(commentId)
-//                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
-//        comment.
-//    }
+    @Transactional
+    public void likeComment(UserInfo userInfo, Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
+        comment.like(userInfo);
+        commentRepository.save(comment);
+    }
 
 }

@@ -97,5 +97,13 @@ public class CommentMetaData {
         return maxGroupNum+1;
     }
 
+    public void calculateLikeCount(Boolean isCanceled) {
+        if (isCanceled) {
+            likeCount = likeCount-1;
+        } else{
+            likeCount = likeCount+1;
+        }
+    }
+
 
 }
