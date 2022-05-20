@@ -1,5 +1,7 @@
 package com.example.restapimvc.service;
 
+import com.example.restapimvc.category.command.domain.Category;
+import com.example.restapimvc.category.command.domain.CategoryRepository;
 import com.example.restapimvc.domain.*;
 import com.example.restapimvc.dto.MailDTO;
 import com.example.restapimvc.dto.UserInfoDto;
@@ -36,6 +38,8 @@ public class UserInfoService {
     private final UserInfoMapper userInfoMapper;
     private final MailUtil mailUtil;
     private final SchoolService schoolService;
+    private final UserSelectCategoryRepository userSelectCategoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -103,6 +107,9 @@ public class UserInfoService {
                 .orElse(EmailVerificationRenew.builder().userInfo(userInfo).build());
         emailVerificationRenew.updateVerificationCode(randomCode);
         emailVerificationRenewRepository.save(emailVerificationRenew);
+        Category category = categoryRepository
+                .findTopByCategoryEnableAndCategoryTypeOrderByCategoryOrderAsc(true, "common").get();
+        userSelectCategoryRepository.save(UserSelectCategory.builder().userInfo(userInfo).categoryId(category.getCategoryId()).build());
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 
