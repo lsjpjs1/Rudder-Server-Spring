@@ -8,8 +8,6 @@ import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.post.command.domain.Post;
 import com.example.restapimvc.post.command.domain.PostRepository;
-import com.example.restapimvc.post.command.dto.CommonPostDto;
-import com.example.restapimvc.post.command.dto.WritePostDto;
 import com.example.restapimvc.util.mapper.CommentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +27,7 @@ public class ManipulateCommentService {
     private final EntityManager entityManager;
 
     @Transactional
-    public CommentDto.WriteCommentResponse writeComment(UserInfo userInfo, CommentDto.WriteCommentRequest writeCommentRequest) {
+    public CommentDto.CommonCommentResponse writeComment(UserInfo userInfo, CommentDto.WriteCommentRequest writeCommentRequest) {
         writeCommentRequest.setAllUserInfo(userInfo);
         Post post = postRepository.findById(writeCommentRequest.getPostId())
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
@@ -37,6 +35,19 @@ public class ManipulateCommentService {
         Comment comment = Comment.of(writeCommentRequest, comments, userInfo, post);
         commentRepository.save(comment);
         entityManager.refresh(comment);
+        return commentMapper.entityToWriteCommentResponse(comment);
+    }
+
+    @Transactional
+    public CommentDto.CommonCommentResponse editComment(UserInfo userInfo, CommentDto.EditCommentRequest editCommentRequest) {
+        editCommentRequest.setAllUserInfo(userInfo);
+        Comment comment = commentRepository.findById(editCommentRequest.getCommentId())
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
+        if (!comment.getUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())) {
+            throw new CustomException(ErrorCode.NO_PERMISSION);
+        }
+        comment.editCommentBody(editCommentRequest.getCommentBody());
+        commentRepository.save(comment);
         return commentMapper.entityToWriteCommentResponse(comment);
     }
 

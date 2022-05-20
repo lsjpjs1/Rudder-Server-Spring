@@ -31,6 +31,8 @@ public class CommentMetaData {
     @Column(insertable = false)
     private Boolean isEdit;
 
+
+
     public static CommentMetaData of(CommentDto.WriteCommentRequest writeCommentRequest, List<Comment> comments) {
         return CommentMetaData.builder()
                 .status(writeCommentRequest.getStatus())

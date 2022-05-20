@@ -1,6 +1,7 @@
 package com.example.restapimvc.comment.command.dto;
 
 import com.example.restapimvc.common.WithUserInfo;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
 import lombok.*;
 
@@ -67,7 +68,19 @@ public class CommentDto {
     @NoArgsConstructor
     @Builder
     @ToString
-    public static class WriteCommentResponse {
+    public static class EditCommentRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(hidden = true)
+        private Long commentId;
+        private String commentBody;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class CommonCommentResponse {
         private Long commentId;
         private String commentBody;
         private String status;

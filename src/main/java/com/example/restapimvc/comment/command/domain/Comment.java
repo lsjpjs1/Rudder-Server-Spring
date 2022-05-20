@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,6 +34,7 @@ public class Comment {
     @JoinColumn(name = "comment_user_info_id")
     private UserInfo userInfo;
 
+    @Setter
     private String commentBody;
 
     private String userId;
@@ -40,6 +42,18 @@ public class Comment {
     @Embedded
     private CommentMetaData commentMetaData;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return commentId.equals(comment.commentId) && commentBody.equals(comment.commentBody) && commentMetaData.equals(comment.commentMetaData);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(commentId, commentBody, commentMetaData);
+    }
 
     public static Comment of(CommentDto.WriteCommentRequest writeCommentRequest, List<Comment> comments, UserInfo userInfo, Post post) {
         return Comment.builder()
@@ -51,5 +65,10 @@ public class Comment {
                         CommentMetaData.of(writeCommentRequest, comments)
                 )
                 .build();
+    }
+
+    public void editCommentBody(String commentBody) {
+        this.commentBody = commentBody;
+
     }
 }
