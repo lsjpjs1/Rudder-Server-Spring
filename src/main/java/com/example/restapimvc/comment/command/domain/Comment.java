@@ -1,16 +1,20 @@
 package com.example.restapimvc.comment.command.domain;
 
 import com.example.restapimvc.comment.command.dto.CommentDto;
+import com.example.restapimvc.domain.CommentLike;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.post.command.domain.Post;
+import com.example.restapimvc.post.command.domain.PostLike;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Getter
@@ -41,6 +45,10 @@ public class Comment {
 
     @Embedded
     private CommentMetaData commentMetaData;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @MapKeyColumn(name = "userId")
+    private Map<String, CommentLike> commentLikes;
 
     @Override
     public boolean equals(Object o) {
@@ -75,4 +83,22 @@ public class Comment {
     public void delete() {
         this.commentMetaData = CommentMetaData.deletedInstance(this.commentMetaData);
     }
+
+    public void like(UserInfo userInfo) {
+        if (commentLikes == null) {
+            commentLikes = new HashMap<>();
+        }
+        CommentLike commentLike = commentLikes.get(userInfo.getUserId());
+        if (commentLike == null) {
+            commentLike = CommentLike.builder().comment(this).userId(userInfo.getUserId()).isCanceled(false).build();
+            commentLikes.put(userInfo.getUserId(), commentLike);
+        } else {
+            commentLike.changeCancelState();
+        }
+        commentMetaData.calculateLikeCount(commentLike.getIsCanceled());
+
+
+    }
+
+
 }

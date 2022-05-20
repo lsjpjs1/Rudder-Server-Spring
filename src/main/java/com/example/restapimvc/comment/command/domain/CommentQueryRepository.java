@@ -57,7 +57,7 @@ public class CommentQueryRepository {
                         )
                 )
                 .from(comment)
-                .leftJoin(commentLike).on(commentLike.commentId.eq(comment.commentId))
+                .leftJoin(commentLike).on(commentLike.comment.commentId.eq(comment.commentId))
                 .leftJoin(userBlock).on(userBlock.blockedUserInfo.userInfoId.eq(comment.userInfo.userInfoId))
                 .leftJoin(userProfile).on(userProfile.profileId.eq(comment.userInfo.userProfile.profileId))
                 .where(
