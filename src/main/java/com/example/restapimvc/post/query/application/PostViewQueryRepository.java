@@ -173,7 +173,7 @@ public class PostViewQueryRepository {
                         .max()
                         .eq(1),
                 userProfile.profileImageId.max().stringValue().prepend(CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL),
-                userInfo.userNickname.max(),
+                userInfo.userNickname.max().substring(0,1).append("******"),
                 postView.likeCount.max(),
                 postView.commentCount.max()
 

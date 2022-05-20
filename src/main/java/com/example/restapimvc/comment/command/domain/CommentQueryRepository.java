@@ -53,7 +53,7 @@ public class CommentQueryRepository {
                                         .max()
                                         .eq(1),
                                 userProfile.profileImageId.max().stringValue().prepend(CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL),
-                                comment.userInfo.userNickname.max()
+                                comment.userInfo.userNickname.max().substring(0,1).append("******")
                         )
                 )
                 .from(comment)
