@@ -71,4 +71,8 @@ public class Comment {
         this.commentBody = commentBody;
 
     }
+
+    public void delete() {
+        this.commentMetaData = CommentMetaData.deletedInstance(this.commentMetaData);
+    }
 }

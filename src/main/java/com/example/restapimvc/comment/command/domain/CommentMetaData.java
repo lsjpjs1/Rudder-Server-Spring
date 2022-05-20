@@ -42,6 +42,18 @@ public class CommentMetaData {
                 .build();
     }
 
+    public static CommentMetaData deletedInstance(CommentMetaData copyTarget) {
+        return CommentMetaData.builder()
+                .postTime(copyTarget.getPostTime())
+                .likeCount(copyTarget.getLikeCount())
+                .status(copyTarget.getStatus())
+                .groupNum(copyTarget.getGroupNum())
+                .orderInGroup(copyTarget.getOrderInGroup())
+                .isDelete(Boolean.TRUE)
+                .isEdit(copyTarget.getIsEdit())
+                .build();
+    }
+
     private static Integer calculateOrderInGroup(CommentDto.WriteCommentRequest writeCommentRequest, List<Comment> comments) {
         if (writeCommentRequest.getStatus().equals("parent")) {
             return 0;

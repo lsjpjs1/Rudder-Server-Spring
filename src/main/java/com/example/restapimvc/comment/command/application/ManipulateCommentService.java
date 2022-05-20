@@ -51,4 +51,15 @@ public class ManipulateCommentService {
         return commentMapper.entityToWriteCommentResponse(comment);
     }
 
+    @Transactional
+    public void deleteComment(UserInfo userInfo, Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
+        if (!comment.getUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())) {
+            throw new CustomException(ErrorCode.NO_PERMISSION);
+        }
+        comment.delete();
+        commentRepository.save(comment);
+    }
+
 }

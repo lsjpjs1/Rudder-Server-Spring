@@ -52,4 +52,24 @@ public class ManipulateCommentController {
                 .body(manipulateCommentService.editComment(userInfoFromToken,editCommentRequest))
                 ;
     }
+
+
+    @Operation(summary = "댓글 작성", description = "Legacy: /comment/addComment")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "성공"),
+            @ApiResponse(code = 404, message = "1.POST_NOT_FOUND(존재하지 않는 postId)", response = ErrorResponse.class),
+            @ApiResponse(code = 403, message = "1.NO_PERMISSION(comment 수정 권한이 없음)", response = ErrorResponse.class)
+
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/comments/{commentId}")
+    public ResponseEntity deletePost(@PathVariable Long commentId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        manipulateCommentService.deleteComment(userInfoFromToken, commentId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
 }
