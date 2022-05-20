@@ -33,6 +33,8 @@ public class ManipulateCommentService {
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         List<Comment> comments = commentRepository.findAllByPost(post);
         Comment comment = Comment.of(writeCommentRequest, comments, userInfo, post);
+        post.addComment();
+        postRepository.save(post);
         commentRepository.save(comment);
         entityManager.refresh(comment);
         return commentMapper.entityToWriteCommentResponse(comment);
@@ -61,5 +63,12 @@ public class ManipulateCommentService {
         comment.delete();
         commentRepository.save(comment);
     }
+
+//    @Transactional
+//    public void likeComment(UserInfo userInfo, Long commentId) {
+//        Comment comment = commentRepository.findById(commentId)
+//                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
+//        comment.
+//    }
 
 }

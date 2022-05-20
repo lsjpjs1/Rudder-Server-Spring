@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -33,6 +34,17 @@ public class PostMetaData {
     private Boolean isImageUploading;
 
 
+    public PostMetaData copyWithOverwrite(PostMetaData newPostMetaData) {
+        return PostMetaData.builder()
+                .postTime(newPostMetaData.getPostTime() == null? postTime : newPostMetaData.getPostTime())
+                .commentCount(newPostMetaData.getCommentCount() == null? commentCount : newPostMetaData.getCommentCount())
+                .likeCount(newPostMetaData.getLikeCount() == null? likeCount : newPostMetaData.getLikeCount())
+                .viewCount(newPostMetaData.getViewCount() == null? viewCount : newPostMetaData.getViewCount())
+                .isDelete(newPostMetaData.getIsDelete() == null? isDelete : newPostMetaData.getIsDelete())
+                .isEdit(newPostMetaData.getIsEdit() == null? isEdit : newPostMetaData.getIsEdit())
+                .isImageUploading(newPostMetaData.getIsImageUploading() == null? isImageUploading : newPostMetaData.getIsImageUploading())
+                .build();
+    }
 
     public void increaseViewCount() {
         this.viewCount +=1;

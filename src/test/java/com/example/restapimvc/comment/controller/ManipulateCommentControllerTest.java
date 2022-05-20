@@ -24,7 +24,7 @@ class ManipulateCommentControllerTest {
     private ObjectMapper objectMapper;
     @Test
     void writeComment() throws Exception {
-        String content = objectMapper.writeValueAsString(CommentDto.WriteCommentRequest.builder().commentBody("child").postId(9999l).status("child").groupNum(0).build());
+        String content = objectMapper.writeValueAsString(CommentDto.WriteCommentRequest.builder().commentBody("child").postId(1510l).status("child").groupNum(0).build());
 
         mockMvc.perform(post("/comments")
                         .contentType(MediaType.APPLICATION_JSON)

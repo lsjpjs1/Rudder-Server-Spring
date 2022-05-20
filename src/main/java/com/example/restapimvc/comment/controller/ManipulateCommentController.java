@@ -54,7 +54,19 @@ public class ManipulateCommentController {
     }
 
 
-    @Operation(summary = "댓글 작성", description = "Legacy: /comment/addComment")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @PatchMapping(value = "/comments/{commentId}/like")
+//    public ResponseEntity likeComment(@PathVariable Long commentId) {
+//        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+//        manipulateCommentService.likeComment(userInfoFromToken,commentId);
+//        return ResponseEntity
+//                .status(HttpStatus.NO_CONTENT)
+//                .build()
+//                ;
+//    }
+
+
+    @Operation(summary = "댓글 삭제", description = "Legacy: /comment/deleteComment")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공"),
             @ApiResponse(code = 404, message = "1.POST_NOT_FOUND(존재하지 않는 postId)", response = ErrorResponse.class),

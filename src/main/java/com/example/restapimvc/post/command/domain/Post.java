@@ -44,6 +44,14 @@ public class Post {
     @MapKeyColumn(name = "userId")
     private Map<String, PostLike> postLikes;
 
+    public void addComment() {
+        postMetaData = postMetaData.copyWithOverwrite(
+                PostMetaData.builder()
+                        .commentCount(postMetaData.getCommentCount()+1)
+                        .build()
+        );
+    }
+
     public void view() {
         postMetaData.increaseViewCount();
     }
