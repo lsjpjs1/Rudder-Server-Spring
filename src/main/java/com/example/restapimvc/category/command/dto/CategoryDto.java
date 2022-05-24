@@ -40,6 +40,16 @@ public class CategoryDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    public static class RequestAddCategoryRequest extends WithUserInfo.AbstractWithUserInfo {
+        private String categoryName;
+        private String requestBody;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class GetCategoriesResponse {
         private List<CategoryResponse> categories;
     }

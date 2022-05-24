@@ -3,7 +3,6 @@ package com.example.restapimvc.category.controller;
 import com.example.restapimvc.category.command.application.UserSelectCategoryService;
 import com.example.restapimvc.category.command.dto.CategoryDto;
 import com.example.restapimvc.domain.UserInfo;
-import com.example.restapimvc.repository.UserSelectCategoryRepository;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -29,4 +28,16 @@ public class UserSelectCategoryController {
                 .build()
                 ;
     }
+
+    @PostMapping("/categories/request")
+    public ResponseEntity requestAddCategory(@RequestBody CategoryDto.RequestAddCategoryRequest requestAddCategoryRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        userSelectCategoryService.requestAddCategory(userInfoFromToken, requestAddCategoryRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
+
 }
