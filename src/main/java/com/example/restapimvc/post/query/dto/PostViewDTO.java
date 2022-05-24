@@ -79,6 +79,16 @@ public class PostViewDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @ToString
+    public static class PostViewMultipleLookUpWithMyCommentRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Long endPostId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class PostViewSingleLookUpRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long postId;
     }

@@ -22,6 +22,13 @@ public class LookUpPostViewService {
     }
 
     @Transactional
+    public PostViewDTO.PostViewResponseWrapper getPostViewsWithMyComment(UserInfo userInfo, PostViewDTO.PostViewMultipleLookUpWithMyCommentRequest postViewMultipleLookUpWithMyCommentRequest) {
+        postViewMultipleLookUpWithMyCommentRequest.setAllUserInfo(userInfo);
+        return new PostViewDTO.PostViewResponseWrapper(postViewQueryRepository.findPostsWithMyComment(postViewMultipleLookUpWithMyCommentRequest));
+    }
+
+
+    @Transactional
     public PostViewDTO.PostViewResponse getPostViewByPostId(UserInfo userInfo, PostViewDTO.PostViewSingleLookUpRequest postViewSingleLookUpRequest) {
         postViewSingleLookUpRequest.setAllUserInfo(userInfo);
         postViewRepository.findById(postViewSingleLookUpRequest.getPostId())

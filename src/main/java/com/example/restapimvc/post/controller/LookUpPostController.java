@@ -62,6 +62,15 @@ public class LookUpPostController {
                 .body(lookUpPostViewService.getPostViews(userInfoFromToken, postViewMultipleLookUpRequest));
     }
 
+    @Operation(summary = "내가 댓글 쓴 게시글", description = "Legacy: /board/postsWithMyComment")
+    @GetMapping(value = "/posts/my-comment")
+    public ResponseEntity<PostViewDTO.PostViewResponseWrapper> getPostsWithMyComment(@ModelAttribute PostViewDTO.PostViewMultipleLookUpWithMyCommentRequest postViewMultipleLookUpWithMyCommentRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(lookUpPostViewService.getPostViewsWithMyComment(userInfoFromToken, postViewMultipleLookUpWithMyCommentRequest));
+    }
+
     /**
      * Legacy: /board/postFromPostId
      * @param postId Long
