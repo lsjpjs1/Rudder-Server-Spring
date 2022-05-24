@@ -1,12 +1,14 @@
 package com.example.restapimvc.repository;
 
 import com.example.restapimvc.comment.command.domain.QComment;
-import com.example.restapimvc.comment.command.dto.CommentDto;
 import com.example.restapimvc.domain.QNotification;
 import com.example.restapimvc.domain.QPostMessage;
 import com.example.restapimvc.dto.NotificationDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,12 +30,10 @@ public class NotificationQueryRepository {
                         Projections.constructor(NotificationDto.NotificationResponse.class,
                                 notification.notificationId,
                                 notification.notificationType,
-                                comment.post.postId,
-                                comment.commentBody,
-                                comment.post.postMetaData.postTime,
-                                postMessage.postMessageRoomId,
-                                postMessage.postMessageBody,
-                                postMessage.messageSendTime
+                                notification.notificationTime,
+                                getItemId(),
+                                getItemBody(),
+                                getItemTitle()
                                 )
                 )
                 .from(notification)
@@ -56,5 +56,23 @@ public class NotificationQueryRepository {
             return null;
         }
         return notification.notificationId.lt(notificationId);
+    }
+
+    private NumberExpression<Long> getItemId() {
+        return new CaseBuilder()
+                .when(notification.notificationType.eq(2)).then(postMessage.postMessageRoomId)
+                .otherwise(comment.post.postId);
+    }
+
+    private StringExpression getItemBody() {
+        return new CaseBuilder()
+                .when(notification.notificationType.eq(2)).then(postMessage.postMessageBody)
+                .otherwise(comment.post.postBody);
+    }
+
+    private StringExpression getItemTitle() {
+        return new CaseBuilder()
+                .when(notification.notificationType.eq(2)).then("New post message!")
+                .otherwise("New comment!");
     }
 }

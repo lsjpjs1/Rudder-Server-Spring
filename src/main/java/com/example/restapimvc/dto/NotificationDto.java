@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -17,12 +18,10 @@ public class NotificationDto {
     public static class NotificationResponse {
         private Long notificationId;
         private Integer notificationType;
-        private Long postId;
-        private String commentBody;
-        private Timestamp postTime;
-        private Long postMessageRoomId;
-        private String postMessageBody;
-        private Timestamp messageSendTime;
+        private Timestamp notificationTime;
+        private Long itemId;
+        private String itemTitle;
+        private String itemBody;
     }
 
     @Getter

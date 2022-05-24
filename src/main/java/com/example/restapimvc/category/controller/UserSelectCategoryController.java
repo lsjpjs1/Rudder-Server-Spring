@@ -29,6 +29,7 @@ public class UserSelectCategoryController {
                 ;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/categories/request")
     public ResponseEntity requestAddCategory(@RequestBody CategoryDto.RequestAddCategoryRequest requestAddCategoryRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
