@@ -16,7 +16,6 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -72,7 +71,7 @@ public class PostViewQueryRepository {
                                 .and(lessThanPostId(postViewMultipleLookUpRequest.getEndPostId()))
                                 .and(equalCategoryId(postViewMultipleLookUpRequest.getCategoryId()))
                                 .and(searchFromPostBody(postViewMultipleLookUpRequest.getSearchBody()))
-                                .and(isWriter(postViewMultipleLookUpRequest.getUserInfoId()))
+                                .and(isMyPost(postViewMultipleLookUpRequest.getIsMyPost(), postViewMultipleLookUpRequest.getUserInfoId()))
                 )
                 .groupBy(postView.postId, postView.postTime)
                 .having(
@@ -200,10 +199,10 @@ public class PostViewQueryRepository {
         }
         return postView.postBody.contains(searchBody);
     }
-    private BooleanExpression isWriter(Long userInfoId) {
-        if (userInfoId == null) {
+    private BooleanExpression isMyPost(Boolean isMyPost,Long myUserInfoId) {
+        if (isMyPost == null || isMyPost.equals(false)) {
             return null;
         }
-        return userInfo.userInfoId.eq(userInfoId);
+        return userInfo.userInfoId.eq(myUserInfoId);
     }
 }

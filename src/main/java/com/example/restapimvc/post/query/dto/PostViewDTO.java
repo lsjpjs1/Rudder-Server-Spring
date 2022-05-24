@@ -71,6 +71,7 @@ public class PostViewDTO {
         private Long categoryId;
         private String searchBody;
         private Long endPostId;
+        private Boolean isMyPost;
     }
 
     @Getter
