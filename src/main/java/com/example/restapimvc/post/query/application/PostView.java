@@ -24,6 +24,7 @@ public class PostView {
     private Integer commentCount;
     private Integer likeCount;
     private Boolean isImageUploading;
+    private String postBodySearch;
 
 
 }

@@ -29,7 +29,7 @@ class WritePostControllerTest {
 
     @Test
     void writePostTest() throws Exception {
-        String content = objectMapper.writeValueAsString(new WritePostDto.WritePostRequest("hey", 1l, Boolean.TRUE));
+        String content = objectMapper.writeValueAsString(new WritePostDto.WritePostRequest("HeLlo", 1l, Boolean.FALSE));
 
         mockMvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)

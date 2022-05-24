@@ -255,7 +255,7 @@ public List<PostViewDTO.PostViewResponse> findPostsWithMyComment(PostViewDTO.Pos
         if (searchBody == null) {
             return null;
         }
-        return postView.postBody.contains(searchBody);
+        return postView.postBodySearch.contains(searchBody.toLowerCase());
     }
     private BooleanExpression isMyPost(Boolean isMyPost,Long myUserInfoId) {
         if (isMyPost == null || isMyPost.equals(false)) {

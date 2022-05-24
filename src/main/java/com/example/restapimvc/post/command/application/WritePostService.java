@@ -35,6 +35,7 @@ public class WritePostService {
                 .postBody(writePostRequest.getPostBody())
                 .categoryId(writePostRequest.getCategoryId())
                 .schoolId(userInfo.getSchool().getSchoolId())
+                .postBodySearch(writePostRequest.getPostBody().toLowerCase())
                 .build();
         postRepository.save(post);
         entityManager.refresh(post);

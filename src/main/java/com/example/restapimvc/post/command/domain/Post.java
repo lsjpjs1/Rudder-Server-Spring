@@ -44,6 +44,8 @@ public class Post {
     @MapKeyColumn(name = "userId")
     private Map<String, PostLike> postLikes;
 
+    private String postBodySearch;
+
     public void addComment() {
         postMetaData = postMetaData.copyWithOverwrite(
                 PostMetaData.builder()
