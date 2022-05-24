@@ -24,6 +24,8 @@ public class UserProfileDto {
         private String profileBody;
 
         private Long profileImageId;
+
+        private String profileImageUrl;
     }
 
 }

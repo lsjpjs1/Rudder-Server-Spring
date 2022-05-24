@@ -79,7 +79,7 @@ public class CategoryQueryRepository {
     }
 
     private BooleanExpression isUserSelectCategory(CategoryDto.GetCategoriesRequest getCategoriesRequest) {
-        if (getCategoriesRequest.getIsUserSelectCategory() == null) {
+        if (getCategoriesRequest.getIsUserSelectCategory() == null || getCategoriesRequest.getIsUserSelectCategory().equals(false)) {
             return null;
         }
         return new CaseBuilder()
