@@ -15,6 +15,7 @@ import com.example.restapimvc.util.mapper.UserProfileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -31,6 +32,9 @@ public class UserProfileService {
 
     private final UserInfoMapper userInfoMapper;
     private final UserProfileMapper userProfileMapper;
+
+    @Value("${cloud-front.url.profile-image-preview}")
+    private String CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL;
 
     public UserInfoDto.UserInfoWithProfileResponse updateUserProfileImage(UserProfileDto.UpdateProfileImageRequest updateProfileImageRequest) {
         userProfileImageRepository.findById(updateProfileImageRequest.getProfileImageId())
@@ -51,6 +55,8 @@ public class UserProfileService {
         if (userInfo.getUserProfile()==null) {
             throw new CustomException(ErrorCode.USER_PROFILE_NOT_FOUND);
         }
-        return userProfileMapper.entityToUserProfileResponse(userInfo.getUserProfile());
+        UserProfileDto.UserProfileResponse userProfileResponse = userProfileMapper.entityToUserProfileResponse(userInfo.getUserProfile());
+        userProfileResponse.setProfileImageUrl(CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL+userProfileResponse.getProfileImageId());
+        return userProfileResponse;
     }
 }
