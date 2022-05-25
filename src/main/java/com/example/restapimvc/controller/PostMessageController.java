@@ -30,4 +30,17 @@ public class PostMessageController {
                 .build()
                 ;
     }
+
+    @Operation(summary = "쪽지 읽음 처리", description = "Legacy: /message/updateIsRead")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/post-messages/{postMessageId}/read")
+    public ResponseEntity readPostMessage(@PathVariable Long postMessageId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        postMessageService.readPostMessage(userInfoFromToken,postMessageId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
 }

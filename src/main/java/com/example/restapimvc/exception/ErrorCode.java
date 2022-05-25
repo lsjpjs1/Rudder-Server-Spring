@@ -30,6 +30,7 @@ public enum ErrorCode {
     JOB_FAVORITE_NOT_FOUND(HttpStatus.NOT_FOUND,"JobFavorite cannot found."),
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND,"Category cannot found."),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND,"Comment cannot found."),
+    POST_MESSAGE_NOT_FOUND(HttpStatus.NOT_FOUND,"Post message cannot found."),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),

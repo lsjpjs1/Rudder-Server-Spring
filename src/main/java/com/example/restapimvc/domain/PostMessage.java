@@ -33,4 +33,8 @@ public class PostMessage {
     private Boolean isRead;
 
     private Long postMessageRoomId;
+
+    public void read(){
+        isRead = true;
+    }
 }

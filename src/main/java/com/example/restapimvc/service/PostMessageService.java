@@ -5,6 +5,8 @@ import com.example.restapimvc.domain.PostMessageRoom;
 import com.example.restapimvc.domain.PostMessageRoomMember;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.PostMessageDto;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.PostMessageRepository;
 import com.example.restapimvc.repository.PostMessageRoomMemberRepository;
 import com.example.restapimvc.repository.PostMessageRoomRepository;
@@ -56,5 +58,13 @@ public class PostMessageService {
         );
 
 
+    }
+
+    @Transactional
+    public void readPostMessage(UserInfo userInfo, Long postMessageId) {
+        PostMessage postMessage = postMessageRepository.findById(postMessageId)
+                .orElseThrow(() -> new CustomException(ErrorCode.POST_MESSAGE_NOT_FOUND));
+        postMessage.read();
+        postMessageRepository.save(postMessage);
     }
 }
