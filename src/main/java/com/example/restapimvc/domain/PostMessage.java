@@ -16,10 +16,21 @@ public class PostMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postMessageId;
 
-    private Long sendUserInfoId;
-    private Long receiveUserInfoId;
+    @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "send_user_info_id")
+    private UserInfo sendUserInfo;
+
+    @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "receive_user_info_id")
+    private UserInfo receiveUserInfo;
+
+    @Column(insertable = false)
     private Timestamp messageSendTime;
+
     private String postMessageBody;
+
+    @Column(insertable = false)
     private Boolean isRead;
+
     private Long postMessageRoomId;
 }
