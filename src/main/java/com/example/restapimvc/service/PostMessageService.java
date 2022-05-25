@@ -7,16 +7,14 @@ import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.PostMessageDto;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
-import com.example.restapimvc.repository.PostMessageRepository;
-import com.example.restapimvc.repository.PostMessageRoomMemberRepository;
-import com.example.restapimvc.repository.PostMessageRoomRepository;
-import com.example.restapimvc.repository.UserInfoRepository;
+import com.example.restapimvc.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.PrimitiveIterator;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +22,7 @@ public class PostMessageService {
     private final PostMessageRoomRepository postMessageRoomRepository;
     private final PostMessageRoomMemberRepository postMessageRoomMemberRepository;
     private final PostMessageRepository postMessageRepository;
+    private final PostMessageQueryRepository postMessageQueryRepository;
     private final UserInfoRepository userInfoRepository;
     @Transactional
     public void sendPostMessage(UserInfo userInfo, PostMessageDto.SendPostMessageRequest sendPostMessageRequest) {
@@ -66,5 +65,12 @@ public class PostMessageService {
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_MESSAGE_NOT_FOUND));
         postMessage.read();
         postMessageRepository.save(postMessage);
+    }
+
+    @Transactional
+    public PostMessageDto.GetPostMessageRoomsResponse getMyMessageRooms(UserInfo userInfo) {
+        return PostMessageDto.GetPostMessageRoomsResponse.builder()
+                .postMessageRooms(postMessageQueryRepository.findMessageRooms(userInfo))
+                .build();
     }
 }
