@@ -61,4 +61,14 @@ public class PostMessageController {
                 ;
     }
 
+    @Operation(summary = "채팅방 속 메시지 목록", description = "Legacy: /message/getMyMessageRooms")
+    @GetMapping("/post-messages/rooms/{roomId}")
+    public ResponseEntity<PostMessageDto.GetPostMessagesResponse> getMessagesByRoom(@PathVariable Long roomId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(postMessageService.getMessagesByRoom(userInfoFromToken,roomId))
+                ;
+    }
+
 }

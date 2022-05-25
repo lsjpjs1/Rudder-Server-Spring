@@ -73,4 +73,11 @@ public class PostMessageService {
                 .postMessageRooms(postMessageQueryRepository.findMessageRooms(userInfo))
                 .build();
     }
+
+    @Transactional
+    public PostMessageDto.GetPostMessagesResponse getMessagesByRoom(UserInfo userInfo, Long roomId) {
+        return PostMessageDto.GetPostMessagesResponse.builder()
+                .postMessages(postMessageQueryRepository.findMessagesByRoom(userInfo,roomId))
+                .build();
+    }
 }

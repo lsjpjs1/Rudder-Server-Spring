@@ -41,7 +41,7 @@ public class PostMessageQueryRepository {
                                         .max()
                                         .stringValue()
                                         .prepend(CLOUD_FRONT_PROFILE_IMAGE_PREVIEW_URL)
-                                )
+                        )
                 )
                 .from(postMessageRoom)
                 .leftJoin(postMessageRoomMember).on(postMessageRoomMember.postMessageRoomId.eq(postMessageRoom.postMessageRoomId))
@@ -53,6 +53,29 @@ public class PostMessageQueryRepository {
                         postMessageRoomMember.userInfo.userInfoId.eq(userInfo.getUserInfoId())
                 )
                 .groupBy(postMessageRoom.postMessageRoomId,postMessage.postMessageId)
+                .orderBy(postMessage.postMessageId.desc())
+                .fetch();
+
+    }
+
+
+    public List<PostMessageDto.PostMessageResponse> findMessagesByRoom(UserInfo userInfo, Long roomId) {
+        return jpaQueryFactory
+                .select(
+                        Projections.constructor(PostMessageDto.PostMessageResponse.class,
+                                postMessage.postMessageId,
+                                postMessage.sendUserInfo.userInfoId,
+                                postMessage.receiveUserInfo.userInfoId,
+                                postMessage.messageSendTime,
+                                postMessage.postMessageBody,
+                                postMessage.isRead,
+                                new CaseBuilder()
+                                        .when(postMessage.sendUserInfo.userInfoId.eq(userInfo.getUserInfoId())).then(true)
+                                        .otherwise(false)
+                        )
+                )
+                .from(postMessage)
+                .where(postMessage.postMessageRoomId.eq(roomId))
                 .orderBy(postMessage.postMessageId.desc())
                 .fetch();
 
