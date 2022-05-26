@@ -52,8 +52,8 @@ public class PostMessageQueryRepository {
                 .where(
                         postMessageRoomMember.userInfo.userInfoId.eq(userInfo.getUserInfoId())
                 )
-                .groupBy(postMessageRoom.postMessageRoomId,postMessage.postMessageId)
-                .orderBy(postMessage.postMessageId.desc())
+                .groupBy(postMessageRoom.postMessageRoomId)
+                .orderBy(postMessage.postMessageId.max().desc())
                 .fetch();
 
     }
