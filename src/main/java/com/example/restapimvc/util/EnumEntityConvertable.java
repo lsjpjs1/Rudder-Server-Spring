@@ -30,7 +30,7 @@ public interface EnumEntityConvertable<E extends Enum & EnumEntityConvertable>{
                 return enumValue;
             }
         }
-        throw new CustomException(ErrorCode.OS_TYPE_NOT_FOUND);
+        throw new IllegalArgumentException();
     }
 
 }

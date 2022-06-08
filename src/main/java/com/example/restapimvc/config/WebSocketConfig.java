@@ -1,6 +1,6 @@
 package com.example.restapimvc.config;
 
-import com.example.restapimvc.chat.WebSocketHandler;
+import com.example.restapimvc.pre.chat.WebSocketHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

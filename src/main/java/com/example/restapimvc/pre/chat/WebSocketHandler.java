@@ -1,4 +1,4 @@
-package com.example.restapimvc.chat;
+package com.example.restapimvc.pre.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
