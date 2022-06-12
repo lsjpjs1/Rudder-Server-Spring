@@ -40,6 +40,7 @@ public class LogAop {
     @AfterReturning(value = "cut()", returning = "returnObj")
     public void afterReturnLog(JoinPoint joinPoint, Object returnObj) {
         // 메서드 정보 받아오기
+        if (returnObj==null) return;
         Method method = getMethod(joinPoint);
         log.info("======= method name = {} =======", method.getName());
 
