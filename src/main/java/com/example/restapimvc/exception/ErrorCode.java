@@ -32,6 +32,7 @@ public enum ErrorCode {
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND,"Comment cannot found."),
     POST_MESSAGE_NOT_FOUND(HttpStatus.NOT_FOUND,"Post message cannot found."),
     PARTY_NOT_FOUND(HttpStatus.NOT_FOUND,"Party cannot found."),
+    PARTY_MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND,"PartyMember cannot found."),
 
     BAD_REQUEST_CONTENT(HttpStatus.NOT_ACCEPTABLE,"Please check params or body"),
     WRONG_EMAIL_FORM(HttpStatus.NOT_ACCEPTABLE,"Email form is wrong"),

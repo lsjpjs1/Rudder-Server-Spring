@@ -23,10 +23,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         log.info(message.getPayload());
-        sessions.add(session);
         for (WebSocketSession s : sessions) {
             s.sendMessage(new TextMessage(session.getId()+" : "+message.getPayload()));
         }
 
+    }
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        sessions.add(session);
+        super.afterConnectionEstablished(session);
     }
 }

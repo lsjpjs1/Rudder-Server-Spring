@@ -11,7 +11,6 @@ public class PartyDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    @NoArgsConstructor
     @ToString
     @Builder
     public static class CreatePartyRequest extends WithUserInfo.AbstractWithUserInfo {
@@ -20,12 +19,20 @@ public class PartyDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    @NoArgsConstructor
     @ToString
     @Builder
     public static class ApplyPartyRequest extends WithUserInfo.AbstractWithUserInfo {
         @ApiModelProperty(hidden = true)
         private Long partyId;
         private List<Long> userInfoIdList;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetApplyListRequest extends WithUserInfo.AbstractWithUserInfo {
+
     }
 }

@@ -28,4 +28,11 @@ public class PartyMember {
 
     private PartyStatus partyStatus;
 
+    public void approve() {
+        partyStatus = PartyStatus.APPROVE;
+    }
+
+    public void reject() {
+        partyStatus = PartyStatus.REJECT;
+    }
 }

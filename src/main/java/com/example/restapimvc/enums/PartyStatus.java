@@ -7,7 +7,9 @@ import lombok.Getter;
 @Getter
 public enum PartyStatus implements EnumEntityConvertable {
     HOST("HOST"),
-    PENDING("PENDING");
+    PENDING("PENDING"),
+    APPROVE("APPROVE"),
+    REJECT("REJECT");
 
     private String status;
 
