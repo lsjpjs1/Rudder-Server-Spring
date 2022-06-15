@@ -1,0 +1,28 @@
+package com.example.restapimvc.pre.chat.service;
+
+import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.pre.chat.ChatDto;
+import com.example.restapimvc.pre.chat.repository.ChatMessageQueryRepository;
+import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class GetChatMessageService {
+
+    private final ChatMessageQueryRepository chatMessageQueryRepository;
+    private final ChatRoomMemberRepository chatRoomMemberRepository;
+
+    public ChatDto.GetChatMessagesResponse getChatMessages(UserInfo userInfo, ChatDto.GetChatMessagesRequest getChatMessagesRequest) {
+        getChatMessagesRequest.setAllUserInfo(userInfo);
+        chatRoomMemberRepository.findByChatRoomIdAndUserInfoId(getChatMessagesRequest.getChatRoomId(), getChatMessagesRequest.getUserInfoId())
+                .orElseThrow(()-> new CustomException(ErrorCode.NO_PERMISSION));
+        List<ChatDto.ChatMessageDto> chatMessages = chatMessageQueryRepository.findChatMessages(getChatMessagesRequest);
+        return ChatDto.GetChatMessagesResponse.builder().chatMessages(chatMessages).build();
+    }
+}

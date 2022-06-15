@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Tuple;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, Long> {
@@ -24,4 +25,6 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "order by res.chat_message_id desc "
             , nativeQuery = true)
     List<Tuple> findChatRooms(@Param("userInfoId") Long userInfoId);
+
+    Optional<ChatRoomMember> findByChatRoomIdAndUserInfoId(Long chatRoomId, Long userInfoId);
 }
