@@ -22,6 +22,12 @@ spring:
           auth: true
           starttls:
             enable: true
+  rabbitmq:
+    host: ENC(Bq5J5icpRMeR1pS5JZ36T/hHAeDjAsBt)
+    port: 61613
+    username: ENC(Fh/ZsnqAK+fQuORD/JNqsA==)
+    password: ENC(nsM1itGQWPBdBosvDENCCQ==)
+
 
 
 ---
