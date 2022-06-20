@@ -57,7 +57,7 @@ public class TokenProvider {
                 .signWith(key,SignatureAlgorithm.HS512)
                 .compact();
 
-        return TokenDto.tokenDtoBuilder().accessToken(accessToken).build();
+        return TokenDto.tokenDtoBuilder().accessToken(accessToken).userInfoId(userInfo.getUserInfoId()).build();
     }
 
     public Authentication getAuthentication(String accessToken) {
