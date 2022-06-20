@@ -8,6 +8,7 @@ import com.example.restapimvc.pre.chat.repository.ChatMessageQueryRepository;
 import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class GetChatMessageService {
     private final ChatMessageQueryRepository chatMessageQueryRepository;
     private final ChatRoomMemberRepository chatRoomMemberRepository;
 
+    @Transactional
     public ChatDto.GetChatMessagesResponse getChatMessages(UserInfo userInfo, ChatDto.GetChatMessagesRequest getChatMessagesRequest) {
         getChatMessagesRequest.setAllUserInfo(userInfo);
         chatRoomMemberRepository.findByChatRoomIdAndUserInfoId(getChatMessagesRequest.getChatRoomId(), getChatMessagesRequest.getUserInfoId())

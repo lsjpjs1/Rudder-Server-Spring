@@ -31,6 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
+        log.info("validation success");
         filterChain.doFilter(request, response);
     }
 

@@ -65,7 +65,6 @@ public class ChatDto {
         private Long sendUserInfoId;
         private String sendUserNickname;
         private Boolean isMine;
-
     }
 
 

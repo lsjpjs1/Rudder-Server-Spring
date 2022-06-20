@@ -1,0 +1,52 @@
+package com.example.restapimvc.pre.chat.service;
+
+import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.pre.chat.ChatDto;
+import com.example.restapimvc.pre.chat.CustomMessage;
+import com.example.restapimvc.pre.chat.domain.ChatMessage;
+import com.example.restapimvc.pre.chat.repository.ChatMessageRepository;
+import com.example.restapimvc.repository.UserInfoRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class SendChatMessageService {
+
+    private final ChatMessageRepository chatMessageRepository;
+    private final SimpMessageSendingOperations messageSendingOperations;
+    private final UserInfoRepository userInfoRepository;
+
+    @Transactional
+    public void sendChatMessage(UserInfo userInfo, CustomMessage message) {
+        message.setSendTime(new Timestamp(System.currentTimeMillis()));
+        ChatMessage chatMessage = ChatMessage.builder()
+                .chatRoomId(message.getChannelId())
+                .messageBody(message.getBody())
+                .messageTime(message.getSendTime())
+                .senderUserInfoId(userInfo.getUserInfoId())
+                .build();
+        chatMessageRepository.save(chatMessage);
+
+
+        ChatDto.ChatMessageDto chatMessageDto = ChatDto.ChatMessageDto.builder()
+                .chatMessageBody(chatMessage.getMessageBody())
+                .chatMessageTime(chatMessage.getMessageTime())
+                .sendUserInfoId(chatMessage.getSenderUserInfoId())
+                .sendUserNickname(userInfoRepository.findById(userInfo.getUserInfoId()).get().getUserNickname())
+                .chatMessageId(chatMessage.getChatMessageId())
+                .isMine(false)
+                .build();
+
+        messageSendingOperations.convertAndSend("/topic/" + message.getChannelId(), chatMessageDto);
+
+        //알림 추가해야됨
+    }
+}
