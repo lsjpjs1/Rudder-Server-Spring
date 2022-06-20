@@ -20,4 +20,8 @@ public class ChatRoomMember {
     private Long chatRoomId;
 
     private Timestamp latestReadTime;
+
+    public void updateLatestReadTime() {
+        latestReadTime = new Timestamp(System.currentTimeMillis());
+    }
 }

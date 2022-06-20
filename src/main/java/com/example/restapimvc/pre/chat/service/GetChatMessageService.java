@@ -4,6 +4,8 @@ import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.pre.chat.ChatDto;
+import com.example.restapimvc.pre.chat.domain.ChatMessage;
+import com.example.restapimvc.pre.chat.domain.ChatRoomMember;
 import com.example.restapimvc.pre.chat.repository.ChatMessageQueryRepository;
 import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +24,13 @@ public class GetChatMessageService {
     @Transactional
     public ChatDto.GetChatMessagesResponse getChatMessages(UserInfo userInfo, ChatDto.GetChatMessagesRequest getChatMessagesRequest) {
         getChatMessagesRequest.setAllUserInfo(userInfo);
-        chatRoomMemberRepository.findByChatRoomIdAndUserInfoId(getChatMessagesRequest.getChatRoomId(), getChatMessagesRequest.getUserInfoId())
-                .orElseThrow(()-> new CustomException(ErrorCode.NO_PERMISSION));
+        ChatRoomMember chatRoomMember = chatRoomMemberRepository.findByChatRoomIdAndUserInfoId(getChatMessagesRequest.getChatRoomId(), getChatMessagesRequest.getUserInfoId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NO_PERMISSION));
+        chatRoomMember.updateLatestReadTime();
+        chatRoomMemberRepository.save(chatRoomMember);
         List<ChatDto.ChatMessageDto> chatMessages = chatMessageQueryRepository.findChatMessages(getChatMessagesRequest);
         return ChatDto.GetChatMessagesResponse.builder().chatMessages(chatMessages).build();
     }
+
+
 }
