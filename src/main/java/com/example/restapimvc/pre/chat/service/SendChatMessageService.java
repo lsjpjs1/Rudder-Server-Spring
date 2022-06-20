@@ -43,9 +43,10 @@ public class SendChatMessageService {
                 .sendUserNickname(userInfoRepository.findById(userInfo.getUserInfoId()).get().getUserNickname())
                 .chatMessageId(chatMessage.getChatMessageId())
                 .isMine(false)
+                .chatRoomId(chatMessage.getChatRoomId())
                 .build();
 
-        messageSendingOperations.convertAndSend("/topic/" + message.getChannelId(), chatMessageDto);
+        messageSendingOperations.convertAndSend("/topic/" + chatMessageDto.getChatRoomId(), chatMessageDto);
 
         //알림 추가해야됨
     }

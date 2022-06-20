@@ -34,7 +34,8 @@ public class ChatMessageQueryRepository {
                                 userInfo.userNickname,
                                 new CaseBuilder()
                                         .when(chatMessage.senderUserInfoId.eq(getChatMessagesRequest.getUserInfoId())).then(Boolean.TRUE)
-                                        .otherwise(Boolean.FALSE)
+                                        .otherwise(Boolean.FALSE),
+                                chatMessage.chatRoomId
                                 )
                 )
                 .from(chatMessage)
