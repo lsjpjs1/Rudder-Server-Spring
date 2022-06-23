@@ -15,6 +15,11 @@ public class PartyDto {
     @ToString
     @Builder
     public static class CreatePartyRequest extends WithUserInfo.AbstractWithUserInfo {
+        private String partyTitle;
+        private String location;
+        private String partyDescription;
+        private Timestamp partyTime;
+        private Integer totalNumberOfMember;
     }
 
     @Getter
@@ -54,7 +59,7 @@ public class PartyDto {
         private String universityName;
         private String partyLocation;
         private List<String> alcoholList;
-        private String partyBody;
+        private String partyDescription;
     }
 
     @Getter
@@ -74,5 +79,23 @@ public class PartyDto {
         private String universityName;
     }
 
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartiesRequest extends WithUserInfo.AbstractWithUserInfo {
+
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartiesResponse {
+        private List<PartyPreviewDto> parties;
+    }
 
 }
