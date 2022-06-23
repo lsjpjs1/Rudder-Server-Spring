@@ -27,6 +27,15 @@ public class PartyDto {
         private Long partyId;
         private List<Long> userInfoIdList;
     }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetApplyListRequest extends WithUserInfo.AbstractWithUserInfo {
+
+    }
+
 
     @Getter
     @Setter
