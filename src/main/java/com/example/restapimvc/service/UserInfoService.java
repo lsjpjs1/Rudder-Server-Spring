@@ -78,7 +78,7 @@ public class UserInfoService {
                 userInfo = optionalUserInfo.get();
             }
         }else {
-            UserProfile userProfile = UserProfile.builder().build();
+            UserProfile userProfile = UserProfile.builder().profileBody(signUpRequest.getUserProfileBody()).build();
             userProfileRepository.save(userProfile);
             entityManager.refresh(userProfile);
             userInfo = UserInfo.builder()

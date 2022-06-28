@@ -43,6 +43,12 @@ public class UserInfo {
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 
+    @Setter
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(targetEntity = UserPartyProfile.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_party_profile_id")
+    private UserPartyProfile userPartyProfile;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userPassword;
 
