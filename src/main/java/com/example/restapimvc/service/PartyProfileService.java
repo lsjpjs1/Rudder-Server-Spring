@@ -16,16 +16,21 @@ import com.example.restapimvc.repository.UserPartyProfileImageRepository;
 import com.example.restapimvc.repository.UserPartyProfileRepository;
 import com.example.restapimvc.util.RandomNumber;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PartyProfileService {
+
+    @Value("${cloud-front.url.post-image}")
+    private String CLOUD_FRONT_POST_IMAGE_URL;
 
     private final UserInfoRepository userInfoRepository;
     private final UserPartyProfileRepository userPartyProfileRepository;
@@ -66,5 +71,22 @@ public class PartyProfileService {
         }
 
         return FileDto.UploadUrlsWrapper.builder().uploadUrls(fileUploadRepository.getFileUploadUrls(imageMetaData)).build();
+    }
+
+    @Transactional
+    public PartyProfileDto.GetPartyProfileResponse getPartyProfile(Long targetUserInfoId) {
+        UserInfo userInfo = userInfoRepository.findById(targetUserInfoId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+        UserPartyProfile userPartyProfile = userInfo.getUserPartyProfile();
+        List<UserPartyProfileImage> userPartyProfileImages = userPartyProfileImageRepository.findByPartyProfileId(userPartyProfile.getPartyProfileId());
+        List<String> partyProfileImages = userPartyProfileImages.stream()
+                .map(userPartyProfileImage -> CLOUD_FRONT_POST_IMAGE_URL + userPartyProfileImage.getPartyProfileImageName())
+                .collect(Collectors.toList());
+        return PartyProfileDto.GetPartyProfileResponse.builder()
+                .partyProfileId(userPartyProfile.getPartyProfileId())
+                .partyProfileBody(userPartyProfile.getPartyProfileBody())
+                .partyProfileImages(partyProfileImages)
+                .build();
+
     }
 }

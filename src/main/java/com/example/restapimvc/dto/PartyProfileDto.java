@@ -17,4 +17,16 @@ public class PartyProfileDto {
 
         private Long userInfoId;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class GetPartyProfileResponse {
+        private Long partyProfileId;
+        private String partyProfileBody;
+        private List<String> partyProfileImages;
+    }
 }

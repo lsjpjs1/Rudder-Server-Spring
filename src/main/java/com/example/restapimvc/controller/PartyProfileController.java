@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.PartyProfileDto;
+import com.example.restapimvc.dto.UserProfileDto;
 import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.post.command.dto.FileDto;
 import com.example.restapimvc.post.command.dto.WritePostDto;
@@ -14,10 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +37,12 @@ public class PartyProfileController {
                 .status(HttpStatus.CREATED)
                 .body(partyProfileService.getImageUploadUrl(partyProfileImageUploadUrlRequest))
                 ;
+    }
+
+    @GetMapping(value = "/party-profiles/{userInfoId}")
+    public ResponseEntity<PartyProfileDto.GetPartyProfileResponse> getPartyProfile(@PathVariable Long userInfoId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(partyProfileService.getPartyProfile(userInfoId));
     }
 }
