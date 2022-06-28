@@ -30,6 +30,7 @@ public class PostImageUploadService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
 
+    @Transactional
     public FileDto.UploadUrlsWrapper getImageUploadUrl(UserInfo userInfo,WritePostDto.ImageUploadUrlRequest imageUploadUrlRequest) {
         if (imageUploadUrlRequest.getImageMetaData() == null) {
             throw new CustomException(ErrorCode.BAD_REQUEST_CONTENT);

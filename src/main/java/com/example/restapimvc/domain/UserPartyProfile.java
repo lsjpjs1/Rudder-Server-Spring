@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @Builder
+@Setter
 public class UserPartyProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

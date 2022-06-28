@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs").permitAll()
                 .antMatchers("/ws/**").permitAll()
                 .antMatchers("/email/**/validate").permitAll()
+                .antMatchers("/party-profile-image/image-upload-url/generate").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));

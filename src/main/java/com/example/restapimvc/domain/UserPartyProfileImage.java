@@ -21,5 +21,5 @@ public class UserPartyProfileImage {
     private Long partyProfileId;
 
     @Column(name = "user_party_profile_image_name")
-    private Long partyProfileImageName;
+    private String partyProfileImageName;
 }
