@@ -98,4 +98,23 @@ public class PartyDto {
         private List<PartyPreviewDto> parties;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartyDetailRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(hidden = true)
+        private Long partyId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartyDetailResponse {
+        private Long partyId;
+    }
+
 }

@@ -28,8 +28,6 @@ public class SendChatController {
 
     @PostMapping("/send-chat")
     public ResponseEntity sendChat(@RequestBody CustomMessage customMessage) {
-//        headerAccessor.getSessionAttributes().put("username", message.getSender());
-        System.out.println("hit");
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         sendChatMessageService.sendChatMessage(userInfoFromToken,customMessage);
         return ResponseEntity

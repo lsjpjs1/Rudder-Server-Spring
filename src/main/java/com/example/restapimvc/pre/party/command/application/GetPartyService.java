@@ -25,4 +25,11 @@ public class GetPartyService {
         return PartyDto.GetPartiesResponse.builder().parties(parties).build();
     }
 
+    @Transactional
+    public PartyDto.GetPartyDetailResponse getPartyDetail(UserInfo userInfo, PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
+        getPartyDetailRequest.setAllUserInfo(userInfo);
+        PartyDto.GetPartyDetailResponse partyDetail = partyQueryRepository.findPartyDetail(getPartyDetailRequest);
+        return partyDetail;
+    }
+
 }

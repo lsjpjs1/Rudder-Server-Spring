@@ -59,4 +59,16 @@ public class PartyQueryRepository {
                 .fetch()
         ;
     }
+
+    public PartyDto.GetPartyDetailResponse findPartyDetail(PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
+        return jpaQueryFactory
+                .select(
+                        Projections.constructor(PartyDto.GetPartyDetailResponse.class,
+                                party.partyId
+                        )
+                )
+                .from(party)
+                .where(party.partyId.eq(getPartyDetailRequest.getPartyId()))
+                .fetchOne();
+    }
 }
