@@ -59,6 +59,7 @@ class UserInfoControllerTest {
         UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
                 .userEmail("lsjpjs1@naver.com")
                 .userPassword("123123123a")
+                .userProfileBody("im hoon")
                 .build();
         String content = objectMapper.writeValueAsString(signUpRequest);
 

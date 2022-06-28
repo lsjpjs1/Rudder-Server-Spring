@@ -1,9 +1,6 @@
 package com.example.restapimvc.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table
 @AllArgsConstructor
+@Builder
 public class UserPartyProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

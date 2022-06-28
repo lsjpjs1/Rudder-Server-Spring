@@ -40,6 +40,7 @@ public class UserInfoService {
     private final SchoolService schoolService;
     private final UserSelectCategoryRepository userSelectCategoryRepository;
     private final CategoryRepository categoryRepository;
+    private final UserPartyProfileRepository userPartyProfileRepository;
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -80,7 +81,10 @@ public class UserInfoService {
         }else {
             UserProfile userProfile = UserProfile.builder().profileBody(signUpRequest.getUserProfileBody()).build();
             userProfileRepository.save(userProfile);
+            UserPartyProfile partyProfile = UserPartyProfile.builder().partyProfileBody(signUpRequest.getUserProfileBody()).build();
+            userPartyProfileRepository.save(partyProfile);
             entityManager.refresh(userProfile);
+            entityManager.refresh(partyProfile);
             userInfo = UserInfo.builder()
                     .userId(signUpRequest.getUserEmail())
                     .userPassword(signUpRequest.getUserPassword())
@@ -89,6 +93,7 @@ public class UserInfoService {
                     .userProfile(userProfile)
                     .userNickname(randomNicknameGenerate())
                     .userType(1)
+                    .userPartyProfile(partyProfile)
                     .build();
             userInfo.passwordEncoding();
             userInfoRepository.save(userInfo);
