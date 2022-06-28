@@ -25,5 +25,21 @@ class ValidateEmailControllerTest {
                 )
                 .andDo(print())
         ;
+
+        mockMvc.perform(
+                        get("/email/lsjpjs123@naver.com/validate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
+
+        mockMvc.perform(
+                        get("/email/lsjpjs1@naveer.com/validate")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+        ;
     }
 }

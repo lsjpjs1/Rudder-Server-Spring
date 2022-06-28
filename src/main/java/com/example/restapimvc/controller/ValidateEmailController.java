@@ -3,6 +3,7 @@ package com.example.restapimvc.controller;
 import com.example.restapimvc.comment.command.application.LookUpCommentService;
 import com.example.restapimvc.comment.command.dto.CommentDto;
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.dto.SchoolDTO;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.exception.ErrorResponse;
@@ -26,16 +27,15 @@ public class ValidateEmailController {
 
     @Operation(summary = "이메일 유효성 검사")
     @GetMapping(value = "/email/{email}/validate")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 406, message = "1.WRONG_EMAIL_FORM(잘못된 이메일 형식)", response = ErrorResponse.class),
             @ApiResponse(code = 409, message = "1.EMAIL_ALREADY_EXIST(이미 존재하는 이메일)", response = ErrorResponse.class)
     })
-    public ResponseEntity emailValidate(@PathVariable String email) {
-        validateEmailService.emailValidate(email);
+    public ResponseEntity<SchoolDTO.SchoolForResponse> emailValidate(@PathVariable String email) {
+
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .build();
+                .body(validateEmailService.emailValidate(email));
     }
 }
