@@ -90,11 +90,13 @@ public class UserInfoDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class UserInfoEntireResponse {
+
         private String userId;
         private School school;
         private String userNickname;
         private UserProfile userProfile;
         private String userEmail;
+        private Long userInfoId;
     }
 
     @Getter
