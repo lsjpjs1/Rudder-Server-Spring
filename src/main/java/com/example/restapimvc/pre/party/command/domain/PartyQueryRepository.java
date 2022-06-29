@@ -111,27 +111,27 @@ public class PartyQueryRepository {
                 .where(
                         partyMember.partyStatus.eq(PartyStatus.PENDING),
                         partyMember.userInfo.userInfoId.eq(getPartyApplicantsRequest.getUserInfoId()),
-                        equalPartyId(getPartyApplicantsRequest.getPartyId(), getPartyApplicantsRequest.getUserInfoId())
+                        equalPartyId(getPartyApplicantsRequest.getPartyId())
                 )
                 .fetch();
     }
 
-    private BooleanExpression equalPartyId(Long partyId,Long userInfoId) {
+    private BooleanExpression equalPartyId(Long partyId) {
         if (partyId == null) {
-            return equalRecentPartyId(userInfoId);
+            return null;
         }
         return partyMember.party.partyId.eq(partyId);
     }
 
-    private BooleanExpression equalRecentPartyId(Long userInfoId) {
-        return partyMember.party.partyTime.eq(
-                JPAExpressions
-                        .select(partyMember.party.partyTime.max())
-                        .from(partyMember)
-                        .where(
-                                partyMember.partyStatus.eq(PartyStatus.PENDING),
-                                partyMember.userInfo.userInfoId.eq(userInfoId)
-                        )
-        );
-    }
+//    private BooleanExpression equalRecentPartyId(Long userInfoId) {
+//        return partyMember.party.partyTime.eq(
+//                JPAExpressions
+//                        .select(partyMember.party.partyTime.max())
+//                        .from(partyMember)
+//                        .where(
+//                                partyMember.partyStatus.eq(PartyStatus.PENDING),
+//                                partyMember.userInfo.userInfoId.eq(userInfoId)
+//                        )
+//        );
+//    }
 }
