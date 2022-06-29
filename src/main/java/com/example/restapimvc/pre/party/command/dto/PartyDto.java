@@ -20,6 +20,8 @@ public class PartyDto {
         private String partyDescription;
         private Timestamp partyTime;
         private Integer totalNumberOfMember;
+        @ApiModelProperty(hidden = true)
+        private Long chatRoomId;
     }
 
     @Getter
@@ -47,6 +49,7 @@ public class PartyDto {
     @ToString
     @Builder
     public static class GetPartyApplicantsRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(hidden = true)
         private Long partyId;
     }
 

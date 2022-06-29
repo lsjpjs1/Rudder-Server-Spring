@@ -28,6 +28,7 @@ public class Party {
     private Integer totalNumberOfMember;
     private Integer currentNumberOfMember;
     private Long partyHostUserInfoId;
+    private Long partyChatRoomId;
 
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "user_info_id")
@@ -42,6 +43,7 @@ public class Party {
                 .totalNumberOfMember(createPartyRequest.getTotalNumberOfMember())
                 .currentNumberOfMember(1)
                 .partyHostUserInfoId(createPartyRequest.getUserInfoId())
+                .partyChatRoomId(createPartyRequest.getChatRoomId())
                 .build();
     }
 
