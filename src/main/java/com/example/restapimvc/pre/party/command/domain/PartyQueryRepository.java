@@ -1,5 +1,6 @@
 package com.example.restapimvc.pre.party.command.domain;
 
+import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.domain.QSchool;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -63,6 +66,23 @@ public class PartyQueryRepository {
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
                 .groupBy(party.partyId)
                 .limit(20l)
+                .fetch()
+                ;
+    }
+
+    public List<PartyDto.PartyOnlyDateDto> findPartiesMyHost(Long userInfoId) {
+        return jpaQueryFactory
+                .select(
+                        Projections.constructor(PartyDto.PartyOnlyDateDto.class,
+                                party.partyId,
+                                party.partyTime
+                        )
+                )
+                .from(party)
+                .where(
+                        party.partyHostUserInfoId.eq(userInfoId),
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
+                )
                 .fetch()
                 ;
     }

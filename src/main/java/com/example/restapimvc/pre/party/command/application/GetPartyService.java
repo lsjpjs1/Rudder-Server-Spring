@@ -32,4 +32,11 @@ public class GetPartyService {
         return partyDetail;
     }
 
+
+    @Transactional
+    public PartyDto.GetPartiesMyHostResponse getPartiesMyHost(UserInfo userInfo) {
+        List<PartyDto.PartyOnlyDateDto> partiesMyHost = partyQueryRepository.findPartiesMyHost(userInfo.getUserInfoId());
+        return PartyDto.GetPartiesMyHostResponse.builder().parties(partiesMyHost).build();
+    }
+
 }

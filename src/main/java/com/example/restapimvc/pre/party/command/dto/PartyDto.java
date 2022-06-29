@@ -136,6 +136,7 @@ public class PartyDto {
         private Long partyId;
     }
 
+
     @Getter
     @Setter
     @AllArgsConstructor
@@ -143,6 +144,25 @@ public class PartyDto {
     @Builder
     public static class GetPartyDetailResponse {
         private Long partyId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class PartyOnlyDateDto {
+        private Long partyId;
+        private Timestamp partyDate;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartiesMyHostResponse {
+        private List<PartyOnlyDateDto> parties;
     }
 
 }

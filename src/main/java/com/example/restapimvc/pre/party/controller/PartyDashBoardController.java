@@ -3,6 +3,7 @@ package com.example.restapimvc.pre.party.controller;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.SchoolDTO;
 import com.example.restapimvc.exception.ErrorResponse;
+import com.example.restapimvc.pre.party.command.application.GetPartyService;
 import com.example.restapimvc.pre.party.command.application.PartyDashBoardService;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
@@ -24,13 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PartyDashBoardController {
 
     private PartyDashBoardService partyDashBoardService;
+    private GetPartyService getPartyService;
 
     @Operation(summary = "파티 지원자 목록")
     @GetMapping(value = "/parties/applicants")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 406, message = "1.WRONG_EMAIL_FORM(잘못된 이메일 형식)", response = ErrorResponse.class),
-            @ApiResponse(code = 409, message = "1.EMAIL_ALREADY_EXIST(이미 존재하는 이메일)", response = ErrorResponse.class)
+            @ApiResponse(code = 200, message = "성공")
     })
     public ResponseEntity<PartyDto.GetPartyApplicantsResponse> getPartyApplicants(@ModelAttribute PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
@@ -38,4 +38,17 @@ public class PartyDashBoardController {
                 .status(HttpStatus.OK)
                 .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
     }
+
+    @Operation(summary = "내가 개설한 파티 날짜 목록")
+    @GetMapping(value = "/parties/date")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공")
+    })
+    public ResponseEntity<PartyDto.GetPartiesMyHostResponse> getPartiesMyHost() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getPartyService.getPartiesMyHost(userInfoFromToken));
+    }
+
 }
