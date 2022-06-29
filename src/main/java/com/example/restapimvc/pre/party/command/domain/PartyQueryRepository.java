@@ -5,10 +5,13 @@ import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,12 +20,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class PartyQueryRepository {
+
+    @Value("${cloud-front.url.post-image}")
+    private String CLOUD_FRONT_POST_IMAGE_URL;
+
     private final JPAQueryFactory jpaQueryFactory;
     private final QParty party = QParty.party;
     private final QPartyMember partyMember = QPartyMember.partyMember;
     private final QSchool school = QSchool.school;
 
-    public void findApplies(PartyDto.GetApplyListRequest getApplyListRequest){
+    public void findApplies(PartyDto.GetApplyListRequest getApplyListRequest) {
         jpaQueryFactory
                 .select()
                 .from(party)
@@ -49,7 +56,7 @@ public class PartyQueryRepository {
                                         .otherwise(0)
                                         .sum(),
                                 school.schoolName.max()
-                                )
+                        )
                 )
                 .from(party)
                 .leftJoin(school).on(school.schoolId.eq(getPartiesRequest.getSchoolId()))
@@ -57,7 +64,7 @@ public class PartyQueryRepository {
                 .groupBy(party.partyId)
                 .limit(20l)
                 .fetch()
-        ;
+                ;
     }
 
     public PartyDto.GetPartyDetailResponse findPartyDetail(PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
@@ -70,5 +77,41 @@ public class PartyQueryRepository {
                 .from(party)
                 .where(party.partyId.eq(getPartyDetailRequest.getPartyId()))
                 .fetchOne();
+    }
+
+    public List<PartyDto.PartyApplicantsDto> findApplicants(PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest) {
+        return jpaQueryFactory
+                .select(
+                        Projections.constructor(PartyDto.PartyApplicantsDto.class,
+                                partyMember.userInfo.userInfoId,
+                                partyMember.userInfo.userPartyProfile.partyProfileImage.partyProfileImageName.prepend(CLOUD_FRONT_POST_IMAGE_URL)
+                                )
+                )
+                .from(partyMember)
+                .where(
+                        partyMember.partyStatus.eq(PartyStatus.PENDING),
+                        partyMember.userInfo.userInfoId.eq(getPartyApplicantsRequest.getUserInfoId()),
+                        equalPartyId(getPartyApplicantsRequest.getPartyId(), getPartyApplicantsRequest.getUserInfoId())
+                )
+                .fetch();
+    }
+
+    private BooleanExpression equalPartyId(Long partyId,Long userInfoId) {
+        if (partyId == null) {
+            return equalRecentPartyId(userInfoId);
+        }
+        return partyMember.party.partyId.eq(partyId);
+    }
+
+    private BooleanExpression equalRecentPartyId(Long userInfoId) {
+        return partyMember.party.partyTime.eq(
+                JPAExpressions
+                        .select(partyMember.party.partyTime.max())
+                        .from(partyMember)
+                        .where(
+                                partyMember.partyStatus.eq(PartyStatus.PENDING),
+                                partyMember.userInfo.userInfoId.eq(userInfoId)
+                        )
+        );
     }
 }

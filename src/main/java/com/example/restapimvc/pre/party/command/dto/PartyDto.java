@@ -41,6 +41,34 @@ public class PartyDto {
 
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartyApplicantsRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Long partyId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class PartyApplicantsDto {
+        private Long userInfoId;
+        private String partyProfileImageUrl;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPartyApplicantsResponse {
+        private List<PartyApplicantsDto> applicants;
+    }
+
 
     @Getter
     @Setter

@@ -50,5 +50,12 @@ public class PartyDashBoardService {
 
     }
 
+    @Transactional
+    public PartyDto.GetPartyApplicantsResponse getPartyApplicants(UserInfo userInfo, PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest) {
+        getPartyApplicantsRequest.setAllUserInfo(userInfo);
+        List<PartyDto.PartyApplicantsDto> applicants = partyQueryRepository.findApplicants(getPartyApplicantsRequest);
+        return PartyDto.GetPartyApplicantsResponse.builder().applicants(applicants).build();
+    }
+
 
 }
