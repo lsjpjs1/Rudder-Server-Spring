@@ -32,7 +32,7 @@ public class PartyProfileController {
             @ApiResponse(code = 406, message = "1.USER_INFO_NOT_FOUND(존재하지 않는 유저)", response = ErrorResponse.class)
     })
     @PostMapping(value = "/party-profile-image/image-upload-url/generate")
-    public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
+    public ResponseEntity<FileDto.UrlsWrapper> getS3SignedUrl(@RequestBody PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(partyProfileService.getImageUploadUrl(partyProfileImageUploadUrlRequest))

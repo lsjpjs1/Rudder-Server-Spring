@@ -38,7 +38,7 @@ public class PartyProfileService {
     private final FileUploadRepository fileUploadRepository;
 
     @Transactional
-    public FileDto.UploadUrlsWrapper getImageUploadUrl(PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
+    public FileDto.UrlsWrapper getImageUploadUrl(PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
         if (partyProfileImageUploadUrlRequest.getImageMetaData() == null) {
             throw new CustomException(ErrorCode.BAD_REQUEST_CONTENT);
         }
@@ -70,7 +70,7 @@ public class PartyProfileService {
             }
         }
 
-        return FileDto.UploadUrlsWrapper.builder().uploadUrls(fileUploadRepository.getFileUploadUrls(imageMetaData)).build();
+        return FileDto.UrlsWrapper.builder().urls(fileUploadRepository.getFileUploadUrls(imageMetaData).stream().map(uploadUrl -> uploadUrl.getUrl()).collect(Collectors.toList())).build();
     }
 
     @Transactional

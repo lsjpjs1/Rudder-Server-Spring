@@ -22,4 +22,14 @@ public class FileDto {
     public static class UploadUrlsWrapper {
         private List<UploadUrl> uploadUrls;
     }
+
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class UrlsWrapper {
+        private List<String> urls;
+    }
 }
