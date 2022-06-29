@@ -49,6 +49,18 @@ public class ChatDto {
     @AllArgsConstructor
     @ToString
     @Builder
+    public static class GetPartyGroupChatRoomRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(hidden = true)
+        private Long partyId;
+
+
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
     public static class GetChatMessagesResponse {
         private List<ChatMessageDto> chatMessages;
     }

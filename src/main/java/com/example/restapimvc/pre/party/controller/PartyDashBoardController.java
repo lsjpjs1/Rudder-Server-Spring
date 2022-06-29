@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +29,13 @@ public class PartyDashBoardController {
     private GetPartyService getPartyService;
 
     @Operation(summary = "파티 지원자 목록")
-    @GetMapping(value = "/parties/applicants")
+    @GetMapping(value = "/parties/{partyId}/applicants")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공")
     })
-    public ResponseEntity<PartyDto.GetPartyApplicantsResponse> getPartyApplicants(@ModelAttribute PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest) {
+    public ResponseEntity<PartyDto.GetPartyApplicantsResponse> getPartyApplicants(@PathVariable Long partyId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+       PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest = PartyDto.GetPartyApplicantsRequest.builder().partyId(partyId).build();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
