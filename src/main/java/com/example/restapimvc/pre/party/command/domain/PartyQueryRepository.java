@@ -115,6 +115,24 @@ public class PartyQueryRepository {
                 ;
     }
 
+    public List<PartyDto.PartyPreviewDto> findPendingParties(UserInfo userInfo) {
+        return jpaQueryFactory
+                .select(
+                        getPartyPreviewDtoConstructorExpression(userInfo.getUserInfoId())
+                )
+                .from(party)
+                .leftJoin(school).on(school.schoolId.eq(userInfo.getSchool().getSchoolId()))
+                .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
+                .where(
+                        partyMember.partyStatus.eq(PartyStatus.PENDING),
+                        partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
+                )
+                .groupBy(party.partyId)
+                .fetch()
+                ;
+    }
+
     public PartyDto.GetPartyDetailResponse findPartyDetail(PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
         return jpaQueryFactory
                 .select(

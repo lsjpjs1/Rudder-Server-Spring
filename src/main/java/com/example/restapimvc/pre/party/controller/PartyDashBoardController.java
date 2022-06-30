@@ -79,4 +79,17 @@ public class PartyDashBoardController {
                 .body(getPartyService.getApprovedParties(userInfoFromToken));
     }
 
+
+    @Operation(summary = "신청하고 대기 중인 파티 목록")
+    @GetMapping(value = "/parties/pending")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공")
+    })
+    public ResponseEntity<PartyDto.GetPartiesResponse> getPendingParties() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getPartyService.getPendingParties(userInfoFromToken));
+    }
+
 }
