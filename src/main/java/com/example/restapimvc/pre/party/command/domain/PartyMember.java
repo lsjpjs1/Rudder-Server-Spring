@@ -3,6 +3,8 @@ package com.example.restapimvc.pre.party.command.domain;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.post.command.domain.Post;
+import com.example.restapimvc.util.converter.PartyStatusConverter;
+import com.example.restapimvc.util.converter.UserInfoOsConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +28,7 @@ public class PartyMember {
     @JoinColumn(name = "party_id")
     private Party party;
 
+    @Convert(converter = PartyStatusConverter.class)
     private PartyStatus partyStatus;
 
     public void approve() {
