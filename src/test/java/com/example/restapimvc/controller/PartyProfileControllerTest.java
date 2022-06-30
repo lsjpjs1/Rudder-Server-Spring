@@ -30,8 +30,7 @@ class PartyProfileControllerTest {
     @Test
     void getS3SignedUrl() throws Exception {
         List<FileMetaData> fileMetaData = Arrays.asList(
-                FileMetaData.builder().fileName("one").contentType("image/jpeg").build(),
-                FileMetaData.builder().fileName("two").contentType("image/png").build()
+                FileMetaData.builder().fileName("one").contentType("image/heic").build()
         );
 
         String content = objectMapper.writeValueAsString(PartyProfileDto.PartyProfileImageUploadUrlRequest.builder().userInfoId(327l).imageMetaData(fileMetaData).build());
