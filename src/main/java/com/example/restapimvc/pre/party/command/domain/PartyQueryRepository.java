@@ -107,7 +107,8 @@ public class PartyQueryRepository {
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
                 .where(
                         partyMember.partyStatus.in(PartyStatus.APPROVE,PartyStatus.ALCOHOL_PENDING),
-                        partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId())
+                        partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
                 )
                 .groupBy(party.partyId)
                 .fetch()
