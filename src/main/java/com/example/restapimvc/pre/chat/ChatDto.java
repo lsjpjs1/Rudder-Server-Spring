@@ -1,6 +1,7 @@
 package com.example.restapimvc.pre.chat;
 
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.enums.ChatRoomType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -78,6 +79,18 @@ public class ChatDto {
         private String sendUserNickname;
         private Boolean isMine;
         private Long chatRoomId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class CreateChatRoomRequest extends WithUserInfo.AbstractWithUserInfo {
+        private List<Long> userInfoIdList;
+        private ChatRoomType chatRoomType;
+        private Long chatRoomItemId;
+
     }
 
 

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table
 @Builder
 @AllArgsConstructor
+@Setter
 public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
