@@ -43,7 +43,7 @@ public class ChatRoomController {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getChatRoomService.getPartyOneToOneChatRooms(userInfoFromToken))
+                .body(getChatRoomService.getPartyOneToOneChatRooms(userInfoFromToken,partyId))
                 ;
     }
 

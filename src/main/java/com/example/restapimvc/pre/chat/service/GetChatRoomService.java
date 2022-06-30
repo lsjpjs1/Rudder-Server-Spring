@@ -41,8 +41,8 @@ public class GetChatRoomService {
     }
 
     @Transactional
-    public ChatDto.GetChatRoomsResponse getPartyOneToOneChatRooms(UserInfo userInfo) {
-        List<Tuple> tuples = chatRoomMemberRepository.findPartyOneToOneChatRooms(userInfo.getUserInfoId());
+    public ChatDto.GetChatRoomsResponse getPartyOneToOneChatRooms(UserInfo userInfo, Long partyId) {
+        List<Tuple> tuples = chatRoomMemberRepository.findPartyOneToOneChatRooms(partyId);
         List<ChatDto.ChatRoomDto> chatRoomDtoList = tuples.stream()
                 .map((tuple) -> ChatDto.ChatRoomDto.builder()
                         .chatRoomId(tuple.get(0, Integer.class).longValue())
