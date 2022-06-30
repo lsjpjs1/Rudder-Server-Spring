@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum PartyStatus implements EnumEntityConvertable {
     HOST("HOST"),
     PENDING("PENDING"),
+    ALCOHOL_PENDING("ALCOHOL_PENDING"),
     APPROVE("APPROVE"),
     REJECT("REJECT");
 
