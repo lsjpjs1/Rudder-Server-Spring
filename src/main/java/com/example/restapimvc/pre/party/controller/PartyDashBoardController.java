@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Api( tags = "파티 대시보드 관련")
@@ -36,9 +40,19 @@ public class PartyDashBoardController {
     public ResponseEntity<PartyDto.GetPartyApplicantsResponse> getPartyApplicants(@PathVariable Long partyId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
        PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest = PartyDto.GetPartyApplicantsRequest.builder().partyId(partyId).build();
+       
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
+                .body(PartyDto.GetPartyApplicantsResponse.builder().applicants(
+                        new ArrayList<PartyDto.PartyApplicantsDto>(
+                                Arrays.asList(PartyDto.PartyApplicantsDto.builder().userInfoId(335l).partyProfileImageUrl("http://image.kyobobook.co.kr/images/book/xlarge/224/x9788954626224.jpg").build(),
+                                        PartyDto.PartyApplicantsDto.builder().userInfoId(335l).partyProfileImageUrl("https://t1.daumcdn.net/cfile/tistory/25433C4B56EFA6B42F").build())
+                        )
+                ).build());
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
+
     }
 
     @Operation(summary = "내가 개설한 파티 날짜 목록")
