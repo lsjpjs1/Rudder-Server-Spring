@@ -35,7 +35,7 @@ public class ValidateEmailController {
     public ResponseEntity<SchoolDTO.SchoolForResponse> emailValidate(@PathVariable String email) {
 
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(validateEmailService.emailValidate(email));
     }
 }
