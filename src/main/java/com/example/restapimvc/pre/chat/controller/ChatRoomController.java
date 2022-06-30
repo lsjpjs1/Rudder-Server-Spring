@@ -37,4 +37,14 @@ public class ChatRoomController {
                 .body(getChatRoomService.getPartyGroupChatRoom(userInfoFromToken,getPartyGroupChatRoomRequest))
                 ;
     }
+
+    @GetMapping("/chat-rooms/party-one-to-one/{partyId}")
+    public ResponseEntity<ChatDto.GetChatRoomsResponse> getPartyOneToOneChatRooms(@PathVariable Long partyId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getChatRoomService.getPartyOneToOneChatRooms(userInfoFromToken))
+                ;
+    }
+
 }

@@ -41,6 +41,21 @@ public class GetChatRoomService {
     }
 
     @Transactional
+    public ChatDto.GetChatRoomsResponse getPartyOneToOneChatRooms(UserInfo userInfo) {
+        List<Tuple> tuples = chatRoomMemberRepository.findPartyOneToOneChatRooms(userInfo.getUserInfoId());
+        List<ChatDto.ChatRoomDto> chatRoomDtoList = tuples.stream()
+                .map((tuple) -> ChatDto.ChatRoomDto.builder()
+                        .chatRoomId(tuple.get(0, Integer.class).longValue())
+                        .recentMessage(tuple.get(2, String.class))
+                        .recentMessageTime(tuple.get(3, Timestamp.class))
+                        .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
+                        .build()
+                )
+                .collect(Collectors.toList());
+        return ChatDto.GetChatRoomsResponse.builder().chatRooms(chatRoomDtoList).build();
+    }
+
+    @Transactional
     public ChatDto.ChatRoomDto getPartyGroupChatRoom(UserInfo userInfo, ChatDto.GetPartyGroupChatRoomRequest getPartyGroupChatRoomRequest) {
         getPartyGroupChatRoomRequest.setAllUserInfo(userInfo);
         Party party = partyRepository.findById(getPartyGroupChatRoomRequest.getPartyId())
