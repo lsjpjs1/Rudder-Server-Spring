@@ -38,5 +38,10 @@ public class GetPartyService {
         List<PartyDto.PartyOnlyDateDto> partiesMyHost = partyQueryRepository.findPartiesMyHost(userInfo.getUserInfoId());
         return PartyDto.GetPartiesMyHostResponse.builder().parties(partiesMyHost).build();
     }
+    @Transactional
+    public PartyDto.GetPartiesResponse getApprovedParties(UserInfo userInfo) {
+        List<PartyDto.PartyPreviewDto> approvedParties = partyQueryRepository.findApprovedParties(userInfo);
+        return PartyDto.GetPartiesResponse.builder().parties(approvedParties).build();
+    }
 
 }

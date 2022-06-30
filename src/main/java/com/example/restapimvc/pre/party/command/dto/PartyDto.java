@@ -108,6 +108,7 @@ public class PartyDto {
         private Integer currentNumberOfMember;
         private Integer applyCount;
         private String universityName;
+        private String partyStatus;
     }
 
 

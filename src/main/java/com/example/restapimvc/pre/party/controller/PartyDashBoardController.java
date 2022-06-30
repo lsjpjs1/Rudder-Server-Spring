@@ -56,7 +56,7 @@ public class PartyDashBoardController {
     }
 
     @Operation(summary = "내가 개설한 파티 날짜 목록")
-    @GetMapping(value = "/parties/date")
+    @GetMapping(value = "/parties/my-host")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공")
     })
@@ -65,6 +65,18 @@ public class PartyDashBoardController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(getPartyService.getPartiesMyHost(userInfoFromToken));
+    }
+
+    @Operation(summary = "수락된 파티 목록")
+    @GetMapping(value = "/parties/approved")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공")
+    })
+    public ResponseEntity<PartyDto.GetPartiesResponse> getApprovedParties() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getPartyService.getApprovedParties(userInfoFromToken));
     }
 
 }

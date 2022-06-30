@@ -2,8 +2,10 @@ package com.example.restapimvc.pre.party.command.domain;
 
 import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.domain.QSchool;
+import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
+import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -47,19 +49,7 @@ public class PartyQueryRepository {
     public List<PartyDto.PartyPreviewDto> findParties(PartyDto.GetPartiesRequest getPartiesRequest) {
         return jpaQueryFactory
                 .select(
-                        Projections.constructor(PartyDto.PartyPreviewDto.class,
-                                party.partyId,
-                                party.partyTitle.max(),
-                                new NullExpression<>(String.class),
-                                party.partyTime.max(),
-                                new NullExpression<>(String.class),
-                                party.totalNumberOfMember.max(),
-                                party.currentNumberOfMember.max(),
-                                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(1)
-                                        .otherwise(0)
-                                        .sum(),
-                                school.schoolName.max()
-                        )
+                        getPartyPreviewDtoConstructorExpression(getPartiesRequest.getUserInfoId())
                 )
                 .from(party)
                 .leftJoin(school).on(school.schoolId.eq(getPartiesRequest.getSchoolId()))
@@ -68,6 +58,26 @@ public class PartyQueryRepository {
                 .limit(20l)
                 .fetch()
                 ;
+    }
+
+    private ConstructorExpression<PartyDto.PartyPreviewDto> getPartyPreviewDtoConstructorExpression(Long userInfoId) {
+        return Projections.constructor(PartyDto.PartyPreviewDto.class,
+                party.partyId,
+                party.partyTitle.max(),
+                new NullExpression<>(String.class),
+                party.partyTime.max(),
+                new NullExpression<>(String.class),
+                party.totalNumberOfMember.max(),
+                party.currentNumberOfMember.max(),
+                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(1)
+                        .otherwise(0)
+                        .sum(),
+                school.schoolName.max(),
+                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus)
+                        .otherwise(new NullExpression<>(PartyStatus.class))
+                        .stringValue()
+                        .max()
+        );
     }
 
     public List<PartyDto.PartyOnlyDateDto> findPartiesMyHost(Long userInfoId) {
@@ -83,6 +93,23 @@ public class PartyQueryRepository {
                         party.partyHostUserInfoId.eq(userInfoId),
                         party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
                 )
+                .fetch()
+                ;
+    }
+
+    public List<PartyDto.PartyPreviewDto> findApprovedParties(UserInfo userInfo) {
+        return jpaQueryFactory
+                .select(
+                        getPartyPreviewDtoConstructorExpression(userInfo.getUserInfoId())
+                )
+                .from(party)
+                .leftJoin(school).on(school.schoolId.eq(userInfo.getSchool().getSchoolId()))
+                .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
+                .where(
+                        partyMember.partyStatus.in(PartyStatus.APPROVE,PartyStatus.ALCOHOL_PENDING),
+                        partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId())
+                )
+                .groupBy(party.partyId)
                 .fetch()
                 ;
     }
