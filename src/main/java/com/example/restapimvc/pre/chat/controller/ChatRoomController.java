@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,12 +38,23 @@ public class ChatRoomController {
     }
 
     @GetMapping("/chat-rooms/party-one-to-one/{partyId}")
-    public ResponseEntity<ChatDto.GetChatRoomsResponse> getPartyOneToOneChatRooms(@PathVariable Long partyId) {
+    public ResponseEntity<ChatDto.GetChatRoomsResponse> getHostPartyOneToOneChatRooms(@PathVariable Long partyId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getChatRoomService.getPartyOneToOneChatRooms(userInfoFromToken,partyId))
+                .body(getChatRoomService.getHostPartyOneToOneChatRooms(userInfoFromToken,partyId))
                 ;
     }
+
+    @GetMapping("/chat-rooms/party-one-to-one")
+    public ResponseEntity<ChatDto.GetChatRoomsResponse> getAppliedPartyOneToOneChatRooms() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getChatRoomService.getAppliedPartyOneToOneChatRooms(userInfoFromToken))
+                ;
+    }
+
+
 
 }

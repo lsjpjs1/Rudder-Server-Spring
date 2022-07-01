@@ -37,7 +37,21 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
             , nativeQuery = true)
-    List<Tuple> findPartyOneToOneChatRooms(@Param("partyId") Long partyId);
+    List<Tuple> findHostPartyOneToOneChatRooms(@Param("partyId") Long partyId);
+
+    @Query(value = "select * from " +
+            "(select distinct on (crm.chat_room_id) " +
+            "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
+            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time) " +
+            "from chat_room_member crm " +
+            "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
+            "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
+            "left join party p on p.party_chat_room_id = cr.chat_room_id" +
+            "where p.party_host_user_info_id = (:userInfoId) and chat_room_type = 'party_one_to_one' " +
+            "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
+            "order by res.chat_message_id desc "
+            , nativeQuery = true)
+    List<Tuple> findAppliedPartyOneToOneChatRooms(@Param("userInfoId") Long userInfoId);
 
     Optional<ChatRoomMember> findByChatRoomIdAndUserInfoId(Long chatRoomId, Long userInfoId);
 
