@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +63,22 @@ public class PartyDashBoardController {
     })
     public ResponseEntity<PartyDto.GetPartiesMyHostResponse> getPartiesMyHost() {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getPartyService.getPartiesMyHost(userInfoFromToken));
+                .body(
+                        PartyDto.GetPartiesMyHostResponse.builder().parties(
+                                new ArrayList(
+                                        Arrays.asList(
+                                                PartyDto.PartyOnlyDateDto.builder().partyId(1l).partyDate(new Timestamp(System.currentTimeMillis())).build(),
+                                                PartyDto.PartyOnlyDateDto.builder().partyId(2l).partyDate(new Timestamp(System.currentTimeMillis())).build()
+                                        )
+                                )
+                        ).build()
+                );
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(getPartyService.getPartiesMyHost(userInfoFromToken));
     }
 
     @Operation(summary = "수락된 파티 목록")
