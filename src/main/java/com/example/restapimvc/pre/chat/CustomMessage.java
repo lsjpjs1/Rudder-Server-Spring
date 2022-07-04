@@ -1,5 +1,6 @@
 package com.example.restapimvc.pre.chat;
 
+import com.example.restapimvc.pre.SocketPayload;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -14,4 +15,6 @@ public class CustomMessage {
     private String body;
     private Long channelId;
     private Timestamp sendTime;
+
+
 }

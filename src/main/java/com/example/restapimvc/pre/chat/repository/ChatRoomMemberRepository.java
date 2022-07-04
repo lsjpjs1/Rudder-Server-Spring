@@ -55,6 +55,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
 
     Optional<ChatRoomMember> findByChatRoomIdAndUserInfoId(Long chatRoomId, Long userInfoId);
 
+    List<ChatRoomMember> findByChatRoomId(Long chatRoomId);
+
     @Query(value = "select * from " +
             "(select distinct on (crm.chat_room_id) " +
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +

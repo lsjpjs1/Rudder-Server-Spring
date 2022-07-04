@@ -5,8 +5,11 @@ import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.pre.chat.ChatDto;
 import com.example.restapimvc.pre.chat.CustomMessage;
+import com.example.restapimvc.pre.chat.SocketMessage;
 import com.example.restapimvc.pre.chat.domain.ChatMessage;
+import com.example.restapimvc.pre.chat.domain.ChatRoomMember;
 import com.example.restapimvc.pre.chat.repository.ChatMessageRepository;
+import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -21,6 +24,7 @@ import java.util.List;
 public class SendChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
+    private final ChatRoomMemberRepository chatRoomMemberRepository;
     private final SimpMessageSendingOperations messageSendingOperations;
     private final UserInfoRepository userInfoRepository;
 
@@ -45,8 +49,13 @@ public class SendChatMessageService {
                 .isMine(false)
                 .chatRoomId(chatMessage.getChatRoomId())
                 .build();
+        SocketMessage socketMessage = SocketMessage.from(chatMessageDto);
 
-        messageSendingOperations.convertAndSend("/topic/" + chatMessageDto.getChatRoomId(), chatMessageDto);
+        List<ChatRoomMember> chatRoomMembers = chatRoomMemberRepository.findByChatRoomId(chatMessageDto.getChatRoomId());
+        for(ChatRoomMember chatRoomMember: chatRoomMembers) {
+            messageSendingOperations.convertAndSend("/topic/user." + chatRoomMember.getUserInfoId(), socketMessage);
+        }
+
 
         //알림 추가해야됨
     }

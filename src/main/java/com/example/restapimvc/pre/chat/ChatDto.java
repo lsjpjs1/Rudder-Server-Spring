@@ -2,6 +2,8 @@ package com.example.restapimvc.pre.chat;
 
 import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.enums.ChatRoomType;
+import com.example.restapimvc.pre.SocketPayload;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -71,7 +73,7 @@ public class ChatDto {
     @AllArgsConstructor
     @ToString
     @Builder
-    public static class ChatMessageDto {
+    public static class ChatMessageDto implements SocketPayload {
         private Long chatMessageId;
         private String chatMessageBody;
         private Timestamp chatMessageTime;
@@ -79,6 +81,12 @@ public class ChatDto {
         private String sendUserNickname;
         private Boolean isMine;
         private Long chatRoomId;
+
+        @JsonIgnore
+        @Override
+        public String getMessageType() {
+            return "CHAT_MESSAGE";
+        }
     }
 
     @Getter
