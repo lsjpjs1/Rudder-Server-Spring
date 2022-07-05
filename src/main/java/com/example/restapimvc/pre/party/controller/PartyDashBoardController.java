@@ -2,6 +2,7 @@ package com.example.restapimvc.pre.party.controller;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.SchoolDTO;
+import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.pre.party.command.application.GetPartyService;
 import com.example.restapimvc.pre.party.command.application.PartyDashBoardService;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Api( tags = "파티 대시보드 관련")
+@Api(tags = "파티 대시보드 관련")
 public class PartyDashBoardController {
 
     private PartyDashBoardService partyDashBoardService;
@@ -40,8 +41,8 @@ public class PartyDashBoardController {
     })
     public ResponseEntity<PartyDto.GetPartyApplicantsResponse> getPartyApplicants(@PathVariable Long partyId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-       PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest = PartyDto.GetPartyApplicantsRequest.builder().partyId(partyId).build();
-       
+        PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest = PartyDto.GetPartyApplicantsRequest.builder().partyId(partyId).build();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(PartyDto.GetPartyApplicantsResponse.builder().applicants(
@@ -90,7 +91,21 @@ public class PartyDashBoardController {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getPartyService.getApprovedParties(userInfoFromToken));
+                .body(
+                        PartyDto.GetPartiesResponse.builder()
+                                .parties(
+                                        new ArrayList(
+                                                Arrays.asList(
+                                                        PartyDto.PartyPreviewDto.builder().partyId(1l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("완전 수락된 파티").partyStatus(PartyStatus.APPROVE.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("100km").universityName("koreauniv").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build(),
+                                                        PartyDto.PartyPreviewDto.builder().partyId(2l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("사용자의 술 수락 대기 중인 파티").partyStatus(PartyStatus.ALCOHOL_PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("300km").universityName("yonsei").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build()
+                                                )
+                                        )
+                                )
+                                .build()
+                );
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(getPartyService.getApprovedParties(userInfoFromToken));
     }
 
 
@@ -103,7 +118,21 @@ public class PartyDashBoardController {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getPartyService.getPendingParties(userInfoFromToken));
+                .body(
+                        PartyDto.GetPartiesResponse.builder()
+                                .parties(
+                                        new ArrayList(
+                                                Arrays.asList(
+                                                        PartyDto.PartyPreviewDto.builder().partyId(1l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("수락 대기 중인 파티1").partyStatus(PartyStatus.PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("100km").universityName("koreauniv").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build(),
+                                                        PartyDto.PartyPreviewDto.builder().partyId(2l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("수락 대기 중인 파티2").partyStatus(PartyStatus.PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("300km").universityName("yonsei").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build()
+                                                )
+                                        )
+                                )
+                                .build()
+                );
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(getPartyService.getPendingParties(userInfoFromToken));
     }
 
 }
