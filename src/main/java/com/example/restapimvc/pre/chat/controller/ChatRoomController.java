@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
+
 @RestController
 @RequiredArgsConstructor
 @Api( tags = "채팅방 관련")
@@ -33,8 +35,19 @@ public class ChatRoomController {
         ChatDto.GetPartyGroupChatRoomRequest getPartyGroupChatRoomRequest = ChatDto.GetPartyGroupChatRoomRequest.builder().partyId(partyId).build();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(getChatRoomService.getPartyGroupChatRoom(userInfoFromToken,getPartyGroupChatRoomRequest))
+                .body(
+                        ChatDto.ChatRoomDto.builder()
+                        .chatRoomId(1l)
+                        .notReadMessageCount(3)
+                        .recentMessage("hihi")
+                        .recentMessageTime(new Timestamp(System.currentTimeMillis()))
+                        .build()
+                )
                 ;
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(getChatRoomService.getPartyGroupChatRoom(userInfoFromToken,getPartyGroupChatRoomRequest))
+//                ;
     }
 
     @GetMapping("/chat-rooms/party-one-to-one/{partyId}")
