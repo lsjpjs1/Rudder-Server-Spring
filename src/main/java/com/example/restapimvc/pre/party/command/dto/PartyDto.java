@@ -169,4 +169,15 @@ public class PartyDto {
         private List<PartyOnlyDateDto> parties;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class CreatePartyApplyGroupRequest extends WithUserInfo.AbstractWithUserInfo {
+        @ApiModelProperty(hidden = true)
+        private Long partyId;
+        private Integer targetMemberCount;
+    }
+
 }

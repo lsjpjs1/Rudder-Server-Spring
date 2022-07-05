@@ -15,6 +15,7 @@ public class PartyApplyGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long partyApplyGroupId;
 
+    private Long partyId;
     private Long hostUserInfoId;
     private Integer targetMemberCount;
 
