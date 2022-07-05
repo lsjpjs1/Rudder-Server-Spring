@@ -49,7 +49,6 @@ public class Party {
 
     public void apply(List<UserInfo> userInfos) {
         for (UserInfo userInfo : userInfos) {
-            currentNumberOfMember +=1;
             partyMembers.put(userInfo.getUserInfoId(),
                     PartyMember.builder()
                             .party(this)
@@ -58,6 +57,16 @@ public class Party {
                             .build()
                     );
         }
+    }
+
+    public void apply(UserInfo userInfo) {
+            partyMembers.put(userInfo.getUserInfoId(),
+                    PartyMember.builder()
+                            .party(this)
+                            .partyStatus(PartyStatus.PENDING)
+                            .userInfo(userInfo)
+                            .build()
+            );
     }
 
     public void registerHost(UserInfo userInfo) {

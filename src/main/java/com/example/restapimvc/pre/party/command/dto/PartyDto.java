@@ -180,4 +180,5 @@ public class PartyDto {
         private Integer targetMemberCount;
     }
 
+
 }

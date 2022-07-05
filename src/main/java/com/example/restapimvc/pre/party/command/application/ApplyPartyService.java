@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -25,6 +27,9 @@ public class ApplyPartyService {
     private final PartyApplyGroupRepository partyApplyGroupRepository;
     private final PartyApplyGroupMemberRepository partyApplyGroupMemberRepository;
     private final UserInfoRepository userInfoRepository;
+
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     @Transactional
     public void applyParty(UserInfo userInfo, PartyDto.ApplyPartyRequest applyPartyRequest) {
@@ -50,6 +55,28 @@ public class ApplyPartyService {
                 .userInfoId(createPartyApplyGroupRequest.getUserInfoId())
                 .build();
         partyApplyGroupMemberRepository.save(partyApplyGroupMember);
+    }
+
+    @Transactional
+    public void joinPartyApplyGroup(UserInfo userInfo, Long applyGroupId) {
+        PartyApplyGroup partyApplyGroup = partyApplyGroupRepository.findById(applyGroupId)
+                .orElseThrow(() -> new CustomException(ErrorCode.PARTY_APPLY_GROUP_NOT_FOUND));
+        PartyApplyGroupMember partyApplyGroupMember = PartyApplyGroupMember.builder()
+                .partyApplyGroup(partyApplyGroup)
+                .userInfoId(userInfo.getUserInfoId())
+                .build();
+        partyApplyGroupMemberRepository.save(partyApplyGroupMember);
+        entityManager.refresh(partyApplyGroupMember);
+        List<PartyApplyGroupMember> partyApplyGroupMembers = partyApplyGroupMemberRepository.findByByPartyApplyGroup(partyApplyGroup);
+        if(partyApplyGroupMembers.size()==partyApplyGroup.getTargetMemberCount()) {
+            Party party = partyRepository.findById(partyApplyGroup.getPartyId())
+                    .orElseThrow(()->new CustomException(ErrorCode.PARTY_NOT_FOUND));
+            partyApplyGroupMembers.stream()
+                    .forEach(member->{
+                        party.apply(userInfoRepository.findById(member.getUserInfoId()).orElseThrow(()->new CustomException(ErrorCode.USER_INFO_NOT_FOUND)));
+                    });
+            partyRepository.save(party);
+        }
     }
 
 }
