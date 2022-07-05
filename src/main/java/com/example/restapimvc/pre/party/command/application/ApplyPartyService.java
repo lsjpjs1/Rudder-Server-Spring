@@ -67,7 +67,7 @@ public class ApplyPartyService {
                 .build();
         partyApplyGroupMemberRepository.save(partyApplyGroupMember);
         entityManager.refresh(partyApplyGroupMember);
-        List<PartyApplyGroupMember> partyApplyGroupMembers = partyApplyGroupMemberRepository.findByByPartyApplyGroup(partyApplyGroup);
+        List<PartyApplyGroupMember> partyApplyGroupMembers = partyApplyGroupMemberRepository.findByPartyApplyGroup(partyApplyGroup);
         if(partyApplyGroupMembers.size()==partyApplyGroup.getTargetMemberCount()) {
             Party party = partyRepository.findById(partyApplyGroup.getPartyId())
                     .orElseThrow(()->new CustomException(ErrorCode.PARTY_NOT_FOUND));

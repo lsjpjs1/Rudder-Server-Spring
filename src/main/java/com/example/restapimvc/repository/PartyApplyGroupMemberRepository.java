@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PartyApplyGroupMemberRepository extends JpaRepository<PartyApplyGroupMember,Long> {
-    List<PartyApplyGroupMember> findByByPartyApplyGroup(PartyApplyGroup partyApplyGroup);
+    List<PartyApplyGroupMember> findByPartyApplyGroup(PartyApplyGroup partyApplyGroup);
 }
