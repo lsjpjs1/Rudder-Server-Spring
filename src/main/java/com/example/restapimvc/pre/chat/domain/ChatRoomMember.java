@@ -19,6 +19,7 @@ public class ChatRoomMember {
     private Long userInfoId;
     private Long chatRoomId;
 
+    @Column(insertable = false)
     private Timestamp latestReadTime;
 
     public void updateLatestReadTime() {

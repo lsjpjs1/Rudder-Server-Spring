@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +71,9 @@ public class Party {
     }
 
     public void registerHost(UserInfo userInfo) {
+        if(partyMembers==null){
+            partyMembers = new HashMap<>();
+        }
         partyMembers.put(userInfo.getUserInfoId(),
                 PartyMember.builder()
                         .party(this)

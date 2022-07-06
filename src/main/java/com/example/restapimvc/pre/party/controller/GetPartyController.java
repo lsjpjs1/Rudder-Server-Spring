@@ -30,7 +30,7 @@ public class GetPartyController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공")
     })
-    public ResponseEntity<PartyDto.GetPartiesResponse> getPartyApplicants(@ModelAttribute PartyDto.GetPartiesRequest getPartiesRequest) {
+    public ResponseEntity<PartyDto.GetPartiesResponse> getParties(@ModelAttribute PartyDto.GetPartiesRequest getPartiesRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)

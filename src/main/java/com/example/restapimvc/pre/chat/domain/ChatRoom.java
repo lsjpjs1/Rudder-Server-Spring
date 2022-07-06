@@ -18,6 +18,7 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomId;
 
+    @Column(insertable = false)
     @Convert(converter = ChatRoomTypeConverter.class)
     private ChatRoomType chatRoomType;
 

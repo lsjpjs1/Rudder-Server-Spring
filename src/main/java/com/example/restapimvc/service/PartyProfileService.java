@@ -65,7 +65,7 @@ public class PartyProfileService {
                     .build();
             userPartyProfileImageRepository.save(partyProfileImage);
             if(i==0){
-                userPartyProfile.setPartyProfileImage(partyProfileImage);
+                userPartyProfile.setUserPartyProfileImageId(partyProfileImage.getPartyProfileImageId());
                 userPartyProfileRepository.save(userPartyProfile);
             }
         }

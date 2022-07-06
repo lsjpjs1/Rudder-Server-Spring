@@ -35,19 +35,8 @@ public class ChatRoomController {
         ChatDto.GetPartyGroupChatRoomRequest getPartyGroupChatRoomRequest = ChatDto.GetPartyGroupChatRoomRequest.builder().partyId(partyId).build();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(
-                        ChatDto.ChatRoomDto.builder()
-                        .chatRoomId(1l)
-                        .notReadMessageCount(3)
-                        .recentMessage("hihi")
-                        .recentMessageTime(new Timestamp(System.currentTimeMillis()))
-                        .build()
-                )
+                .body(getChatRoomService.getPartyGroupChatRoom(userInfoFromToken,getPartyGroupChatRoomRequest))
                 ;
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(getChatRoomService.getPartyGroupChatRoom(userInfoFromToken,getPartyGroupChatRoomRequest))
-//                ;
     }
 
     @GetMapping("/chat-rooms/party-one-to-one/{partyId}")

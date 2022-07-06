@@ -33,6 +33,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
+                        .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -48,6 +49,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
+                        .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -63,6 +65,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
+                        .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -80,6 +83,7 @@ public class GetChatRoomService {
                 .recentMessage(tuple.get(2, String.class))
                 .recentMessageTime(tuple.get(3, Timestamp.class))
                 .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
+                .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                 .build();
     }
 }

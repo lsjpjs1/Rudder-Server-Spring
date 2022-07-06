@@ -31,8 +31,8 @@ import java.util.List;
 @Api(tags = "파티 대시보드 관련")
 public class PartyDashBoardController {
 
-    private PartyDashBoardService partyDashBoardService;
-    private GetPartyService getPartyService;
+    private final PartyDashBoardService partyDashBoardService;
+    private final GetPartyService getPartyService;
 
     @Operation(summary = "파티 지원자 목록")
     @GetMapping(value = "/parties/{partyId}/applicants")
@@ -45,15 +45,7 @@ public class PartyDashBoardController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(PartyDto.GetPartyApplicantsResponse.builder().applicants(
-                        new ArrayList<PartyDto.PartyApplicantsDto>(
-                                Arrays.asList(PartyDto.PartyApplicantsDto.builder().userInfoId(335l).partyProfileImageUrl("http://image.kyobobook.co.kr/images/book/xlarge/224/x9788954626224.jpg").build(),
-                                        PartyDto.PartyApplicantsDto.builder().userInfoId(335l).partyProfileImageUrl("https://t1.daumcdn.net/cfile/tistory/25433C4B56EFA6B42F").build())
-                        )
-                ).build());
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
+                .body(partyDashBoardService.getPartyApplicants(userInfoFromToken,getPartyApplicantsRequest));
 
     }
 
@@ -67,19 +59,7 @@ public class PartyDashBoardController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(
-                        PartyDto.GetPartiesMyHostResponse.builder().parties(
-                                new ArrayList(
-                                        Arrays.asList(
-                                                PartyDto.PartyOnlyDateDto.builder().partyId(1l).partyDate(new Timestamp(System.currentTimeMillis())).build(),
-                                                PartyDto.PartyOnlyDateDto.builder().partyId(2l).partyDate(new Timestamp(System.currentTimeMillis())).build()
-                                        )
-                                )
-                        ).build()
-                );
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(getPartyService.getPartiesMyHost(userInfoFromToken));
+                .body(getPartyService.getPartiesMyHost(userInfoFromToken));
     }
 
     @Operation(summary = "수락된 파티 목록")
@@ -89,23 +69,10 @@ public class PartyDashBoardController {
     })
     public ResponseEntity<PartyDto.GetPartiesResponse> getApprovedParties() {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(
-                        PartyDto.GetPartiesResponse.builder()
-                                .parties(
-                                        new ArrayList(
-                                                Arrays.asList(
-                                                        PartyDto.PartyPreviewDto.builder().partyId(1l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("완전 수락된 파티").partyStatus(PartyStatus.APPROVE.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("100km").universityName("koreauniv").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build(),
-                                                        PartyDto.PartyPreviewDto.builder().partyId(2l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("사용자의 술 수락 대기 중인 파티").partyStatus(PartyStatus.ALCOHOL_PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("300km").universityName("yonsei").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build()
-                                                )
-                                        )
-                                )
-                                .build()
-                );
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(getPartyService.getApprovedParties(userInfoFromToken));
+                .body(getPartyService.getApprovedParties(userInfoFromToken));
     }
 
 
@@ -116,23 +83,10 @@ public class PartyDashBoardController {
     })
     public ResponseEntity<PartyDto.GetPartiesResponse> getPendingParties() {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(
-                        PartyDto.GetPartiesResponse.builder()
-                                .parties(
-                                        new ArrayList(
-                                                Arrays.asList(
-                                                        PartyDto.PartyPreviewDto.builder().partyId(1l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("수락 대기 중인 파티1").partyStatus(PartyStatus.PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("100km").universityName("koreauniv").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build(),
-                                                        PartyDto.PartyPreviewDto.builder().partyId(2l).partyTime(new Timestamp(System.currentTimeMillis())).partyTitle("수락 대기 중인 파티2").partyStatus(PartyStatus.PENDING.getStatus()).applyCount(8).currentNumberOfMember(3).totalNumberOfMember(10).distanceFromUser("300km").universityName("yonsei").partyThumbnailUrl("http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg").build()
-                                                )
-                                        )
-                                )
-                                .build()
-                );
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(getPartyService.getPendingParties(userInfoFromToken));
+                .body(getPartyService.getPendingParties(userInfoFromToken));
     }
 
 }

@@ -20,7 +20,6 @@ public class UserPartyProfile {
     @Column(name = "user_party_profile_body")
     private String partyProfileBody;
 
-    @ManyToOne(targetEntity = UserPartyProfileImage.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_party_profile_image_id")
-    private UserPartyProfileImage partyProfileImage;
+    @Column(name = "user_party_profile_image_id")
+    private Long userPartyProfileImageId;
 }
