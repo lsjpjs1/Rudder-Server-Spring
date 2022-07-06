@@ -54,7 +54,10 @@ public class PartyQueryRepository {
                 .from(party)
                 .leftJoin(school).on(school.schoolId.eq(getPartiesRequest.getSchoolId()))
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
-                .where(party.partyTime.gt(new Timestamp(System.currentTimeMillis())))
+                .where(
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
+                        party.partyId.lt(getPartiesRequest.getEndPartyId())
+                )
                 .groupBy(party.partyId,party.partyTime)
                 .orderBy(party.partyTime.asc())
                 .limit(20l)

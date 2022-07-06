@@ -117,7 +117,7 @@ public class PartyDto {
     @ToString
     @Builder
     public static class GetPartiesRequest extends WithUserInfo.AbstractWithUserInfo {
-
+        private Long endPartyId;
     }
 
     @Getter
