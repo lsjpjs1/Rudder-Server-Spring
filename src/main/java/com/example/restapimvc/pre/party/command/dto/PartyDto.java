@@ -103,7 +103,6 @@ public class PartyDto {
         private String partyTitle;
         private String partyThumbnailUrl;
         private Timestamp partyTime;
-        private String distanceFromUser;
         private Integer totalNumberOfMember;
         private Integer currentNumberOfMember;
         private Integer applyCount;
