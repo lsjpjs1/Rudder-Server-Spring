@@ -22,6 +22,7 @@ public class ChatDto {
         private Timestamp recentMessageTime;
         private Integer notReadMessageCount;
         private String chatRoomImageUrl;
+        private String chatRoomTitle;
     }
 
     @Getter
