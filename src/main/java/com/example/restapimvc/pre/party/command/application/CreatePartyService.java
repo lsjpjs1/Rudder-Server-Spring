@@ -19,12 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreatePartyService {
 
+    private final Integer MIN_PARTY_MEMBER = 5;
+
     private final PartyRepository partyRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomMemberRepository chatRoomMemberRepository;
 
     @Transactional
     public void createParty(UserInfo userInfo,PartyDto.CreatePartyRequest createPartyRequest) {
+        if(createPartyRequest.getTotalNumberOfMember() <MIN_PARTY_MEMBER) {
+            throw new CustomException(ErrorCode.PARTY_MEMBER_TOO_SMALL);
+        }
         createPartyRequest.setAllUserInfo(userInfo);
         ChatRoom chatRoom = ChatRoom.builder().build();
         chatRoomRepository.save(chatRoom);

@@ -32,7 +32,7 @@ class CreatePartyControllerTest {
                         .location("seoul")
                         .partyDescription("description")
                         .partyTime(new Timestamp(System.currentTimeMillis()+9999999))
-                        .totalNumberOfMember(10)
+                        .totalNumberOfMember(3)
                         .build()
         );
 

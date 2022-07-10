@@ -1,6 +1,7 @@
 package com.example.restapimvc.pre.party.controller;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.pre.party.command.application.CreatePartyService;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
@@ -24,7 +25,8 @@ public class CreatePartyController {
     @PostMapping(value = "/parties")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공")
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 406, message = "1.PARTY_MEMBER_TOO_SMALL(파티 인원 수는 최소 5명 이상)", response = ErrorResponse.class)
     })
     public ResponseEntity createParty(@RequestBody PartyDto.CreatePartyRequest createPartyRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
