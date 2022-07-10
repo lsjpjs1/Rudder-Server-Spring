@@ -31,8 +31,8 @@ class CreatePartyControllerTest {
                         .partyTitle("first party")
                         .location("seoul")
                         .partyDescription("description")
-                        .partyTime(new Timestamp(System.currentTimeMillis()+9999999))
-                        .totalNumberOfMember(3)
+                        .partyTime(new Timestamp(System.currentTimeMillis()+999999999))
+                        .totalNumberOfMember(6)
                         .build()
         );
 

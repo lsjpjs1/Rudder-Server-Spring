@@ -27,10 +27,16 @@ public class CreatePartyService {
 
     @Transactional
     public void createParty(UserInfo userInfo,PartyDto.CreatePartyRequest createPartyRequest) {
+        createPartyRequest.setAllUserInfo(userInfo);
+
         if(createPartyRequest.getTotalNumberOfMember() <MIN_PARTY_MEMBER) {
             throw new CustomException(ErrorCode.PARTY_MEMBER_TOO_SMALL);
         }
-        createPartyRequest.setAllUserInfo(userInfo);
+        partyRepository.findByPartyHostUserInfoIdAndAndPartyTime(createPartyRequest.getUserInfoId(), createPartyRequest.getPartyTime())
+                .ifPresent(party -> {
+                    throw new CustomException(ErrorCode.PARTY_ALREADY_EXIST);
+                });
+
         ChatRoom chatRoom = ChatRoom.builder().build();
         chatRoomRepository.save(chatRoom);
         ChatRoomMember chatRoomMember = ChatRoomMember.builder().chatRoomId(chatRoom.getChatRoomId()).userInfoId(createPartyRequest.getUserInfoId()).build();

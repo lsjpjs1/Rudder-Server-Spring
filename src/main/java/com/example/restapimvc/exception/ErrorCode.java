@@ -47,6 +47,7 @@ public enum ErrorCode {
     EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, "Email already exists."),
     JOB_FAVORITE_ALREADY_EXIST(HttpStatus.CONFLICT, "Already favorite this job"),
     ALREADY_CLUB_MEMBER(HttpStatus.CONFLICT, "You are already club member"),
+    PARTY_ALREADY_EXIST(HttpStatus.CONFLICT, "Party already exists on that date."),
 
     SEND_EMAIL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to send email")
         ;
