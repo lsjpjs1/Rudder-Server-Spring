@@ -21,6 +21,7 @@ public class PartyDto {
         private String partyDescription;
         private Timestamp partyTime;
         private Integer totalNumberOfMember;
+        private Long alcoholId;
         @ApiModelProperty(hidden = true)
         private Long chatRoomId;
     }
