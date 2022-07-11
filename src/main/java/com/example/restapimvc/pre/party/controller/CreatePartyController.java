@@ -1,7 +1,9 @@
 package com.example.restapimvc.pre.party.controller;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.dto.PartyProfileDto;
 import com.example.restapimvc.exception.ErrorResponse;
+import com.example.restapimvc.post.command.dto.FileDto;
 import com.example.restapimvc.pre.party.command.application.CreatePartyService;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
@@ -35,5 +37,21 @@ public class CreatePartyController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
 
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "파티 썸네일 S3 업로드용 signedUrl 가져오기")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "성공"),
+            @ApiResponse(code = 404, message = "1.BAD_REQUEST_CONTENT(imageMetaData가 Null일때)", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "1.PARTY_NOT_FOUND(존재하지 않는 파티)", response = ErrorResponse.class)
+    })
+    @PostMapping(value = "/parties/image-upload-url/generate")
+    public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody PartyDto.PartyThumbnailUploadUrlRequest partyProfileImageUploadUrlRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createPartyService.getImageUploadUrl(userInfoFromToken,partyProfileImageUploadUrlRequest))
+                ;
     }
 }

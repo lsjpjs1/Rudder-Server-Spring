@@ -1,5 +1,6 @@
 package com.example.restapimvc.pre.party.command.dto;
 
+import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.common.WithUserInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -179,5 +180,15 @@ public class PartyDto {
         private Integer targetMemberCount;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class PartyThumbnailUploadUrlRequest extends WithUserInfo.AbstractWithUserInfo {
+        private FileMetaData imageMetaData;
+        private Long partyId;
+    }
 
 }
