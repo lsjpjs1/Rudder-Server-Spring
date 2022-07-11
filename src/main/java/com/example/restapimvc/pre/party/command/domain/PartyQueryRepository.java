@@ -74,7 +74,7 @@ public class PartyQueryRepository {
         return Projections.constructor(PartyDto.PartyPreviewDto.class,
                 party.partyId,
                 party.partyTitle.max(),
-                Expressions.constant(""),
+                party.partyThumbnailName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
                 party.partyTime.max(),
                 party.totalNumberOfMember.max(),
                 party.currentNumberOfMember.max(),
