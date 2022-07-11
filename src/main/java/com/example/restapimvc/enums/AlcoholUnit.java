@@ -1,9 +1,11 @@
 package com.example.restapimvc.enums;
 
 import com.example.restapimvc.util.EnumEntityConvertable;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AlcoholUnit implements EnumEntityConvertable {
-    BOTTLE("BOTTLE");
+    BOTTLE("BOTTLE"),
+    PACK("PACK");
 
     private String alcoholUnit;
 
@@ -17,5 +19,10 @@ public enum AlcoholUnit implements EnumEntityConvertable {
     @Override
     public Boolean isTargetEnum(String s) {
         return alcoholUnit.equals(s);
+    }
+
+    @JsonValue
+    public String toValue() {
+        return alcoholUnit;
     }
 }

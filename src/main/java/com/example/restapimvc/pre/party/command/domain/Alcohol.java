@@ -5,6 +5,7 @@ import com.example.restapimvc.enums.Currency;
 import com.example.restapimvc.util.converter.AlcoholUnitConverter;
 import com.example.restapimvc.util.converter.ChatRoomTypeConverter;
 import com.example.restapimvc.util.converter.CurrencyConverter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class Alcohol {
 
     private String alcoholName;
 
+    @Setter
+    @JsonProperty("alcoholImageUrl")
     private String alcoholImageName;
 
     private BigDecimal price;
