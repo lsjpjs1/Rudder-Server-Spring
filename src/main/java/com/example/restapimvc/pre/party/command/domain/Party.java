@@ -32,6 +32,7 @@ public class Party {
     private Long partyChatRoomId;
     @Setter
     private String partyThumbnailName;
+    private Long alcoholId;
 
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "user_info_id")
