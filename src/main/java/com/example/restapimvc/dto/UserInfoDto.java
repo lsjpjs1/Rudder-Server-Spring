@@ -56,6 +56,7 @@ public class UserInfoDto {
         private String userEmail;
         private String userPassword;
         private String userProfileBody;
+        private Boolean promotionMailAgreement;
     }
 
     @Getter

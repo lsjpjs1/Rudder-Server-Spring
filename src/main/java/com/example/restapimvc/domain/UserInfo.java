@@ -67,6 +67,9 @@ public class UserInfo {
 
     private String userEmail;
 
+    @Column(insertable = false)
+    private Boolean promotionMailAgreement;
+
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<UserSelectCategory> userSelectCategories;

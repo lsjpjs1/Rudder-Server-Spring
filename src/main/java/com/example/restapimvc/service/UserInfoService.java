@@ -94,6 +94,7 @@ public class UserInfoService {
                     .userNickname(randomNicknameGenerate())
                     .userType(1)
                     .userPartyProfile(partyProfile)
+                    .promotionMailAgreement(signUpRequest.getPromotionMailAgreement())
                     .build();
             userInfo.passwordEncoding();
             userInfoRepository.save(userInfo);
