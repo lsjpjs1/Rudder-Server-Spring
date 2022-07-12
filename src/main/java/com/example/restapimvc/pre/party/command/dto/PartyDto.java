@@ -2,6 +2,8 @@ package com.example.restapimvc.pre.party.command.dto;
 
 import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.pre.party.command.domain.Alcohol;
+import com.example.restapimvc.pre.party.command.domain.PickUpPlace;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -190,6 +192,24 @@ public class PartyDto {
     public static class PartyThumbnailUploadUrlRequest extends WithUserInfo.AbstractWithUserInfo {
         private FileMetaData imageMetaData;
         private Long partyId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetPickUpPlaceResponse {
+        private List<PickUpPlace> pickUpPlaces;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class GetAlcoholResponse {
+        private List<Alcohol> alcoholList;
     }
 
 }

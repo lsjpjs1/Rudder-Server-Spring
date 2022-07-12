@@ -3,6 +3,7 @@ package com.example.restapimvc.pre.party.controller;
 import com.example.restapimvc.pre.party.command.domain.Alcohol;
 import com.example.restapimvc.pre.party.command.domain.PickUpPlace;
 import com.example.restapimvc.pre.party.command.domain.PickUpPlaceRepository;
+import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -27,11 +28,11 @@ public class GetPickUpPlaceController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공")
     })
-    public ResponseEntity<List<PickUpPlace>> getPickUpPlaces() {
+    public ResponseEntity<PartyDto.GetPickUpPlaceResponse> getPickUpPlaces() {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(pickUpPlaceRepository.findAll());
+                .body(PartyDto.GetPickUpPlaceResponse.builder().pickUpPlaces(pickUpPlaceRepository.findAll()).build());
 
     }
 }

@@ -2,6 +2,7 @@ package com.example.restapimvc.pre.party.controller;
 
 import com.example.restapimvc.pre.party.command.domain.Alcohol;
 import com.example.restapimvc.pre.party.command.domain.AlcoholRepository;
+import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -30,16 +31,16 @@ public class GetAlcoholController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공")
     })
-    public ResponseEntity<List<Alcohol>> getAlcohol() {
-
+    public ResponseEntity<PartyDto.GetAlcoholResponse> getAlcohol() {
+        List<Alcohol> alcoholList = alcoholRepository.findAll().stream()
+                .map(alcohol -> {
+                    alcohol.setAlcoholImageName(CLOUD_FRONT_POST_IMAGE_URL + alcohol.getAlcoholImageName());
+                    return alcohol;
+                })
+                .collect(Collectors.toList());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(alcoholRepository.findAll().stream()
-                        .map(alcohol -> {
-                            alcohol.setAlcoholImageName(CLOUD_FRONT_POST_IMAGE_URL+alcohol.getAlcoholImageName());
-                            return alcohol;
-                        })
-                        .collect(Collectors.toList()));
+                .body(PartyDto.GetAlcoholResponse.builder().alcoholList(alcoholList).build());
 
     }
 }
