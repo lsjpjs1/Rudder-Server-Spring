@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.PartyProfileDto;
+import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.dto.UserProfileDto;
 import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.post.command.dto.FileDto;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,10 +41,23 @@ public class PartyProfileController {
                 ;
     }
 
+    @Operation(summary = "userInfoId로 프로필 조회")
     @GetMapping(value = "/party-profiles/{userInfoId}")
     public ResponseEntity<PartyProfileDto.GetPartyProfileResponse> getPartyProfile(@PathVariable Long userInfoId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(partyProfileService.getPartyProfile(userInfoId));
     }
+
+    @Operation(summary = "사진,설명 수정")
+    @PatchMapping(value = "/party-profiles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updatePartyProfile(@RequestBody PartyProfileDto.UpdatePartyProfileRequest updatePartyProfileRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(partyProfileService.updatePartyProfile(userInfoFromToken,updatePartyProfileRequest))
+                ;
+    }
+
 }

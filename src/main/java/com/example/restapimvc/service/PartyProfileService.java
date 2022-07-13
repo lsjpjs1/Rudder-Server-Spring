@@ -4,6 +4,7 @@ import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserPartyProfile;
 import com.example.restapimvc.domain.UserPartyProfileImage;
+import com.example.restapimvc.domain.UserProfile;
 import com.example.restapimvc.dto.PartyProfileDto;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
@@ -14,6 +15,7 @@ import com.example.restapimvc.post.command.dto.WritePostDto;
 import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.repository.UserPartyProfileImageRepository;
 import com.example.restapimvc.repository.UserPartyProfileRepository;
+import com.example.restapimvc.repository.UserProfileRepository;
 import com.example.restapimvc.util.RandomNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +38,7 @@ public class PartyProfileService {
     private final UserPartyProfileRepository userPartyProfileRepository;
     private final UserPartyProfileImageRepository userPartyProfileImageRepository;
     private final FileUploadRepository fileUploadRepository;
+    private final UserProfileRepository userProfileRepository;
 
     @Transactional
     public FileDto.UrlsWrapper getImageUploadUrl(PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
@@ -88,5 +91,34 @@ public class PartyProfileService {
                 .partyProfileImages(partyProfileImages)
                 .build();
 
+    }
+
+    @Transactional
+    public FileDto.UrlsWrapper updatePartyProfile(UserInfo userInfo,PartyProfileDto.UpdatePartyProfileRequest updatePartyProfileRequest) {
+        updatePartyProfileRequest.setAllUserInfo(userInfo);
+        UserInfo userInfoPersistence = userInfoRepository.findById(userInfo.getUserInfoId())
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+
+        UserPartyProfile userPartyProfile = userInfoPersistence.getUserPartyProfile();
+        userPartyProfile.setPartyProfileBody(updatePartyProfileRequest.getProfileBody());
+        userPartyProfileRepository.save(userPartyProfile);
+
+        userPartyProfileImageRepository.deleteByPartyProfileId(userPartyProfile.getPartyProfileId());
+
+        List<FileMetaData> imageMetaData = updatePartyProfileRequest.getImageMetaData();
+        for (int i=0; i<imageMetaData.size();i++){
+            imageMetaData.get(i).setFileName(new Date().getTime() + RandomNumber.generateRandomCode(6));
+            UserPartyProfileImage partyProfileImage = UserPartyProfileImage.builder()
+                    .partyProfileId(userPartyProfile.getPartyProfileId())
+                    .partyProfileImageName(imageMetaData.get(i).getFileName())
+                    .build();
+            userPartyProfileImageRepository.save(partyProfileImage);
+            if(i==0){
+                userPartyProfile.setUserPartyProfileImageId(partyProfileImage.getPartyProfileImageId());
+                userPartyProfileRepository.save(userPartyProfile);
+            }
+        }
+
+        return FileDto.UrlsWrapper.builder().urls(fileUploadRepository.getFileUploadUrls(imageMetaData).stream().map(uploadUrl -> uploadUrl.getUrl()).collect(Collectors.toList())).build();
     }
 }

@@ -18,6 +18,7 @@ public class UserProfile {
     private Long profileId;
 
     //간단한 자기소개 내용
+    @Setter
     private String profileBody;
 
     @Setter

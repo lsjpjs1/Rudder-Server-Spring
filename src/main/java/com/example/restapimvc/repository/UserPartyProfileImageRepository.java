@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface UserPartyProfileImageRepository extends JpaRepository<UserPartyProfileImage, Long> {
     List<UserPartyProfileImage> findByPartyProfileId(Long partyProfileId);
+    void deleteByPartyProfileId(Long partyProfileId);
+
 }
