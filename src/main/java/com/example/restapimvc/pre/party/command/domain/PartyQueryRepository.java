@@ -64,7 +64,7 @@ public class PartyQueryRepository {
                         lessThanPartyId(getPartiesRequest.getEndPartyId())
                 )
                 .groupBy(party.partyId, party.partyTime)
-                .orderBy(party.partyTime.asc())
+                .orderBy(party.partyId.desc())
                 .limit(20l)
                 .fetch()
                 ;
