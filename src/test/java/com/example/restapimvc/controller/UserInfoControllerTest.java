@@ -60,6 +60,7 @@ class UserInfoControllerTest {
                 .userEmail("lsjpjs1@naver.com")
                 .userPassword("123123123a")
                 .userProfileBody("im hoon")
+                .userNickname("huni")
                 .promotionMailAgreement(Boolean.TRUE)
                 .build();
         String content = objectMapper.writeValueAsString(signUpRequest);

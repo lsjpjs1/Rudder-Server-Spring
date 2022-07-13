@@ -91,7 +91,7 @@ public class UserInfoService {
                     .userEmail(signUpRequest.getUserEmail())
                     .school(targetSchool)
                     .userProfile(userProfile)
-                    .userNickname(randomNicknameGenerate())
+                    .userNickname(signUpRequest.getUserNickname())
                     .userType(1)
                     .userPartyProfile(partyProfile)
                     .promotionMailAgreement(signUpRequest.getPromotionMailAgreement())

@@ -55,6 +55,7 @@ public class UserInfoDto {
     public static class SignUpRequest {
         private String userEmail;
         private String userPassword;
+        private String userNickname;
         private String userProfileBody;
         private Boolean promotionMailAgreement;
     }
