@@ -2,12 +2,12 @@ package com.example.restapimvc.pre.party.command.dto;
 
 import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.enums.FilteringPeriod;
 import com.example.restapimvc.pre.party.command.domain.Alcohol;
 import com.example.restapimvc.pre.party.command.domain.PickUpPlace;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -122,6 +122,7 @@ public class PartyDto {
     @Builder
     public static class GetPartiesRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long endPartyId;
+        private FilteringPeriod filteringPeriod;
     }
 
     @Getter

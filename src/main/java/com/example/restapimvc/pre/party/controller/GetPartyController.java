@@ -9,16 +9,14 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @Api( tags = "파티 목록 조회 관련")
@@ -31,6 +29,8 @@ public class GetPartyController {
             @ApiResponse(code = 200, message = "성공")
     })
     public ResponseEntity<PartyDto.GetPartiesResponse> getParties(@ModelAttribute PartyDto.GetPartiesRequest getPartiesRequest) {
+
+        log.debug(getPartiesRequest.getFilteringPeriod().name());
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)

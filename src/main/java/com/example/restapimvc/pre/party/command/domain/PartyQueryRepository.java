@@ -4,6 +4,7 @@ import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.domain.QSchool;
 import com.example.restapimvc.domain.QUserPartyProfileImage;
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.enums.FilteringPeriod;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.querydsl.core.types.ConstructorExpression;
@@ -60,8 +61,8 @@ public class PartyQueryRepository {
                 .from(party)
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
                 .where(
-                        party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
-                        lessThanPartyId(getPartiesRequest.getEndPartyId())
+                        lessThanPartyId(getPartiesRequest.getEndPartyId()),
+                        filterByPeriod(getPartiesRequest.getFilteringPeriod())
                 )
                 .groupBy(party.partyId, party.partyTime)
                 .orderBy(party.partyId.desc())
@@ -187,6 +188,14 @@ public class PartyQueryRepository {
             return null;
         }
         return party.partyId.lt(partyId);
+    }
+
+    public BooleanExpression filterByPeriod(FilteringPeriod filteringPeriod) {
+        if (filteringPeriod == null){
+            return party.partyTime.gt(new Timestamp(System.currentTimeMillis()));
+        }
+
+        return party.partyTime.between(filteringPeriod.getStart(),filteringPeriod.getEnd());
     }
 
 //    private BooleanExpression equalRecentPartyId(Long userInfoId) {
