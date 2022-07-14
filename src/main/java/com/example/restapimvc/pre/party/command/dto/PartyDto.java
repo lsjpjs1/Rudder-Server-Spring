@@ -65,6 +65,7 @@ public class PartyDto {
     public static class PartyApplicantsDto {
         private Long userInfoId;
         private String partyProfileImageUrl;
+        private Integer numberApplicants;
     }
 
     @Getter

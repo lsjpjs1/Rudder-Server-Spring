@@ -162,7 +162,8 @@ public class PartyQueryRepository {
                 .select(
                         Projections.constructor(PartyDto.PartyApplicantsDto.class,
                                 partyMember.userInfo.userInfoId.max(),
-                                partyProfileImage.partyProfileImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL)
+                                partyProfileImage.partyProfileImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
+                                partyMember.numberApplicants.max()
                         )
                 )
                 .from(partyMember)
