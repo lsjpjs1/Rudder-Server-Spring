@@ -17,9 +17,9 @@ public class ReportService {
     public void report(UserInfo userInfo, ReportDto.ReportRequest reportRequest) {
         reportRequest.setAllUserInfo(userInfo);
         ReportReceive reportReceive = ReportReceive.builder()
-                .postType(reportRequest.getPostType())
+                .reportType(reportRequest.getReportType())
+                .userInfoId(reportRequest.getUserInfoId())
                 .reportBody(reportRequest.getReportBody())
-                .userId(reportRequest.getUserId())
                 .itemId(reportRequest.getItemId())
                 .build();
         reportRepository.save(reportReceive);

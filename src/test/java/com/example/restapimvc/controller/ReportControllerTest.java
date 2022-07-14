@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.dto.ReportDto;
 import com.example.restapimvc.dto.UserBlockDTO;
+import com.example.restapimvc.enums.ReportType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ class ReportControllerTest {
     private ObjectMapper objectMapper;
     @Test
     void report() throws Exception {
-        String content = objectMapper.writeValueAsString(ReportDto.ReportRequest.builder().reportBody("its bad").postType("post").itemId(642l).build());
+        String content = objectMapper.writeValueAsString(ReportDto.ReportRequest.builder().reportBody("its bad").reportType(ReportType.USER).itemId(642l).build());
 
         mockMvc.perform(post("/reports")
                         .content(content)

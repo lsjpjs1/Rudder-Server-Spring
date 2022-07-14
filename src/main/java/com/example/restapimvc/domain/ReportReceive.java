@@ -1,5 +1,6 @@
 package com.example.restapimvc.domain;
 
+import com.example.restapimvc.enums.ReportType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,11 +16,11 @@ public class ReportReceive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-    private String postType;
+    private ReportType reportType;
 
     private String reportBody;
 
-    private String userId;
+    private Long userInfoId;
 
     private Long itemId;
 }

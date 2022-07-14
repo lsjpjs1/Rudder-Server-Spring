@@ -1,6 +1,7 @@
 package com.example.restapimvc.dto;
 
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.enums.ReportType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +17,6 @@ public class ReportDto {
     public static class ReportRequest extends WithUserInfo.AbstractWithUserInfo {
         private Long itemId;
         private String reportBody;
-        private String postType;
+        private ReportType reportType;
     }
 }
