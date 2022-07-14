@@ -52,24 +52,14 @@ public class Party {
                 .build();
     }
 
-    public void apply(List<UserInfo> userInfos) {
-        for (UserInfo userInfo : userInfos) {
-            partyMembers.put(userInfo.getUserInfoId(),
-                    PartyMember.builder()
-                            .party(this)
-                            .partyStatus(PartyStatus.PENDING)
-                            .userInfo(userInfo)
-                            .build()
-                    );
-        }
-    }
 
-    public void apply(UserInfo userInfo) {
+    public void apply(UserInfo userInfo, Integer numberApplicants) {
             partyMembers.put(userInfo.getUserInfoId(),
                     PartyMember.builder()
                             .party(this)
                             .partyStatus(PartyStatus.PENDING)
                             .userInfo(userInfo)
+                            .numberApplicants(numberApplicants)
                             .build()
             );
     }
@@ -83,6 +73,7 @@ public class Party {
                         .party(this)
                         .userInfo(userInfo)
                         .partyStatus(PartyStatus.HOST)
+                        .numberApplicants(1)
                         .build()
         );
     }

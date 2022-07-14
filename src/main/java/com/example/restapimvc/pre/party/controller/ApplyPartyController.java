@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class ApplyPartyController {
     private final ApplyPartyService applyPartyService;
 
-    @Operation(summary = "group apply 그룹 생성")
+    @Operation(summary = "group apply 그룹 생성(삭제예정)")
     @PostMapping(value = "/parties/{partyId}/apply-group")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
@@ -38,7 +38,7 @@ public class ApplyPartyController {
 
     }
 
-    @Operation(summary = "apply group에 참가")
+    @Operation(summary = "apply group에 참가(삭제예정)")
     @PostMapping(value = "/parties/apply-group/{applyGroupId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
@@ -47,6 +47,22 @@ public class ApplyPartyController {
     public ResponseEntity<PartyDto.GetPartyApplicantsResponse> joinPartyApplyGroup(@PathVariable Long applyGroupId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         applyPartyService.joinPartyApplyGroup(userInfoFromToken,applyGroupId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+
+    }
+
+    @Operation(summary = "party 참가 신청")
+    @PostMapping(value = "/parties/{partyId}/apply")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공")
+    })
+    public ResponseEntity applyParty(@PathVariable Long partyId, @RequestBody PartyDto.ApplyPartyRequest applyPartyRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        applyPartyRequest.setPartyId(partyId);
+        applyPartyService.applyParty(userInfoFromToken,applyPartyRequest);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();

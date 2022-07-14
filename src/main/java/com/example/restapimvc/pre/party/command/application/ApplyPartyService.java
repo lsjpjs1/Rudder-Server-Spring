@@ -36,8 +36,7 @@ public class ApplyPartyService {
         applyPartyRequest.setAllUserInfo(userInfo);
         Party party = partyRepository.findById(applyPartyRequest.getPartyId())
                 .orElseThrow(()->new CustomException(ErrorCode.PARTY_NOT_FOUND));
-        List<UserInfo> userInfos = userInfoRepository.findByUserInfoIdIn(applyPartyRequest.getUserInfoIdList());
-        party.apply(userInfos);
+        party.apply(userInfo, applyPartyRequest.getNumberApplicants());
         partyRepository.save(party);
     }
 
@@ -73,7 +72,7 @@ public class ApplyPartyService {
                     .orElseThrow(()->new CustomException(ErrorCode.PARTY_NOT_FOUND));
             partyApplyGroupMembers.stream()
                     .forEach(member->{
-                        party.apply(userInfoRepository.findById(member.getUserInfoId()).orElseThrow(()->new CustomException(ErrorCode.USER_INFO_NOT_FOUND)));
+                        party.apply(userInfoRepository.findById(member.getUserInfoId()).orElseThrow(()->new CustomException(ErrorCode.USER_INFO_NOT_FOUND)),partyApplyGroupMembers.size());
                     });
             partyRepository.save(party);
         }

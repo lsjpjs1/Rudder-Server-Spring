@@ -36,7 +36,7 @@ public class PartyDto {
     public static class ApplyPartyRequest extends WithUserInfo.AbstractWithUserInfo {
         @ApiModelProperty(hidden = true)
         private Long partyId;
-        private List<Long> userInfoIdList;
+        private Integer numberApplicants;
     }
     @Getter
     @Setter
@@ -183,6 +183,8 @@ public class PartyDto {
         private Long partyId;
         private Integer targetMemberCount;
     }
+
+
 
     @Getter
     @Setter

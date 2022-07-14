@@ -31,6 +31,8 @@ public class PartyMember {
     @Convert(converter = PartyStatusConverter.class)
     private PartyStatus partyStatus;
 
+    private Integer numberApplicants;
+
     public void approve() {
         partyStatus = PartyStatus.APPROVE;
     }
