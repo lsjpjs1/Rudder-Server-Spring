@@ -14,22 +14,13 @@ import java.util.Optional;
 @Repository
 public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, Long> {
 
-    @Query(value = "select * from " +
-            "(select distinct on (crm.chat_room_id) " +
-            "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
-            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time) " +
-            "from chat_room_member crm " +
-            "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
-            "where crm.user_info_id = (:userInfoId) " +
-            "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
-            "order by res.chat_message_id desc "
-            , nativeQuery = true)
-    List<Tuple> findChatRooms(@Param("userInfoId") Long userInfoId);
 
     @Query(value = "select * from " +
             "(select distinct on (crm.chat_room_id) " +
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
-            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time) " +
+            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time), " +
+            "(select user_nickname from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)), " +
+            "(select number_applicants from party_member where party_id = (:partyId) and user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
@@ -37,16 +28,17 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
             , nativeQuery = true)
-    List<Tuple> findHostPartyOneToOneChatRooms(@Param("partyId") Long partyId);
+    List<Tuple> findHostPartyOneToOneChatRooms(@Param("partyId") Long partyId,@Param("userInfoId") Long userInfoId);
 
     @Query(value = "select * from " +
             "(select distinct on (crm.chat_room_id) " +
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
-            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time) " +
+            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time), " +
+            "(select user_nickname from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
-            "left join party p on p.party_chat_room_id = cr.chat_room_id" +
+            "left join party p on p.party_chat_room_id = cr.chat_room_id " +
             "where p.party_host_user_info_id = (:userInfoId) and chat_room_type = 'party_one_to_one' " +
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
@@ -60,7 +52,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
     @Query(value = "select * from " +
             "(select distinct on (crm.chat_room_id) " +
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
-            "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time) " +
+            "(select count(*) from chat_message where chat_room_id = (:chatRoomId) and message_time>crm.latest_read_time) as not_read_message_count, " +
+            "(select count(*) from chat_room_member where chat_room_id = (:chatRoomId)) as number_chat_room_member " +
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "where crm.chat_room_id = (:chatRoomId) " +

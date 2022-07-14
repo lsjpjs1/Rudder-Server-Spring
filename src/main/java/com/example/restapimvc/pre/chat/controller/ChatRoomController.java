@@ -20,14 +20,7 @@ import java.sql.Timestamp;
 public class ChatRoomController {
 
     private final GetChatRoomService getChatRoomService;
-    @GetMapping("/chat-rooms")
-    public ResponseEntity<ChatDto.GetChatRoomsResponse> getChatRooms() {
-        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(getChatRoomService.getChatRooms(userInfoFromToken))
-                ;
-    }
+
 
     @GetMapping("/chat-rooms/party-group/{partyId}")
     public ResponseEntity<ChatDto.ChatRoomDto> getPartyGroupChatRoom(@PathVariable Long partyId) {
