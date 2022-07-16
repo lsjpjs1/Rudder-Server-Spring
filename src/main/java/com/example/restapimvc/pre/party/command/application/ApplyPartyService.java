@@ -36,6 +36,7 @@ public class ApplyPartyService {
         applyPartyRequest.setAllUserInfo(userInfo);
         Party party = partyRepository.findById(applyPartyRequest.getPartyId())
                 .orElseThrow(()->new CustomException(ErrorCode.PARTY_NOT_FOUND));
+        party.throwIfCanceled();
         party.apply(userInfo, applyPartyRequest.getNumberApplicants());
         partyRepository.save(party);
     }

@@ -4,6 +4,8 @@ import com.example.restapimvc.domain.CommentLike;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.PartyPhase;
 import com.example.restapimvc.enums.PartyStatus;
+import com.example.restapimvc.exception.CustomException;
+import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.util.converter.PartyPhaseConverter;
 import com.example.restapimvc.util.converter.PartyStatusConverter;
@@ -87,6 +89,12 @@ public class Party {
                         .numberApplicants(1)
                         .build()
         );
+    }
+
+    public void throwIfCanceled(){
+        if (partyPhase.equals(PartyPhase.CANCEL)){
+            throw new CustomException(ErrorCode.PARTY_CANCELED);
+        }
     }
 
 

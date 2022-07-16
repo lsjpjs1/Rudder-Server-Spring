@@ -1,6 +1,7 @@
 package com.example.restapimvc.pre.party.controller;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.exception.ErrorResponse;
 import com.example.restapimvc.pre.party.command.application.ApplyPartyService;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
@@ -57,7 +58,8 @@ public class ApplyPartyController {
     @PostMapping(value = "/parties/{partyId}/apply")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공")
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 406, message = "1.PARTY_CANCELED(취소된 파티)", response = ErrorResponse.class),
     })
     public ResponseEntity applyParty(@PathVariable Long partyId, @RequestBody PartyDto.ApplyPartyRequest applyPartyRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
