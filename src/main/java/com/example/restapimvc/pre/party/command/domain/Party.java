@@ -2,8 +2,11 @@ package com.example.restapimvc.pre.party.command.domain;
 
 import com.example.restapimvc.domain.CommentLike;
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.enums.PartyPhase;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
+import com.example.restapimvc.util.converter.PartyPhaseConverter;
+import com.example.restapimvc.util.converter.PartyStatusConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +37,10 @@ public class Party {
     private String partyThumbnailName;
     private Long alcoholId;
 
+    @Column(insertable = false)
+    @Convert(converter = PartyPhaseConverter.class)
+    private PartyPhase partyPhase;
+
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     @MapKeyColumn(name = "user_info_id")
     private Map<Long, PartyMember> partyMembers;
@@ -62,6 +69,10 @@ public class Party {
                             .numberApplicants(numberApplicants)
                             .build()
             );
+    }
+
+    public void cancel() {
+        partyPhase = PartyPhase.CANCEL;
     }
 
     public void registerHost(UserInfo userInfo) {
