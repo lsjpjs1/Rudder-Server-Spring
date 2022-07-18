@@ -3,6 +3,7 @@ package com.example.restapimvc.pre.party.command.dto;
 import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.enums.FilteringPeriod;
+import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.domain.Alcohol;
 import com.example.restapimvc.pre.party.command.domain.PickUpPlace;
 import io.swagger.annotations.ApiModelProperty;
@@ -112,6 +113,7 @@ public class PartyDto {
         private Integer currentNumberOfMember;
         private Integer applyCount;
         private String universityName;
+        @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
         private Long partyChatRoomId;
     }
