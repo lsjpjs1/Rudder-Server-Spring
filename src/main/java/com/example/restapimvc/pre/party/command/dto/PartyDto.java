@@ -225,4 +225,14 @@ public class PartyDto {
         private Long partyId;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class SendCustomerSoundRequest extends WithUserInfo.AbstractWithUserInfo {
+        private String customerSoundType;
+        private String customerSoundBody;
+    }
+
 }
