@@ -77,6 +77,10 @@ public class Party {
         partyPhase = PartyPhase.CANCEL;
     }
 
+    public void stopRecruit() {
+        partyPhase = PartyPhase.STOP_RECRUIT;
+    }
+
     public void registerHost(UserInfo userInfo) {
         if(partyMembers==null){
             partyMembers = new HashMap<>();
@@ -92,7 +96,7 @@ public class Party {
     }
 
     public void throwIfCanceled(){
-        if (partyPhase.equals(PartyPhase.CANCEL)){
+        if (!partyPhase.equals(PartyPhase.RECRUITING)){
             throw new CustomException(ErrorCode.PARTY_CANCELED);
         }
     }

@@ -86,19 +86,6 @@ public class PartyDashBoardController {
                 .body(getPartyService.getPendingParties(userInfoFromToken));
     }
 
-    @Operation(summary = "파티 취소")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공")
-    })
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/parties/{partyId}/cancel")
-    public ResponseEntity cancelParty(@PathVariable Long partyId) {
-        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        partyDashBoardService.cancelParty(userInfoFromToken,partyId);
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build()
-                ;
-    }
+
 
 }

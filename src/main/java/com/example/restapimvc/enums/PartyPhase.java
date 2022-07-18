@@ -4,7 +4,8 @@ import com.example.restapimvc.util.EnumEntityConvertable;
 
 public enum PartyPhase implements EnumEntityConvertable {
     RECRUITING("RECRUITING"),
-    CANCEL("CANCEL");
+    CANCEL("CANCEL"),
+    STOP_RECRUIT("STOP_RECRUIT");
 
     private String partyPhase;
 

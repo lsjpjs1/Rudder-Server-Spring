@@ -55,16 +55,7 @@ public class PartyDashBoardService {
         return PartyDto.GetPartyApplicantsResponse.builder().applicants(applicants).build();
     }
 
-    @Transactional
-    public void cancelParty(UserInfo userInfo, Long partyId) {
-        Party party = partyRepository.findById(partyId)
-                .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
-        if(!party.getPartyHostUserInfoId().equals(userInfo.getUserInfoId())){
-            throw new CustomException(ErrorCode.NO_PERMISSION);
-        }
-        party.cancel();
 
-    }
 
 
 }
