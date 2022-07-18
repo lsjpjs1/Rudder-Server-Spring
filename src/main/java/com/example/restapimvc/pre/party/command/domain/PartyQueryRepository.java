@@ -90,7 +90,8 @@ public class PartyQueryRepository {
                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus)
                         .otherwise(new NullExpression<>(PartyStatus.class))
                         .stringValue()
-                        .max()
+                        .max(),
+                party.partyChatRoomId.max()
         );
     }
 

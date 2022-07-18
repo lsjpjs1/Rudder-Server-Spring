@@ -113,8 +113,8 @@ public class PartyDto {
         private Integer applyCount;
         private String universityName;
         private String partyStatus;
+        private Long partyChatRoomId;
     }
-
 
     @Getter
     @Setter
