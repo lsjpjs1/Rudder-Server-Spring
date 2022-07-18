@@ -86,6 +86,21 @@ public class PartyDashBoardController {
                 .body(getPartyService.getPendingParties(userInfoFromToken));
     }
 
+    @Operation(summary = "파티 신청 수락")
+    @PatchMapping(value = "/parties/{partyId}/approve")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 404, message = "1.PARTY_MEMBER_NOT_FOUND(존재하지 않는 partyMemberId)", response = ErrorResponse.class),
+            @ApiResponse(code = 403, message = "1.NO_PERMISSION(파티 호스트가 아님)", response = ErrorResponse.class)
+    })
+    public ResponseEntity approveApply(@PathVariable Long partyId, @RequestBody PartyDto.ApproveApplyRequest approveApplyRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        approveApplyRequest.setPartyId(partyId);
+        partyDashBoardService.approveApply(userInfoFromToken,approveApplyRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 
 
 }

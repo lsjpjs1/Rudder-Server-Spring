@@ -235,4 +235,15 @@ public class PartyDto {
         private String customerSoundBody;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class ApproveApplyRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Long partyMemberId;
+        @ApiModelProperty(hidden = true)
+        private Long partyId;
+    }
+
 }

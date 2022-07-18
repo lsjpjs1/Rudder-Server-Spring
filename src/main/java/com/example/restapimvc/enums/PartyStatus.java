@@ -9,7 +9,8 @@ public enum PartyStatus implements EnumEntityConvertable {
     HOST("HOST"),
     PENDING("PENDING"),
     ALCOHOL_PENDING("ALCOHOL_PENDING"),
-    APPROVE("APPROVE"),
+    HOST_APPROVE("HOST_APPROVE"),
+    FINAL_APPROVE("FINAL_APPROVE"),
     REJECT("REJECT");
 
     private String status;

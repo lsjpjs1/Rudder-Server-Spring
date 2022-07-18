@@ -28,22 +28,20 @@ public class PartyDashBoardService {
 
 
     @Transactional
-    public void approveApply(UserInfo userInfo, Long partyMemberId, Boolean isApprove) {
-        PartyMember partyMember = partyMemberRepository.findById(partyMemberId)
+    public void approveApply(UserInfo userInfo, PartyDto.ApproveApplyRequest approveApplyRequest) {
+        PartyMember partyMember = partyMemberRepository.findById(approveApplyRequest.getPartyMemberId())
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_MEMBER_NOT_FOUND));
-        try{
+        try {
             if (!partyMember.getParty().getPartyMembers().get(userInfo.getUserInfoId()).getPartyStatus().equals(PartyStatus.HOST)) {
                 throw new CustomException(ErrorCode.NO_PERMISSION);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
 
-        if(isApprove){
-            partyMember.approve();
-        } else{
-            partyMember.reject();
-        }
+
+        partyMember.approve();
+
         partyMemberRepository.save(partyMember);
 
     }
@@ -54,8 +52,6 @@ public class PartyDashBoardService {
         List<PartyDto.PartyApplicantsDto> applicants = partyQueryRepository.findApplicants(getPartyApplicantsRequest);
         return PartyDto.GetPartyApplicantsResponse.builder().applicants(applicants).build();
     }
-
-
 
 
 }

@@ -2,9 +2,7 @@ package com.example.restapimvc.pre.party.command.domain;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.PartyStatus;
-import com.example.restapimvc.post.command.domain.Post;
 import com.example.restapimvc.util.converter.PartyStatusConverter;
-import com.example.restapimvc.util.converter.UserInfoOsConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,10 +32,12 @@ public class PartyMember {
     private Integer numberApplicants;
 
     public void approve() {
-        partyStatus = PartyStatus.APPROVE;
+        if(party.getAlcoholId().equals(1l)){
+            partyStatus = PartyStatus.HOST_APPROVE;
+        }else{
+            partyStatus = PartyStatus.ALCOHOL_PENDING;
+        }
+
     }
 
-    public void reject() {
-        partyStatus = PartyStatus.REJECT;
-    }
 }

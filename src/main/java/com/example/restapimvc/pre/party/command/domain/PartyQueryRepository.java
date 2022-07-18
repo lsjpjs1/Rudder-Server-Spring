@@ -1,6 +1,5 @@
 package com.example.restapimvc.pre.party.command.domain;
 
-import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.domain.QSchool;
 import com.example.restapimvc.domain.QUserPartyProfileImage;
 import com.example.restapimvc.domain.UserInfo;
@@ -8,12 +7,10 @@ import com.example.restapimvc.enums.FilteringPeriod;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.querydsl.core.types.ConstructorExpression;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import static com.querydsl.core.types.dsl.Expressions.nullExpression;
@@ -120,7 +116,7 @@ public class PartyQueryRepository {
                 .from(party)
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
                 .where(
-                        partyMember.partyStatus.in(PartyStatus.APPROVE, PartyStatus.ALCOHOL_PENDING),
+                        partyMember.partyStatus.in(PartyStatus.HOST_APPROVE, PartyStatus.ALCOHOL_PENDING, PartyStatus.FINAL_APPROVE),
                         partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
                         party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
                 )
