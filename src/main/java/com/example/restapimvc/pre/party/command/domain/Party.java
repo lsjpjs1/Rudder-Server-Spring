@@ -80,6 +80,9 @@ public class Party {
     public void stopRecruit() {
         partyPhase = PartyPhase.STOP_RECRUIT;
     }
+    public void fixMembers() {
+        partyPhase = PartyPhase.FIX_MEMBERS;
+    }
 
     public void registerHost(UserInfo userInfo) {
         if(partyMembers==null){

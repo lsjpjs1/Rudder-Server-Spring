@@ -52,4 +52,19 @@ public class PartyConfigController {
                 .build()
                 ;
     }
+
+    @Operation(summary = "Fix the Members")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공")
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/parties/{partyId}/stop-recruit")
+    public ResponseEntity fixMembers(@PathVariable Long partyId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        partyConfigService.fixMembers(userInfoFromToken,partyId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
 }
