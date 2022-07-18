@@ -22,6 +22,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +60,7 @@ public class CreatePartyService {
     }
 
     @Transactional
-    public FileDto.UploadUrlsWrapper getImageUploadUrl(UserInfo userInfo, PartyDto.PartyThumbnailUploadUrlRequest partyThumbnailUploadUrlRequest) {
+    public FileDto.UrlsWrapper getImageUploadUrl(UserInfo userInfo, PartyDto.PartyThumbnailUploadUrlRequest partyThumbnailUploadUrlRequest) {
         partyThumbnailUploadUrlRequest.setAllUserInfo(userInfo);
         if (partyThumbnailUploadUrlRequest.getImageMetaData() == null) {
             throw new CustomException(ErrorCode.BAD_REQUEST_CONTENT);
@@ -70,10 +72,14 @@ public class CreatePartyService {
         partyThumbnailUploadUrlRequest.getImageMetaData().setFileName(fileName);
         partyRepository.save(party);
 
-        return FileDto.UploadUrlsWrapper.builder().uploadUrls(
-                fileUploadRepository.getFileUploadUrls(new ArrayList(
+        List<FileDto.UploadUrl> fileUploadUrls = fileUploadRepository.getFileUploadUrls(
+                new ArrayList(
                         Arrays.asList(partyThumbnailUploadUrlRequest.getImageMetaData())
-                ))
+                )
+        );
+        return FileDto.UrlsWrapper.builder().urls(
+                fileUploadUrls.stream().map(o->o.getUrl())
+                        .collect(Collectors.toList())
         ).build();
 
     }

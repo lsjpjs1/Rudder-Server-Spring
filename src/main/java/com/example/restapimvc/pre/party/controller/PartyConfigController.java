@@ -58,7 +58,7 @@ public class PartyConfigController {
             @ApiResponse(code = 204, message = "성공")
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/parties/{partyId}/stop-recruit")
+    @PatchMapping("/parties/{partyId}/fix-members")
     public ResponseEntity fixMembers(@PathVariable Long partyId) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         partyConfigService.fixMembers(userInfoFromToken,partyId);

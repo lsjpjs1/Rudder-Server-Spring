@@ -47,7 +47,7 @@ public class CreatePartyController {
             @ApiResponse(code = 404, message = "1.PARTY_NOT_FOUND(존재하지 않는 파티)", response = ErrorResponse.class)
     })
     @PostMapping(value = "/parties/image-upload-url/generate")
-    public ResponseEntity<FileDto.UploadUrlsWrapper> getS3SignedUrl(@RequestBody PartyDto.PartyThumbnailUploadUrlRequest partyProfileImageUploadUrlRequest) {
+    public ResponseEntity<FileDto.UrlsWrapper> getS3SignedUrl(@RequestBody PartyDto.PartyThumbnailUploadUrlRequest partyProfileImageUploadUrlRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
