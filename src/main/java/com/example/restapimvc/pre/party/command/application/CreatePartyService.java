@@ -35,7 +35,7 @@ public class CreatePartyService {
     private final FileUploadRepository fileUploadRepository;
 
     @Transactional
-    public void createParty(UserInfo userInfo, PartyDto.CreatePartyRequest createPartyRequest) {
+    public PartyDto.CreatePartyResponse createParty(UserInfo userInfo, PartyDto.CreatePartyRequest createPartyRequest) {
         createPartyRequest.setAllUserInfo(userInfo);
 
         if (createPartyRequest.getTotalNumberOfMember() < MIN_PARTY_MEMBER) {
@@ -54,6 +54,7 @@ public class CreatePartyService {
         Party party = Party.from(createPartyRequest);
         party.registerHost(userInfo);
         partyRepository.save(party);
+        return PartyDto.CreatePartyResponse.builder().partyId(party.getPartyId()).build();
     }
 
     @Transactional

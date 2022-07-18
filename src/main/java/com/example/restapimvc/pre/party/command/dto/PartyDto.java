@@ -216,4 +216,13 @@ public class PartyDto {
         private List<Alcohol> alcoholList;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class CreatePartyResponse {
+        private Long partyId;
+    }
+
 }

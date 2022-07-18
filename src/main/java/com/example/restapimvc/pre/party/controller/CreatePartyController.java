@@ -25,17 +25,17 @@ public class CreatePartyController {
 
     @Operation(summary = "파티 생성")
     @PostMapping(value = "/parties")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 201, message = "성공"),
             @ApiResponse(code = 406, message = "1.PARTY_MEMBER_TOO_SMALL(파티 인원 수는 최소 5명 이상)", response = ErrorResponse.class)
     })
-    public ResponseEntity createParty(@RequestBody PartyDto.CreatePartyRequest createPartyRequest) {
+    public ResponseEntity<PartyDto.CreatePartyResponse> createParty(@RequestBody PartyDto.CreatePartyRequest createPartyRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        createPartyService.createParty(userInfoFromToken,createPartyRequest);
+
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
+                .status(HttpStatus.CREATED)
+                .body(createPartyService.createParty(userInfoFromToken,createPartyRequest));
 
     }
 
