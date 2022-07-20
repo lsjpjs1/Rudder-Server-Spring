@@ -33,13 +33,14 @@ public class PaymentService {
     @Value("${square.access-token}")
     private String SQUARE_ACCESS_TOKEN;
 
+    private final String SQUARE_VERSION = "2022-06-16";
     @Transactional
     public void payment(UserInfo userInfo, PaymentDto.PaymentRequest paymentRequest) {
         String url = "https://connect.squareupsandbox.com/v2/payments";
 
         RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory()); // 비동기 전달
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Square-Version","2022-06-16");
+        httpHeaders.add("Square-Version",SQUARE_VERSION);
         httpHeaders.add("Authorization", "Bearer "+SQUARE_ACCESS_TOKEN);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
