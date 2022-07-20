@@ -4,6 +4,7 @@ import com.example.restapimvc.domain.QSchool;
 import com.example.restapimvc.domain.QUserPartyProfileImage;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.FilteringPeriod;
+import com.example.restapimvc.enums.PartyPhase;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.querydsl.core.types.ConstructorExpression;
@@ -58,7 +59,8 @@ public class PartyQueryRepository {
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
                 .where(
                         lessThanPartyId(getPartiesRequest.getEndPartyId()),
-                        filterByPeriod(getPartiesRequest.getFilteringPeriod())
+                        filterByPeriod(getPartiesRequest.getFilteringPeriod()),
+                        notCanceled()
                 )
                 .groupBy(party.partyId, party.partyTime)
                 .orderBy(party.partyId.desc())
@@ -102,7 +104,8 @@ public class PartyQueryRepository {
                 .from(party)
                 .where(
                         party.partyHostUserInfoId.eq(userInfoId),
-                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
+                        notCanceled()
                 )
                 .fetch()
                 ;
@@ -118,7 +121,8 @@ public class PartyQueryRepository {
                 .where(
                         partyMember.partyStatus.in(PartyStatus.HOST_APPROVE, PartyStatus.ALCOHOL_PENDING, PartyStatus.FINAL_APPROVE),
                         partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
-                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
+                        notCanceled()
                 )
                 .groupBy(party.partyId)
                 .fetch()
@@ -135,7 +139,8 @@ public class PartyQueryRepository {
                 .where(
                         partyMember.partyStatus.eq(PartyStatus.PENDING),
                         partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
-                        party.partyTime.gt(new Timestamp(System.currentTimeMillis()))
+                        party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
+                        notCanceled()
                 )
                 .groupBy(party.partyId)
                 .fetch()
@@ -172,6 +177,10 @@ public class PartyQueryRepository {
                 )
                 .groupBy(partyMember.partyMemberId)
                 .fetch();
+    }
+
+    private BooleanExpression notCanceled() {
+        return party.partyPhase.ne(PartyPhase.CANCEL);
     }
 
     private BooleanExpression equalPartyId(Long partyId) {
