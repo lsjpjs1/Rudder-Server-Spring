@@ -13,7 +13,7 @@ public class PaymentDto {
     @ToString
     @Builder
     public static class PaymentRequest {
-        private String accessToken;
+        private String sourceId;
         private Integer amount;
     }
 
