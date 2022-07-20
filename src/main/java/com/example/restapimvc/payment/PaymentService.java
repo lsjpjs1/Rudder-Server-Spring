@@ -40,7 +40,7 @@ public class PaymentService {
 
 
         PaymentDto.SquarePaymentRequest squarePaymentRequest = PaymentDto.SquarePaymentRequest.builder()
-                .accessToken(paymentRequest.getAccessToken())
+                .accessToken(paymentRequest.getSourceId())
                 .idempotencyKey(UUID.randomUUID().toString())
                 .amountMoney(PaymentDto.SquarePaymentRequest.AmountMoney.builder().amount(paymentRequest.getAmount()).currency("USD").build())
                 .build();

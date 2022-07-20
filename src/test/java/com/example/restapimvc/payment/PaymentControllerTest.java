@@ -25,7 +25,7 @@ class PaymentControllerTest {
     void sendPayment() throws Exception {
         String content = objectMapper.writeValueAsString(
                 PaymentDto.PaymentRequest.builder()
-                        .accessToken("cnon:CBASEHwNuT0igNMWkZ8P8hVjICA")
+                        .sourceId("cnon:CBASEHwNuT0igNMWkZ8P8hVjICA")
                         .amount(100)
                         .build()
         );
