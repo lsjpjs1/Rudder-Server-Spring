@@ -40,3 +40,6 @@ cloud-front:
   url:
     post-image: ENC(h17vZyscy5+AKY7sfuOTdk9oM4WGOlrW95Q+RiOFMAELbX7/dfFPaVrD9Bh+P/YO)
     profile-image-preview: ENC(Qmx949ysNK61i1n27cFNXd3H0lWGS2OZzRziUSNrgggcJR7oWCTfGNl3iPfYizniBcWQL4IMu1761J5iotcUGHTqZj+HWeZT)
+
+square:
+  access-token: ENC(A6cxITK2TarZau6HtKTRWINOsGZu0xyz7h1u3ColyU4XMei6bEcwN6PsB0D5k5G6nK7ztFsLAtGjI9Z+BDZLwr7VtTbOiiDVJ2x6ZxowhyY=)
