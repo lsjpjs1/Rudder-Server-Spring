@@ -46,7 +46,14 @@ public class PaymentService {
                 .build();
 
         HttpEntity<String> logRequest = new HttpEntity<>(objectMapper.writeValueAsString(squarePaymentRequest), httpHeaders);
-        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url, logRequest, String.class);
-        System.out.println(stringResponseEntity.getBody());
+        ResponseEntity<String> stringResponseEntity;
+        try{
+            stringResponseEntity = restTemplate.postForEntity(url, logRequest, String.class);
+            System.out.println(stringResponseEntity.getBody());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 }
