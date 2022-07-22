@@ -50,6 +50,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
     implementation "org.springframework.boot:spring-boot-starter-quartz"
 
+    // FCM push
+    implementation 'com.google.firebase:firebase-admin'
+
+    //okhttp3
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+
     // QueryDSL
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor(
