@@ -29,8 +29,6 @@ public class GetPartyController {
             @ApiResponse(code = 200, message = "성공")
     })
     public ResponseEntity<PartyDto.GetPartiesResponse> getParties(@ModelAttribute PartyDto.GetPartiesRequest getPartiesRequest) {
-
-        log.debug(getPartiesRequest.getFilteringPeriod().name());
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
