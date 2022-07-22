@@ -1,4 +1,4 @@
-package com.example.restapimvc.payment;
+package com.example.restapimvc.payment.dto;
 
 import com.example.restapimvc.pre.chat.ChatDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,4 +39,6 @@ public class PaymentDto {
         @JsonProperty("source_id")
         private String accessToken;
     }
+
+
 }

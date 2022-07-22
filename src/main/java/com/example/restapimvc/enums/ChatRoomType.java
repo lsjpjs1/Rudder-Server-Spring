@@ -10,8 +10,8 @@ import java.util.Arrays;
 @Getter
 public enum ChatRoomType implements EnumEntityConvertable {
 
-    NORMAL("normal"),
-    PARTY_ONE_TO_ONE("party_one_to_one");
+    NORMAL("NORMAL"),
+    PARTY_ONE_TO_ONE("PARTY_ONE_TO_ONE");
 
     private String chatRoomType;
 

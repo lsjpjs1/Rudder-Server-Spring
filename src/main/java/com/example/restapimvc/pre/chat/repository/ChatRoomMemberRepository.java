@@ -24,7 +24,7 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
-            "where cr.chat_room_item_id = (:partyId) and chat_room_type = 'party_one_to_one' " +
+            "where cr.chat_room_item_id = (:partyId) and chat_room_type = 'PARTY_ONE_TO_ONE' " +
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
             , nativeQuery = true)
@@ -39,7 +39,7 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
             "left join party p on p.party_chat_room_id = cr.chat_room_id " +
-            "where p.party_host_user_info_id = (:userInfoId) and chat_room_type = 'party_one_to_one' " +
+            "where p.party_host_user_info_id = (:userInfoId) and chat_room_type = 'PARTY_ONE_TO_ONE' " +
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
             , nativeQuery = true)

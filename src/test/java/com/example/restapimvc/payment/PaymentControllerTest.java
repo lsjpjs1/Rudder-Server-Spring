@@ -1,6 +1,6 @@
 package com.example.restapimvc.payment;
 
-import com.example.restapimvc.pre.party.command.dto.PartyDto;
+import com.example.restapimvc.payment.dto.PaymentDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -25,7 +24,7 @@ class PaymentControllerTest {
     void sendPayment() throws Exception {
         String content = objectMapper.writeValueAsString(
                 PaymentDto.PaymentRequest.builder()
-                        .sourceId("cnon:CBASEHwNuT0igNMWkZ8P8hVjICA")
+                        .sourceId("cnon:CBASEGGZkHcQagfdn4umhgSVYYg")
                         .amount(100)
                         .build()
         );

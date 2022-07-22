@@ -1,6 +1,7 @@
 package com.example.restapimvc.payment;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.payment.dto.PaymentDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;

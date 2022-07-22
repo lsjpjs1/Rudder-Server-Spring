@@ -3,33 +3,31 @@ package com.example.restapimvc.payment;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
-import com.example.restapimvc.pre.chat.ChatDto;
-import com.example.restapimvc.pre.chat.domain.ChatRoom;
-import com.example.restapimvc.pre.chat.domain.ChatRoomMember;
-import com.example.restapimvc.util.ObjectMappingUtil;
+import com.example.restapimvc.payment.dto.PaymentDto;
+import com.example.restapimvc.payment.dto.SquarePaymentResponse;
+import com.example.restapimvc.repository.UserInfoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.AsyncRestTemplate;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
 
+    private final UserInfoRepository userInfoRepository;
+    private final PaymentHistoryRepository paymentHistoryRepository;
     private final ObjectMapper objectMapper;
+
+
     @Value("${square.access-token}")
     private String SQUARE_ACCESS_TOKEN;
 
@@ -45,17 +43,25 @@ public class PaymentService {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 
+        String idempotencyKey = UUID.randomUUID().toString();
         PaymentDto.SquarePaymentRequest squarePaymentRequest = PaymentDto.SquarePaymentRequest.builder()
                 .accessToken(paymentRequest.getSourceId())
-                .idempotencyKey(UUID.randomUUID().toString())
+                .idempotencyKey(idempotencyKey)
                 .amountMoney(PaymentDto.SquarePaymentRequest.AmountMoney.builder().amount(paymentRequest.getAmount()).currency("USD").build())
                 .build();
 
 
         try{
             HttpEntity<String> logRequest = new HttpEntity<>(objectMapper.writeValueAsString(squarePaymentRequest), httpHeaders);
-            ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(url, logRequest, String.class);
-            System.out.println(stringResponseEntity.getBody());
+            ResponseEntity<SquarePaymentResponse> responseEntity = restTemplate.postForEntity(url, logRequest, SquarePaymentResponse.class);
+            SquarePaymentResponse squarePaymentResponse = responseEntity.getBody();
+            PaymentHistory paymentHistory = PaymentHistory.builder()
+                    .squarePaymentId(squarePaymentResponse.getPayment().getId())
+                    .userInfo(userInfoRepository.findById(userInfo.getUserInfoId()).get())
+                    .paymentTime(Timestamp.from(Instant.parse(squarePaymentResponse.getPayment().getCreatedAt())))
+                    .idempotencyKey(idempotencyKey)
+                    .build();
+            paymentHistoryRepository.save(paymentHistory);
         }catch (Exception e){
 
             e.printStackTrace();
