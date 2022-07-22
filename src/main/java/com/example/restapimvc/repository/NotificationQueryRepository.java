@@ -4,6 +4,8 @@ import com.example.restapimvc.comment.command.domain.QComment;
 import com.example.restapimvc.domain.QNotification;
 import com.example.restapimvc.domain.QPostMessage;
 import com.example.restapimvc.dto.NotificationDto;
+import com.example.restapimvc.dto.NotificationPayload;
+import com.example.restapimvc.enums.NotificationType;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -24,21 +26,19 @@ public class NotificationQueryRepository {
     private final QNotification notification = QNotification.notification;
     private final QPostMessage postMessage = QPostMessage.postMessage;
 
-    public List<NotificationDto.NotificationResponse> findNotifications(NotificationDto.GetNotificationRequest getNotificationRequest) {
+    public List<NotificationPayload> findNotifications(NotificationDto.GetNotificationRequest getNotificationRequest) {
         return jpaQueryFactory
                 .select(
-                        Projections.constructor(NotificationDto.NotificationResponse.class,
+                        Projections.constructor(NotificationPayload.class,
                                 notification.notificationId,
                                 notification.notificationType,
                                 notification.notificationTime,
                                 getItemId(),
-                                getItemBody(),
-                                getItemTitle()
+                                getItemTitle(),
+                                getItemBody()
                                 )
                 )
                 .from(notification)
-                .leftJoin(comment).on(comment.commentId.eq(notification.commentId))
-                .leftJoin(postMessage).on(postMessage.postMessageId.eq(notification.postMessageId))
                 .where(
                         notification.userInfoId.eq(getNotificationRequest.getUserInfoId()),
                         notificationIdLessThan(getNotificationRequest.getEndNotificationId())
@@ -59,20 +59,18 @@ public class NotificationQueryRepository {
     }
 
     private NumberExpression<Long> getItemId() {
-        return new CaseBuilder()
-                .when(notification.notificationType.eq(2)).then(postMessage.postMessageRoomId)
-                .otherwise(comment.post.postId);
+        return notification.itemId;
     }
 
     private StringExpression getItemBody() {
         return new CaseBuilder()
-                .when(notification.notificationType.eq(2)).then(postMessage.postMessageBody)
-                .otherwise(comment.post.postBody);
+                .when(notification.notificationType.eq(NotificationType.PARTY_APPLY)).then("누군가가 파티에 지원했어요~")
+                .otherwise("case빌더 잘 만들었는지 확인하세요~");
     }
 
     private StringExpression getItemTitle() {
         return new CaseBuilder()
-                .when(notification.notificationType.eq(2)).then("New post message!")
-                .otherwise("New comment!");
+                .when(notification.notificationType.eq(NotificationType.PARTY_APPLY)).then("누군가가 파티에 지원했어요~")
+                .otherwise("case빌더 잘 만들었는지 확인하세요~");
     }
 }

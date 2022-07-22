@@ -1,5 +1,7 @@
 package com.example.restapimvc.domain;
 
+import com.example.restapimvc.enums.NotificationType;
+import com.example.restapimvc.util.converter.NotificationTypeConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,9 +18,9 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notificationId;
 
-    private Integer notificationType;
+    @Convert(converter = NotificationTypeConverter.class)
+    private NotificationType notificationType;
     private Timestamp notificationTime;
-    private Long commentId;
-    private Long postMessageId;
+    private Long itemId;
     private Long userInfoId;
 }

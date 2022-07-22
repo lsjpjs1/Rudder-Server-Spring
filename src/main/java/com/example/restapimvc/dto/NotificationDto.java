@@ -11,25 +11,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class NotificationDto {
-    @Getter
-    @AllArgsConstructor
-    @Builder
-    @Setter
-    public static class NotificationResponse {
-        private Long notificationId;
-        private Integer notificationType;
-        private Timestamp notificationTime;
-        private Long itemId;
-        private String itemTitle;
-        private String itemBody;
-    }
+
 
     @Getter
     @AllArgsConstructor
     @Builder
     @Setter
     public static class GetNotificationResponse {
-        private List<NotificationResponse> notifications;
+        private List<NotificationPayload> notifications;
 
     }
 
