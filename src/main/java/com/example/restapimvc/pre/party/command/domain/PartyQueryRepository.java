@@ -172,7 +172,6 @@ public class PartyQueryRepository {
                 .leftJoin(partyProfileImage).on(partyMember.userInfo.userPartyProfile.userPartyProfileImageId.eq(partyProfileImage.partyProfileImageId))
                 .where(
                         partyMember.partyStatus.eq(PartyStatus.PENDING),
-                        partyMember.userInfo.userInfoId.eq(getPartyApplicantsRequest.getUserInfoId()),
                         equalPartyId(getPartyApplicantsRequest.getPartyId())
                 )
                 .groupBy(partyMember.partyMemberId)
