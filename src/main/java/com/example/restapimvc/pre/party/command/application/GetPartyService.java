@@ -23,9 +23,9 @@ public class GetPartyService {
     }
 
     @Transactional
-    public PartyDto.PartyDetailDto getPartyDetail(UserInfo userInfo, Long partyId) {
+    public PartyDto.GetPartyDetailResponse getPartyDetail(UserInfo userInfo, Long partyId) {
         PartyDto.PartyDetailDto partyDetail = partyQueryRepository.findPartyDetail(partyId);
-        return partyDetail;
+        return PartyDto.GetPartyDetailResponse.builder().partyDetail(partyDetail).build();
     }
 
 
