@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -33,6 +34,19 @@ public class GetPartyController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(getPartyService.getParties(userInfoFromToken,getPartiesRequest));
+
+    }
+
+    @Operation(summary = "파티 세부사항 가져오기")
+    @GetMapping(value = "/parties/{partyId}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공")
+    })
+    public ResponseEntity<PartyDto.PartyDetailDto> getPartyDetail(@PathVariable Long partyId) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(getPartyService.getPartyDetail(userInfoFromToken,partyId));
 
     }
 }

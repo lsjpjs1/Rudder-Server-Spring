@@ -2,6 +2,7 @@ package com.example.restapimvc.pre.party.command.dto;
 
 import com.example.restapimvc.common.FileMetaData;
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.FilteringPeriod;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.domain.Alcohol;
@@ -27,6 +28,8 @@ public class PartyDto {
         private Long alcoholId;
         @ApiModelProperty(hidden = true)
         private Long chatRoomId;
+        @ApiModelProperty(hidden = true)
+        private UserInfo hostUserInfo;
     }
 
     @Getter
@@ -79,25 +82,6 @@ public class PartyDto {
     }
 
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @ToString
-    @Builder
-    public static class PartyDetailDto {
-        private Long partyId;
-        private String partyTitle;
-        private String partyThumbnailUrl;
-        private Timestamp partyTime;
-        private String distanceFromUser;
-        private Integer totalNumberOfMember;
-        private Integer currentNumberOfMember;
-        private Integer applyCount;
-        private String universityName;
-        private String partyLocation;
-        private List<String> alcoholList;
-        private String partyDescription;
-    }
 
     @Getter
     @Setter
@@ -153,8 +137,23 @@ public class PartyDto {
     @AllArgsConstructor
     @ToString
     @Builder
-    public static class GetPartyDetailResponse {
+    public static class PartyDetailDto {
         private Long partyId;
+        private String partyTitle;
+        private String partyThumbnailUrl;
+        private Timestamp partyTime;
+        private Integer totalNumberOfMember;
+        private Integer currentNumberOfMember;
+        private Integer applyCount;
+        private String universityName;
+        private String partyLocation;
+        private String alcoholName;
+        private String partyDescription;
+        private String alcoholImageUrl;
+        private String alcoholUnit;
+        private Integer alcoholCount;
+        private Integer alcoholPrice;
+        private String alcoholCurrency;
     }
 
     @Getter

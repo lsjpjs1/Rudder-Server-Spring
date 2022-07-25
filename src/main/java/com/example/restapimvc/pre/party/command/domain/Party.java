@@ -33,7 +33,12 @@ public class Party {
     private Timestamp partyTime;
     private Integer totalNumberOfMember;
     private Integer currentNumberOfMember;
-    private Long partyHostUserInfoId;
+
+
+    @ManyToOne(targetEntity = UserInfo.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "party_host_user_info_id")
+    private UserInfo partyHostUserInfo;
+
     private Long partyChatRoomId;
     @Setter
     private String partyThumbnailName;
@@ -55,7 +60,7 @@ public class Party {
                 .partyTime(createPartyRequest.getPartyTime())
                 .totalNumberOfMember(createPartyRequest.getTotalNumberOfMember())
                 .currentNumberOfMember(1)
-                .partyHostUserInfoId(createPartyRequest.getUserInfoId())
+                .partyHostUserInfo(createPartyRequest.getHostUserInfo())
                 .partyChatRoomId(createPartyRequest.getChatRoomId())
                 .alcoholId(createPartyRequest.getAlcoholId())
                 .build();

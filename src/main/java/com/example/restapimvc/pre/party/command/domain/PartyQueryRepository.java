@@ -37,6 +37,7 @@ public class PartyQueryRepository {
     private final QPartyMember partyMember = QPartyMember.partyMember;
     private final QSchool school = QSchool.school;
     private final QUserPartyProfileImage partyProfileImage = QUserPartyProfileImage.userPartyProfileImage;
+    private final QAlcohol alcohol = QAlcohol.alcohol;
 
     public void findApplies(PartyDto.GetApplyListRequest getApplyListRequest) {
         jpaQueryFactory
@@ -103,7 +104,7 @@ public class PartyQueryRepository {
                 )
                 .from(party)
                 .where(
-                        party.partyHostUserInfoId.eq(userInfoId),
+                        party.partyHostUserInfo.userInfoId.eq(userInfoId),
                         party.partyTime.gt(new Timestamp(System.currentTimeMillis())),
                         notCanceled()
                 )
@@ -147,15 +148,33 @@ public class PartyQueryRepository {
                 ;
     }
 
-    public PartyDto.GetPartyDetailResponse findPartyDetail(PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
+    public PartyDto.PartyDetailDto findPartyDetail(Long partyId) {
         return jpaQueryFactory
                 .select(
-                        Projections.constructor(PartyDto.GetPartyDetailResponse.class,
-                                party.partyId
+                        Projections.constructor(PartyDto.PartyDetailDto.class,
+                                party.partyId,
+                                party.partyTitle.max(),
+                                party.partyThumbnailName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
+                                party.partyTime.max(),
+                                party.totalNumberOfMember.max(),
+                                party.currentNumberOfMember.max(),
+                                partyMember.partyMemberId.count().intValue(),
+                                party.partyHostUserInfo.school.schoolName.max(),
+                                party.location.max(),
+                                alcohol.alcoholName.max(),
+                                party.partyDescription.max(),
+                                alcohol.alcoholImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
+                                alcohol.alcoholUnit.stringValue().max(),
+                                alcohol.alcoholCount.max(),
+                                alcohol.price.max().intValue(),
+                                alcohol.currency.stringValue().max()
                         )
                 )
                 .from(party)
-                .where(party.partyId.eq(getPartyDetailRequest.getPartyId()))
+                .leftJoin(partyMember).on(party.partyId.eq(partyMember.party.partyId))
+                .leftJoin(alcohol).on(alcohol.alcoholId.eq(party.alcoholId))
+                .where(party.partyId.eq(partyId))
+                .groupBy(party.partyId)
                 .fetchOne();
     }
 

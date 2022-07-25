@@ -1,9 +1,6 @@
 package com.example.restapimvc.pre.party.command.application;
 
 import com.example.restapimvc.domain.UserInfo;
-import com.example.restapimvc.exception.CustomException;
-import com.example.restapimvc.exception.ErrorCode;
-import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyQueryRepository;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +23,8 @@ public class GetPartyService {
     }
 
     @Transactional
-    public PartyDto.GetPartyDetailResponse getPartyDetail(UserInfo userInfo, PartyDto.GetPartyDetailRequest getPartyDetailRequest) {
-        getPartyDetailRequest.setAllUserInfo(userInfo);
-        PartyDto.GetPartyDetailResponse partyDetail = partyQueryRepository.findPartyDetail(getPartyDetailRequest);
+    public PartyDto.PartyDetailDto getPartyDetail(UserInfo userInfo, Long partyId) {
+        PartyDto.PartyDetailDto partyDetail = partyQueryRepository.findPartyDetail(partyId);
         return partyDetail;
     }
 

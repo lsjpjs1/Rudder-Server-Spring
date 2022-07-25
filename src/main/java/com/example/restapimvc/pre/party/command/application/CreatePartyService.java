@@ -13,6 +13,7 @@ import com.example.restapimvc.pre.chat.repository.ChatRoomRepository;
 import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyRepository;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
+import com.example.restapimvc.repository.UserInfoRepository;
 import com.example.restapimvc.util.RandomNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class CreatePartyService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomMemberRepository chatRoomMemberRepository;
     private final FileUploadRepository fileUploadRepository;
+    private final UserInfoRepository userInfoRepository;
 
     @Transactional
     public PartyDto.CreatePartyResponse createParty(UserInfo userInfo, PartyDto.CreatePartyRequest createPartyRequest) {
@@ -53,6 +55,7 @@ public class CreatePartyService {
         ChatRoomMember chatRoomMember = ChatRoomMember.builder().chatRoomId(chatRoom.getChatRoomId()).userInfoId(createPartyRequest.getUserInfoId()).build();
         chatRoomMemberRepository.save(chatRoomMember);
         createPartyRequest.setChatRoomId(chatRoom.getChatRoomId());
+        createPartyRequest.setHostUserInfo(userInfoRepository.findById(createPartyRequest.getUserInfoId()).get());
         Party party = Party.from(createPartyRequest);
         party.registerHost(userInfo);
         partyRepository.save(party);

@@ -23,7 +23,7 @@ public class PartyConfigService {
     public void cancelParty(UserInfo userInfo, Long partyId) {
         Party party = partyRepository.findById(partyId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
-        if(!party.getPartyHostUserInfoId().equals(userInfo.getUserInfoId())){
+        if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
         party.cancel();
@@ -35,7 +35,7 @@ public class PartyConfigService {
     public void stopRecruit(UserInfo userInfo, Long partyId) {
         Party party = partyRepository.findById(partyId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
-        if(!party.getPartyHostUserInfoId().equals(userInfo.getUserInfoId())){
+        if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
         party.stopRecruit();
@@ -46,7 +46,7 @@ public class PartyConfigService {
     public void fixMembers(UserInfo userInfo, Long partyId) {
         Party party = partyRepository.findById(partyId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
-        if(!party.getPartyHostUserInfoId().equals(userInfo.getUserInfoId())){
+        if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
         party.fixMembers();
