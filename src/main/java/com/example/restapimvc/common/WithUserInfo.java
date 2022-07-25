@@ -18,6 +18,7 @@ public class WithUserInfo {
         @ApiModelProperty(hidden = true)
         private Long schoolId;
 
+        @JsonIgnore
         public void setAllUserInfo(UserInfo userInfo) {
             userInfoId = userInfo.getUserInfoId();
             userId = userInfo.getUserId();
