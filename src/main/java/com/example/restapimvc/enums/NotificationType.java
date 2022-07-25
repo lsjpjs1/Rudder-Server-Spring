@@ -3,7 +3,10 @@ package com.example.restapimvc.enums;
 import com.example.restapimvc.util.EnumEntityConvertable;
 
 public enum NotificationType implements EnumEntityConvertable {
-    PARTY_APPLY("PARTY_APPLY");
+    PARTY_APPLY("PARTY_APPLY"),
+    PARTY_ACCEPTED("PARTY_ACCEPTED"),
+    PARTY_RECRUIT_END_IN_24H("PARTY_RECRUIT_END_IN_24H"),
+    PARTY_ALCOHOL_PAY_REQUEST("PARTY_ALCOHOL_PAY_REQUEST");
 
     private String notificationType;
 
