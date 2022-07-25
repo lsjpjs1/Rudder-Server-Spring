@@ -47,7 +47,7 @@ public class PaymentService {
         PaymentDto.SquarePaymentRequest squarePaymentRequest = PaymentDto.SquarePaymentRequest.builder()
                 .accessToken(paymentRequest.getSourceId())
                 .idempotencyKey(idempotencyKey)
-                .amountMoney(PaymentDto.SquarePaymentRequest.AmountMoney.builder().amount(paymentRequest.getAmount()).currency("USD").build())
+                .amountMoney(PaymentDto.SquarePaymentRequest.AmountMoney.builder().amount(paymentRequest.getAmount()).currency("GBP").build())
                 .build();
 
 
