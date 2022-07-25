@@ -58,6 +58,7 @@ public class PartyQueryRepository {
                 )
                 .from(party)
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
+                .leftJoin(alcohol).on(alcohol.alcoholId.eq(party.alcoholId))
                 .where(
                         lessThanPartyId(getPartiesRequest.getEndPartyId()),
                         filterByPeriod(getPartiesRequest.getFilteringPeriod()),
@@ -90,7 +91,8 @@ public class PartyQueryRepository {
                         .otherwise(new NullExpression<>(PartyStatus.class))
                         .stringValue()
                         .max(),
-                party.partyChatRoomId.max()
+                party.partyChatRoomId.max(),
+                alcohol.alcoholName.max()
         );
     }
 
@@ -119,6 +121,7 @@ public class PartyQueryRepository {
                 )
                 .from(party)
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
+                .leftJoin(alcohol).on(alcohol.alcoholId.eq(party.alcoholId))
                 .where(
                         partyMember.partyStatus.in(PartyStatus.HOST_APPROVE, PartyStatus.ALCOHOL_PENDING, PartyStatus.FINAL_APPROVE),
                         partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),
@@ -137,6 +140,7 @@ public class PartyQueryRepository {
                 )
                 .from(party)
                 .leftJoin(partyMember).on(partyMember.party.partyId.eq(party.partyId))
+                .leftJoin(alcohol).on(alcohol.alcoholId.eq(party.alcoholId))
                 .where(
                         partyMember.partyStatus.eq(PartyStatus.PENDING),
                         partyMember.userInfo.userInfoId.eq(userInfo.getUserInfoId()),

@@ -100,6 +100,7 @@ public class PartyDto {
         @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
         private Long partyChatRoomId;
+        private String alcoholName;
     }
 
     @Getter
