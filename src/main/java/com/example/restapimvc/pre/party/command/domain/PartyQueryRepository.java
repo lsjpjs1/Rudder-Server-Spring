@@ -91,7 +91,7 @@ public class PartyQueryRepository {
                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
                         .otherwise(Expressions.nullExpression())
                         .max()
-                        .coalesce("NONE"),
+                        .coalesce("NONE") ,
                 party.partyChatRoomId.max(),
                 alcohol.alcoholName.max()
         );
