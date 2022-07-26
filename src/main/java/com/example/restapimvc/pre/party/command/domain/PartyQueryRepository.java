@@ -81,7 +81,7 @@ public class PartyQueryRepository {
                 party.partyTime.max(),
                 party.totalNumberOfMember.max(),
                 party.currentNumberOfMember.max(),
-                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(1)
+                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(partyMember.numberApplicants)
                         .otherwise(0)
                         .sum(),
                 JPAExpressions.select(school.schoolName)
@@ -162,7 +162,9 @@ public class PartyQueryRepository {
                                 party.partyTime.max(),
                                 party.totalNumberOfMember.max(),
                                 party.currentNumberOfMember.max(),
-                                partyMember.partyMemberId.count().intValue(),
+                                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(partyMember.numberApplicants)
+                                        .otherwise(0)
+                                        .sum(),
                                 party.partyHostUserInfo.school.schoolName.max(),
                                 party.location.max(),
                                 alcohol.alcoholName.max(),
