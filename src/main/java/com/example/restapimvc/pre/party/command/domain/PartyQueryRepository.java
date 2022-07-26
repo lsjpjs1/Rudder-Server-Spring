@@ -152,7 +152,7 @@ public class PartyQueryRepository {
                 ;
     }
 
-    public PartyDto.PartyDetailDto findPartyDetail(Long partyId) {
+    public PartyDto.PartyDetailDto findPartyDetail(Long partyId,Long userInfoId) {
         return jpaQueryFactory
                 .select(
                         Projections.constructor(PartyDto.PartyDetailDto.class,
@@ -171,7 +171,11 @@ public class PartyQueryRepository {
                                 alcohol.alcoholUnit.stringValue().max(),
                                 alcohol.alcoholCount.max(),
                                 alcohol.price.max().intValue(),
-                                alcohol.currency.stringValue().max()
+                                alcohol.currency.stringValue().max(),
+                                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus)
+                                        .otherwise(new NullExpression<>(PartyStatus.class))
+                                        .stringValue()
+                                        .max()
                         )
                 )
                 .from(party)

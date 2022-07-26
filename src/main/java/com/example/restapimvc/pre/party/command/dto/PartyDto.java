@@ -164,6 +164,8 @@ public class PartyDto {
         private Integer alcoholCount;
         private Integer alcoholPrice;
         private String alcoholCurrency;
+        @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
+        private String partyStatus;
     }
 
     @Getter
