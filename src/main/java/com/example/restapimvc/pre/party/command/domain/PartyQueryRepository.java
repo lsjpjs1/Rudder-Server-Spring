@@ -87,9 +87,8 @@ public class PartyQueryRepository {
                 JPAExpressions.select(school.schoolName)
                         .from(school)
                         .where(school.schoolId.eq(schoolId)),
-                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus)
-                        .otherwise(new NullExpression<>(PartyStatus.class))
-                        .stringValue()
+                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
+                        .otherwise("NONE")
                         .max(),
                 party.partyChatRoomId.max(),
                 alcohol.alcoholName.max()
@@ -174,9 +173,8 @@ public class PartyQueryRepository {
                                 alcohol.alcoholCount.max(),
                                 alcohol.price.max().intValue(),
                                 alcohol.currency.stringValue().max(),
-                                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus)
-                                        .otherwise(new NullExpression<>(PartyStatus.class))
-                                        .stringValue()
+                                new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
+                                        .otherwise("NONE")
                                         .max()
                         )
                 )
