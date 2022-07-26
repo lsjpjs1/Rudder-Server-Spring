@@ -12,6 +12,7 @@ import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -88,8 +89,9 @@ public class PartyQueryRepository {
                         .from(school)
                         .where(school.schoolId.eq(schoolId)),
                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
-                        .otherwise("NONE")
-                        .max(),
+                        .otherwise(Expressions.nullExpression())
+                        .max()
+                        .coalesce("NONE"),
                 party.partyChatRoomId.max(),
                 alcohol.alcoholName.max()
         );
@@ -174,8 +176,9 @@ public class PartyQueryRepository {
                                 alcohol.price.max().intValue(),
                                 alcohol.currency.stringValue().max(),
                                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
-                                        .otherwise("NONE")
+                                        .otherwise(Expressions.nullExpression())
                                         .max()
+                                        .coalesce("NONE")
                         )
                 )
                 .from(party)
