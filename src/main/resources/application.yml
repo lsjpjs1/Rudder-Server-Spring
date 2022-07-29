@@ -28,7 +28,10 @@ spring:
     username: ENC(Fh/ZsnqAK+fQuORD/JNqsA==)
     password: ENC(nsM1itGQWPBdBosvDENCCQ==)
 
-
+fcm:
+  key:
+    path: ENC(u3He/Vry/W2Yv0lIZq6keAtj+QlVRmmarnqqQKbdxOA93T4XKT/L9A==)
+    scope: ENC(aZmM4IMQuGgOE8FbyAqPz41NVwYeJhXgdaN/jrFE01Jwuj7ToOIoZv6Pp6xsbpbpjuF4g5QO0gk=)
 
 ---
 
