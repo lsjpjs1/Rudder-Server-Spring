@@ -3,10 +3,7 @@ package com.example.restapimvc.domain;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity(name = "university")
 @Table
+@ToString
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +23,9 @@ public class School {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String regex;
 
-    @Override
-    public String toString() {
-        return "School{" +
-                "schoolId=" + schoolId +
-                ", schoolName='" + schoolName + '\'' +
-                ", regex='" + regex + '\'' +
-                '}';
-    }
+    private String schoolThumbnailName;
+
+
 
     @Builder
     public School(long schoolId, String schoolName, String regex){
