@@ -6,6 +6,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class FCMNotificationService {
     @Value("${fcm.key.scope}")
     private String fireBaseScope;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @PostConstruct
     public void init(){
@@ -57,7 +58,13 @@ public class FCMNotificationService {
                 .setNotification(Notification.builder().setTitle(notificationTitle).setBody(notificationBody).build())
                 .setToken(token)
                 .build();
-        FirebaseMessaging.getInstance().sendAsync(message);
+        try{
+
+            FirebaseMessaging.getInstance().send(message);
+        }catch (FirebaseMessagingException firebaseMessagingException){
+            log.error(firebaseMessagingException.getMessage());
+            log.error(firebaseMessagingException.getLocalizedMessage());
+        }
 
     }
 }
