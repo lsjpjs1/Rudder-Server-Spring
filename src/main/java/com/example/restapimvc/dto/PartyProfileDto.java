@@ -40,5 +40,7 @@ public class PartyProfileDto {
         private Long partyProfileId;
         private String partyProfileBody;
         private List<String> partyProfileImages;
+        private String schoolName;
+        private String schoolImageUrl;
     }
 }

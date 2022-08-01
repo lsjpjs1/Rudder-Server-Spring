@@ -12,10 +12,7 @@ import com.example.restapimvc.post.command.domain.FileUploadRepository;
 import com.example.restapimvc.post.command.domain.Post;
 import com.example.restapimvc.post.command.dto.FileDto;
 import com.example.restapimvc.post.command.dto.WritePostDto;
-import com.example.restapimvc.repository.UserInfoRepository;
-import com.example.restapimvc.repository.UserPartyProfileImageRepository;
-import com.example.restapimvc.repository.UserPartyProfileRepository;
-import com.example.restapimvc.repository.UserProfileRepository;
+import com.example.restapimvc.repository.*;
 import com.example.restapimvc.util.RandomNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +36,7 @@ public class PartyProfileService {
     private final UserPartyProfileImageRepository userPartyProfileImageRepository;
     private final FileUploadRepository fileUploadRepository;
     private final UserProfileRepository userProfileRepository;
+    private final SchoolRepository schoolRepository;
 
     @Transactional
     public FileDto.UrlsWrapper getImageUploadUrl(PartyProfileDto.PartyProfileImageUploadUrlRequest partyProfileImageUploadUrlRequest) {
@@ -89,6 +87,8 @@ public class PartyProfileService {
                 .partyProfileId(userPartyProfile.getPartyProfileId())
                 .partyProfileBody(userPartyProfile.getPartyProfileBody())
                 .partyProfileImages(partyProfileImages)
+                .schoolName(userInfo.getSchool().getSchoolName())
+                .schoolImageUrl(CLOUD_FRONT_POST_IMAGE_URL+userInfo.getSchool().getSchoolThumbnailName())
                 .build();
 
     }
