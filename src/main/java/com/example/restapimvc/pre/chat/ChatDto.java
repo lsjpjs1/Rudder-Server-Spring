@@ -30,8 +30,23 @@ public class ChatDto {
     @AllArgsConstructor
     @ToString
     @Builder
+    public static class OneToOneChatRoomDto {
+        private Long chatRoomId;
+        private String recentMessage;
+        private Timestamp recentMessageTime;
+        private Integer notReadMessageCount;
+        private String chatRoomImageUrl;
+        private String chatRoomTitle;
+        private Long otherUserInfoId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
     public static class GetChatRoomsResponse {
-        private List<ChatRoomDto> chatRooms;
+        private List<OneToOneChatRoomDto> chatRooms;
     }
 
 

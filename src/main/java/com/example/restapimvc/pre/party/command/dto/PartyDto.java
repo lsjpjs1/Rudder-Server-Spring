@@ -137,8 +137,24 @@ public class PartyDto {
     @AllArgsConstructor
     @ToString
     @Builder
+    public static class PartyMemberDto {
+        private Long userInfoId;
+        private Long partyProfileId;
+        private String userNickname;
+        private String partyProfileImageUrl;
+        private PartyStatus partyStatus;
+    }
+
+
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
     public static class GetPartyDetailResponse {
         private PartyDetailDto partyDetail;
+        private List<PartyMemberDto> partyMembers;
     }
 
 

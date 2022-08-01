@@ -20,7 +20,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
             "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time), " +
             "(select user_nickname from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)), " +
-            "(select number_applicants from party_member where party_id = (:partyId) and user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
+            "(select number_applicants from party_member where party_id = (:partyId) and user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)), " +
+            "(select user_info_id from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
@@ -34,7 +35,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "(select distinct on (crm.chat_room_id) " +
             "crm.chat_room_id, cm.chat_message_id, cm.message_body, cm.message_time, " +
             "(select count(*) from chat_message where chat_room_id = cm.chat_room_id and message_time>crm.latest_read_time), " +
-            "(select user_nickname from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
+            "(select user_nickname from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)), " +
+            "(select user_info_id from user_info where user_info_id!= (:userInfoId) and user_info_id in (select user_info_id from chat_room_member where chat_room_id = crm.chat_room_id)) " +
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +

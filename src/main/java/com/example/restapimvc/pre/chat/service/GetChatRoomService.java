@@ -28,14 +28,15 @@ public class GetChatRoomService {
     @Transactional
     public ChatDto.GetChatRoomsResponse getHostPartyOneToOneChatRooms(UserInfo userInfo, Long partyId) {
         List<Tuple> tuples = chatRoomMemberRepository.findHostPartyOneToOneChatRooms(partyId,userInfo.getUserInfoId());
-        List<ChatDto.ChatRoomDto> chatRoomDtoList = tuples.stream()
-                .map((tuple) -> ChatDto.ChatRoomDto.builder()
+        List<ChatDto.OneToOneChatRoomDto> chatRoomDtoList = tuples.stream()
+                .map((tuple) -> ChatDto.OneToOneChatRoomDto.builder()
                         .chatRoomId(tuple.get(0, Integer.class).longValue())
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
                         .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                         .chatRoomTitle(tuple.get(5,String.class)+" + "+tuple.get(6,Integer.class))
+                        .otherUserInfoId(tuple.get(7,Integer.class).longValue())
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -45,14 +46,15 @@ public class GetChatRoomService {
     @Transactional
     public ChatDto.GetChatRoomsResponse getAppliedPartyOneToOneChatRooms(UserInfo userInfo) {
         List<Tuple> tuples = chatRoomMemberRepository.findAppliedPartyOneToOneChatRooms(userInfo.getUserInfoId());
-        List<ChatDto.ChatRoomDto> chatRoomDtoList = tuples.stream()
-                .map((tuple) -> ChatDto.ChatRoomDto.builder()
+        List<ChatDto.OneToOneChatRoomDto> chatRoomDtoList = tuples.stream()
+                .map((tuple) -> ChatDto.OneToOneChatRoomDto.builder()
                         .chatRoomId(tuple.get(0, Integer.class).longValue())
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
                         .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
                         .chatRoomTitle(tuple.get(5,String.class))
+                        .otherUserInfoId(tuple.get(6,Integer.class).longValue())
                         .build()
                 )
                 .collect(Collectors.toList());

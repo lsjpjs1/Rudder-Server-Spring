@@ -25,7 +25,8 @@ public class GetPartyService {
     @Transactional
     public PartyDto.GetPartyDetailResponse getPartyDetail(UserInfo userInfo, Long partyId) {
         PartyDto.PartyDetailDto partyDetail = partyQueryRepository.findPartyDetail(partyId,userInfo.getUserInfoId());
-        return PartyDto.GetPartyDetailResponse.builder().partyDetail(partyDetail).build();
+        List<PartyDto.PartyMemberDto> partyMembers = partyQueryRepository.findPartyMembers(partyId);
+        return PartyDto.GetPartyDetailResponse.builder().partyDetail(partyDetail).partyMembers(partyMembers).build();
     }
 
 

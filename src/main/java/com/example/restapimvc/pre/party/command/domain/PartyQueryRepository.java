@@ -189,6 +189,24 @@ public class PartyQueryRepository {
                 .fetchOne();
     }
 
+    public List<PartyDto.PartyMemberDto> findPartyMembers(Long partyId) {
+        return jpaQueryFactory
+                .select(
+                        Projections.constructor(PartyDto.PartyMemberDto.class,
+                            partyMember.userInfo.userInfoId,
+                                partyMember.userInfo.userPartyProfile.partyProfileId,
+                                partyMember.userInfo.userNickname,
+                                JPAExpressions.select(partyProfileImage.partyProfileImageName.prepend(CLOUD_FRONT_POST_IMAGE_URL))
+                                        .from(partyProfileImage)
+                                        .where(partyProfileImage.partyProfileImageId.eq(partyMember.userInfo.userPartyProfile.userPartyProfileImageId)),
+                                partyMember.partyStatus
+                        )
+                )
+                .from(partyMember)
+                .where(partyMember.party.partyId.eq(partyId))
+                .fetch();
+    }
+
     public List<PartyDto.PartyApplicantsDto> findApplicants(PartyDto.GetPartyApplicantsRequest getPartyApplicantsRequest) {
         return jpaQueryFactory
                 .select(
