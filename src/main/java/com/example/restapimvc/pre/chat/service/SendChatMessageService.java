@@ -53,7 +53,7 @@ public class SendChatMessageService {
 
         List<ChatRoomMember> chatRoomMembers = chatRoomMemberRepository.findByChatRoomId(chatMessageDto.getChatRoomId());
         for(ChatRoomMember chatRoomMember: chatRoomMembers) {
-            messageSendingOperations.convertAndSend("/topic/user." + chatRoomMember.getUserInfoId(), socketMessage);
+            messageSendingOperations.convertAndSend("/queue/user." + chatRoomMember.getUserInfoId(), socketMessage);
         }
 
 
