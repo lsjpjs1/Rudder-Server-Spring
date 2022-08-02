@@ -2,7 +2,10 @@ package com.example.restapimvc.payment;
 
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.enums.PaymentStatus;
 import com.example.restapimvc.serializer.SchoolSerializer;
+import com.example.restapimvc.util.converter.NotificationTypeConverter;
+import com.example.restapimvc.util.converter.PaymentStatusConverter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
@@ -29,5 +32,10 @@ public class PaymentHistory {
     private UserInfo userInfo;
 
     private String idempotencyKey;
+
+    @Convert(converter = PaymentStatusConverter.class)
+    private PaymentStatus paymentStatus;
+
+    private Integer paymentAmount;
 
 }

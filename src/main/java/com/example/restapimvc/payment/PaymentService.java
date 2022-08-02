@@ -1,6 +1,7 @@
 package com.example.restapimvc.payment;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.enums.PaymentStatus;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.payment.dto.PaymentDto;
@@ -60,6 +61,8 @@ public class PaymentService {
                     .userInfo(userInfoRepository.findById(userInfo.getUserInfoId()).get())
                     .paymentTime(Timestamp.from(Instant.parse(squarePaymentResponse.getPayment().getCreatedAt())))
                     .idempotencyKey(idempotencyKey)
+                    .paymentStatus(PaymentStatus.COMPLETE)
+                    .paymentAmount(paymentRequest.getAmount())
                     .build();
             paymentHistoryRepository.save(paymentHistory);
         }catch (Exception e){
