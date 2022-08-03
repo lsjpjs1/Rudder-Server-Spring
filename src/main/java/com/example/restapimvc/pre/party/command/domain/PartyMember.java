@@ -2,6 +2,7 @@ package com.example.restapimvc.pre.party.command.domain;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.PartyStatus;
+import com.example.restapimvc.payment.PaymentHistory;
 import com.example.restapimvc.util.converter.PartyStatusConverter;
 import lombok.*;
 
@@ -30,6 +31,10 @@ public class PartyMember {
     private PartyStatus partyStatus;
 
     private Integer numberApplicants;
+
+    @ManyToOne(targetEntity = PaymentHistory.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_history_id")
+    private PaymentHistory paymentHistory;
 
     public void approve() {
         if(party.getAlcoholId().equals(1l)){
