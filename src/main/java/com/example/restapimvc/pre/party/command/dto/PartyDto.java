@@ -97,6 +97,7 @@ public class PartyDto {
         private Integer currentNumberOfMember;
         private Integer applyCount;
         private String universityName;
+        private String universityLogoUrl;
         @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
         private Long partyChatRoomId;

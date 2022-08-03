@@ -88,6 +88,9 @@ public class PartyQueryRepository {
                 JPAExpressions.select(school.schoolName)
                         .from(school)
                         .where(school.schoolId.eq(schoolId)),
+                JPAExpressions.select(school.schoolThumbnailName.prepend(CLOUD_FRONT_POST_IMAGE_URL))
+                        .from(school)
+                        .where(school.schoolId.eq(schoolId)),
                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
                         .otherwise(Expressions.nullExpression())
                         .max()
