@@ -44,7 +44,7 @@ public class ChatMessageQueryRepository {
                         chatMessage.chatRoomId.eq(getChatMessagesRequest.getChatRoomId()),
                         lessThanChatMessageId(getChatMessagesRequest.getEndChatMessageId())
                 )
-                .orderBy(chatMessage.chatMessageId.asc())
+                .orderBy(chatMessage.chatMessageId.desc())
                 .limit(20l)
                 .fetch();
 
