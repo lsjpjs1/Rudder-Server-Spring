@@ -7,6 +7,7 @@ import com.example.restapimvc.enums.FilteringPeriod;
 import com.example.restapimvc.enums.PartyPhase;
 import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
+import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.NullExpression;
 import com.querydsl.core.types.Projections;
@@ -48,6 +49,16 @@ public class PartyQueryRepository {
                 .where(
                         partyMember.userInfo.userInfoId.eq(getApplyListRequest.getUserInfoId()),
                         partyMember.partyStatus.eq(PartyStatus.HOST)
+                )
+                .fetch();
+    }
+
+    public List<Party> findPartyByDate(Timestamp startDate, Timestamp endDate) {
+        return jpaQueryFactory
+                .select(party)
+                .from(party)
+                .where(
+                       party.partyTime.between(startDate,endDate)
                 )
                 .fetch();
     }

@@ -52,6 +52,7 @@ public class FCMNotificationService {
     }
 
     public void sendMessage(String token,Object payload,String notificationTitle, String notificationBody) throws JsonProcessingException {
+
         String stringPayload = objectMapper.writeValueAsString(payload);
         Message message = Message.builder()
                 .putData("payload", stringPayload)
@@ -59,7 +60,6 @@ public class FCMNotificationService {
                 .setToken(token)
                 .build();
         try{
-
             FirebaseMessaging.getInstance().send(message);
         }catch (FirebaseMessagingException firebaseMessagingException){
             log.error(firebaseMessagingException.getMessage());
