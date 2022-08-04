@@ -62,7 +62,7 @@ public class Party {
                 .currentNumberOfMember(1)
                 .partyHostUserInfo(createPartyRequest.getHostUserInfo())
                 .partyChatRoomId(createPartyRequest.getChatRoomId())
-                .alcoholId(createPartyRequest.getAlcoholId())
+                .alcoholId(1l)
                 .build();
     }
 

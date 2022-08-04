@@ -33,7 +33,6 @@ class CreatePartyControllerTest {
                         .partyDescription("description")
                         .partyTime(new Timestamp(System.currentTimeMillis()+999999999))
                         .totalNumberOfMember(6)
-                        .alcoholId(1l)
                         .build()
         );
 

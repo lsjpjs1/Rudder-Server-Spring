@@ -95,8 +95,7 @@ public class PartyQueryRepository {
                         .otherwise(Expressions.nullExpression())
                         .max()
                         .coalesce("NONE") ,
-                party.partyChatRoomId.max(),
-                alcohol.alcoholName.max()
+                party.partyChatRoomId.max()
         );
     }
 
@@ -171,13 +170,7 @@ public class PartyQueryRepository {
                                         .sum(),
                                 party.partyHostUserInfo.school.schoolName.max(),
                                 party.location.max(),
-                                alcohol.alcoholName.max(),
                                 party.partyDescription.max(),
-                                alcohol.alcoholImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
-                                alcohol.alcoholUnit.stringValue().max(),
-                                alcohol.alcoholCount.max(),
-                                alcohol.price.max().intValue(),
-                                alcohol.currency.stringValue().max(),
                                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
                                         .otherwise(Expressions.nullExpression())
                                         .max()

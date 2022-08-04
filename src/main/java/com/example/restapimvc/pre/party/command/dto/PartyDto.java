@@ -25,7 +25,6 @@ public class PartyDto {
         private String partyDescription;
         private Timestamp partyTime;
         private Integer totalNumberOfMember;
-        private Long alcoholId;
         @ApiModelProperty(hidden = true)
         private Long chatRoomId;
         @ApiModelProperty(hidden = true)
@@ -101,7 +100,6 @@ public class PartyDto {
         @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
         private Long partyChatRoomId;
-        private String alcoholName;
     }
 
     @Getter
@@ -174,13 +172,7 @@ public class PartyDto {
         private Integer applyCount;
         private String universityName;
         private String partyLocation;
-        private String alcoholName;
         private String partyDescription;
-        private String alcoholImageUrl;
-        private String alcoholUnit;
-        private Integer alcoholCount;
-        private Integer alcoholPrice;
-        private String alcoholCurrency;
         @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
     }
