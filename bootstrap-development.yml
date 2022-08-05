@@ -1,7 +1,7 @@
 aws:
   secretsmanager:
     enabled: false
-
+    failFast: false
 cloud:
   aws:
     region:
