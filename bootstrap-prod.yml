@@ -1,0 +1,8 @@
+aws:
+  secretsmanager:
+    name: rudder-uk-spring
+
+cloud:
+  aws:
+    region:
+      static: eu-west-2

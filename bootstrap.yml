@@ -1,0 +1,20 @@
+
+
+---
+
+spring:
+  profiles:
+    active: local
+
+---
+
+spring:
+  profiles:
+    active: prod
+
+
+---
+
+spring:
+  profiles:
+    active: development

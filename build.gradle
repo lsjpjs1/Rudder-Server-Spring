@@ -50,6 +50,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
     implementation "org.springframework.boot:spring-boot-starter-quartz"
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE'
+
     // FCM push
     implementation 'com.google.firebase:firebase-admin:9.0.0'
 
