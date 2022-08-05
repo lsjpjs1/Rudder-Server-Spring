@@ -34,7 +34,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                        .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
+                        .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
                         .chatRoomTitle(tuple.get(5,String.class)+" + "+tuple.get(6,Integer.class))
                         .otherUserInfoId(tuple.get(7,Integer.class).longValue())
                         .build()
@@ -52,7 +52,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                        .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
+                        .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
                         .chatRoomTitle(tuple.get(5,String.class))
                         .otherUserInfoId(tuple.get(6,Integer.class).longValue())
                         .build()
@@ -72,7 +72,7 @@ public class GetChatRoomService {
                 .recentMessage(tuple.get(2, String.class))
                 .recentMessageTime(tuple.get(3, Timestamp.class))
                 .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                .chatRoomImageUrl("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8xOw%2FbtqNHoHglcs%2FHjJpcZPEt3HilNbKB5QIqK%2Fimg.png")
+                .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
                 .chatRoomTitle(party.getPartyTitle()+" "+ tuple.get(5, BigInteger.class))
                 .build();
     }
