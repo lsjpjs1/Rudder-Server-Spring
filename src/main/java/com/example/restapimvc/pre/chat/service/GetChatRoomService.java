@@ -34,7 +34,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                        .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
+                        .chatRoomImageUrl("http://d17a6yjghl1rix.cloudfront.net/1657524178034514172")
                         .chatRoomTitle(tuple.get(5,String.class)+" + "+tuple.get(6,Integer.class))
                         .otherUserInfoId(tuple.get(7,Integer.class).longValue())
                         .build()
@@ -52,7 +52,7 @@ public class GetChatRoomService {
                         .recentMessage(tuple.get(2, String.class))
                         .recentMessageTime(tuple.get(3, Timestamp.class))
                         .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                        .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
+                        .chatRoomImageUrl("http://d17a6yjghl1rix.cloudfront.net/1657524178034514172")
                         .chatRoomTitle(tuple.get(5,String.class))
                         .otherUserInfoId(tuple.get(6,Integer.class).longValue())
                         .build()
@@ -72,7 +72,7 @@ public class GetChatRoomService {
                 .recentMessage(tuple.get(2, String.class))
                 .recentMessageTime(tuple.get(3, Timestamp.class))
                 .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                .chatRoomImageUrl("https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E")
+                .chatRoomImageUrl("http://d17a6yjghl1rix.cloudfront.net/1657524178034514172")
                 .chatRoomTitle(party.getPartyTitle()+" "+ tuple.get(5, BigInteger.class))
                 .build();
     }
