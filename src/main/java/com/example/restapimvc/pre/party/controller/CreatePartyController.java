@@ -39,6 +39,7 @@ public class CreatePartyController {
 
     }
 
+
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "파티 썸네일 S3 업로드용 signedUrl 가져오기")
     @ApiResponses(value = {
