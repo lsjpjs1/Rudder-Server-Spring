@@ -69,6 +69,7 @@ public class PartyDto {
         private Long userInfoId;
         private String partyProfileImageUrl;
         private Integer numberApplicants;
+        private String userNickname;
     }
 
     @Getter
