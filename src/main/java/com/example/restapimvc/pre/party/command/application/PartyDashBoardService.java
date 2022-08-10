@@ -34,8 +34,10 @@ public class PartyDashBoardService {
         log.info(approveApplyRequest.toString());
         PartyMember partyMember = partyMemberRepository.findById(approveApplyRequest.getPartyMemberId())
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_MEMBER_NOT_FOUND));
+        Party party = partyRepository.findById(approveApplyRequest.getPartyId())
+                .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
         try {
-            if (!partyMember.getParty().getPartyMembers().get(userInfo.getUserInfoId()).getPartyStatus().equals(PartyStatus.HOST)) {
+            if (!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())) {
                 throw new CustomException(ErrorCode.NO_PERMISSION);
             }
         } catch (Exception e) {
