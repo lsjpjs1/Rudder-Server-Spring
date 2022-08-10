@@ -18,7 +18,7 @@ public class CreateChatRoomService {
     private final ChatRoomMemberRepository chatRoomMemberRepository;
 
     @Transactional
-    public void createChatRoom(UserInfo userInfo, ChatDto.CreateChatRoomRequest createChatRoomRequest) {
+    public ChatDto.CreateChatRoomResponse createChatRoom(UserInfo userInfo, ChatDto.CreateChatRoomRequest createChatRoomRequest) {
         createChatRoomRequest.setAllUserInfo(userInfo);
         ChatRoom chatRoom = ChatRoom.builder().build();
         if(createChatRoomRequest.getChatRoomType()!=null && createChatRoomRequest.getChatRoomItemId()!=null) {
@@ -26,16 +26,17 @@ public class CreateChatRoomService {
             chatRoom.setChatRoomItemId(createChatRoomRequest.getChatRoomItemId());
         }
         chatRoomRepository.save(chatRoom);
-        ChatRoomMember chatRoomMember = ChatRoomMember.builder().chatRoomId(chatRoom.getChatRoomId()).userInfoId(createChatRoomRequest.getUserInfoId()).build();
-        chatRoomMemberRepository.save(chatRoomMember);
         createChatRoomRequest.getUserInfoIdList()
                 .stream()
                 .forEach(userInfoId->{
                     ChatRoomMember chatRoomMember1 = ChatRoomMember.builder().chatRoomId(chatRoom.getChatRoomId()).userInfoId(userInfoId).build();
                     chatRoomMemberRepository.save(chatRoomMember1);
+
                 });
 
-
+        return ChatDto.CreateChatRoomResponse.builder()
+                .chatRoomId(chatRoom.getChatRoomId())
+                .build();
 
     }
 }

@@ -22,11 +22,11 @@ public class CreateChatRoomController {
 
     @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping(value = "/chat-rooms")
-    public ResponseEntity createChatRoom(@RequestBody ChatDto.CreateChatRoomRequest createChatRoomRequest) {
+    public ResponseEntity<ChatDto.CreateChatRoomResponse> createChatRoom(@RequestBody ChatDto.CreateChatRoomRequest createChatRoomRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-        createChatRoomService.createChatRoom(userInfoFromToken,createChatRoomRequest);
+        ChatDto.CreateChatRoomResponse createChatRoomResponse = createChatRoomService.createChatRoom(userInfoFromToken, createChatRoomRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .build();
+                .body(createChatRoomResponse);
     }
 }

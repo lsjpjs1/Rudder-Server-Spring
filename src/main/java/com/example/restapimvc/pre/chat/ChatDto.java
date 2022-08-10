@@ -118,5 +118,15 @@ public class ChatDto {
 
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class CreateChatRoomResponse {
+        private Long chatRoomId;
+
+    }
+
 
 }
