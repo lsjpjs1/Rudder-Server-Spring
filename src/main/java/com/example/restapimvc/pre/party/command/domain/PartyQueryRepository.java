@@ -221,7 +221,8 @@ public class PartyQueryRepository {
                                 partyMember.userInfo.userInfoId.max(),
                                 partyProfileImage.partyProfileImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
                                 partyMember.numberApplicants.max(),
-                                partyMember.userInfo.userNickname.max()
+                                partyMember.userInfo.userNickname.max(),
+                                partyMember.partyMemberId
                         )
                 )
                 .from(partyMember)

@@ -83,12 +83,16 @@ public class PartyProfileService {
         List<String> partyProfileImages = userPartyProfileImages.stream()
                 .map(userPartyProfileImage -> CLOUD_FRONT_POST_IMAGE_URL + userPartyProfileImage.getPartyProfileImageName())
                 .collect(Collectors.toList());
-        return PartyProfileDto.GetPartyProfileResponse.builder()
+        PartyProfileDto.PartyProfileResponseDto partyProfileResponseDto = PartyProfileDto.PartyProfileResponseDto.builder()
                 .partyProfileId(userPartyProfile.getPartyProfileId())
                 .partyProfileBody(userPartyProfile.getPartyProfileBody())
                 .partyProfileImages(partyProfileImages)
                 .schoolName(userInfo.getSchool().getSchoolName())
-                .schoolImageUrl(CLOUD_FRONT_POST_IMAGE_URL+userInfo.getSchool().getSchoolThumbnailName())
+                .userNickname(userInfo.getUserNickname())
+                .schoolImageUrl(CLOUD_FRONT_POST_IMAGE_URL + userInfo.getSchool().getSchoolThumbnailName())
+                .build();
+        return PartyProfileDto.GetPartyProfileResponse.builder()
+                .partyProfile(partyProfileResponseDto)
                 .build();
 
     }

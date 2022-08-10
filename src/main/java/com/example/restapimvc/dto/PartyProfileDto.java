@@ -37,10 +37,22 @@ public class PartyProfileDto {
     @Builder
     @ToString
     public static class GetPartyProfileResponse {
+        private PartyProfileResponseDto partyProfile;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class PartyProfileResponseDto {
         private Long partyProfileId;
         private String partyProfileBody;
         private List<String> partyProfileImages;
         private String schoolName;
         private String schoolImageUrl;
+        private String userNickname;
     }
+
 }
