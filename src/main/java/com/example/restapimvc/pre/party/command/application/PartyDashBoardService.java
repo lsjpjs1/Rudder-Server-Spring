@@ -7,6 +7,7 @@ import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.pre.party.command.domain.*;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PartyDashBoardService {
     private final PartyMemberRepository partyMemberRepository;
     private final PartyQueryRepository partyQueryRepository;
@@ -29,6 +31,7 @@ public class PartyDashBoardService {
 
     @Transactional
     public void approveApply(UserInfo userInfo, PartyDto.ApproveApplyRequest approveApplyRequest) {
+        log.info(approveApplyRequest.toString());
         PartyMember partyMember = partyMemberRepository.findById(approveApplyRequest.getPartyMemberId())
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_MEMBER_NOT_FOUND));
         try {

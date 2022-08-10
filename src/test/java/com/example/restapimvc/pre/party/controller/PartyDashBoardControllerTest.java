@@ -100,7 +100,7 @@ class PartyDashBoardControllerTest {
         );
 
 
-        mockMvc.perform(patch("/parties/2/approve")
+        mockMvc.perform(patch("/parties/6/approve")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content)
