@@ -50,13 +50,14 @@ public class PartyProfileController {
     }
 
     @Operation(summary = "사진,설명 수정")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/party-profiles", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updatePartyProfile(@RequestBody PartyProfileDto.UpdatePartyProfileRequest updatePartyProfileRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
-
+        partyProfileService.updatePartyProfile(userInfoFromToken,updatePartyProfileRequest);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(partyProfileService.updatePartyProfile(userInfoFromToken,updatePartyProfileRequest))
+                .status(HttpStatus.NO_CONTENT)
+                .build()
                 ;
     }
 

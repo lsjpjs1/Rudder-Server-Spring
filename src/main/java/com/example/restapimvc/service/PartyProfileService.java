@@ -98,7 +98,7 @@ public class PartyProfileService {
     }
 
     @Transactional
-    public FileDto.UrlsWrapper updatePartyProfile(UserInfo userInfo,PartyProfileDto.UpdatePartyProfileRequest updatePartyProfileRequest) {
+    public void updatePartyProfile(UserInfo userInfo,PartyProfileDto.UpdatePartyProfileRequest updatePartyProfileRequest) {
         updatePartyProfileRequest.setAllUserInfo(userInfo);
         UserInfo userInfoPersistence = userInfoRepository.findById(userInfo.getUserInfoId())
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
@@ -107,22 +107,6 @@ public class PartyProfileService {
         userPartyProfile.setPartyProfileBody(updatePartyProfileRequest.getProfileBody());
         userPartyProfileRepository.save(userPartyProfile);
 
-        userPartyProfileImageRepository.deleteByPartyProfileId(userPartyProfile.getPartyProfileId());
 
-        List<FileMetaData> imageMetaData = updatePartyProfileRequest.getImageMetaData();
-        for (int i=0; i<imageMetaData.size();i++){
-            imageMetaData.get(i).setFileName(new Date().getTime() + RandomNumber.generateRandomCode(6));
-            UserPartyProfileImage partyProfileImage = UserPartyProfileImage.builder()
-                    .partyProfileId(userPartyProfile.getPartyProfileId())
-                    .partyProfileImageName(imageMetaData.get(i).getFileName())
-                    .build();
-            userPartyProfileImageRepository.save(partyProfileImage);
-            if(i==0){
-                userPartyProfile.setUserPartyProfileImageId(partyProfileImage.getPartyProfileImageId());
-                userPartyProfileRepository.save(userPartyProfile);
-            }
-        }
-
-        return FileDto.UrlsWrapper.builder().urls(fileUploadRepository.getFileUploadUrls(imageMetaData).stream().map(uploadUrl -> uploadUrl.getUrl()).collect(Collectors.toList())).build();
     }
 }

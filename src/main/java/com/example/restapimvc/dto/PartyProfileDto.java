@@ -26,7 +26,6 @@ public class PartyProfileDto {
     @Builder
     @ToString
     public static class UpdatePartyProfileRequest extends WithUserInfo.AbstractWithUserInfo {
-        private List<FileMetaData> imageMetaData;
         private String profileBody;
     }
 
