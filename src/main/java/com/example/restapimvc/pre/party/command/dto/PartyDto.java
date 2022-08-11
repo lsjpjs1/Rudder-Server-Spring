@@ -36,6 +36,18 @@ public class PartyDto {
     @AllArgsConstructor
     @ToString
     @Builder
+    public static class RatePartyRequest extends WithUserInfo.AbstractWithUserInfo {
+        private Double partyRate;
+
+        @ApiModelProperty(hidden = true)
+        private Long partyId;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @ToString
+    @Builder
     public static class ApplyPartyRequest extends WithUserInfo.AbstractWithUserInfo {
         @ApiModelProperty(hidden = true)
         private Long partyId;
