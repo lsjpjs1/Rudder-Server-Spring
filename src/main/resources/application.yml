@@ -15,7 +15,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: rudderverify@gmail.com
-    password: ENC(Hff2VoiBjkgVqZDoOoRDueEroW/xo3vL)
+    password: ENC(ahvZfWw0s1T488hy8iokxniRZHbDAtqmHmG/hKbiIZU=)
     properties:
       mail:
         smtp:
