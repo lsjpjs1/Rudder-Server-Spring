@@ -113,9 +113,7 @@ public class UserInfoService {
                 .orElse(EmailVerificationRenew.builder().userInfo(userInfo).build());
         emailVerificationRenew.updateVerificationCode(randomCode);
         emailVerificationRenewRepository.save(emailVerificationRenew);
-        Category category = categoryRepository
-                .findTopByCategoryEnableAndCategoryTypeOrderByCategoryOrderAsc(true, "common").get();
-        userSelectCategoryRepository.save(UserSelectCategory.builder().userInfo(userInfo).categoryId(category.getCategoryId()).build());
+
         return userInfoMapper.entityToUserInfoEntireResponse(userInfo);
     }
 

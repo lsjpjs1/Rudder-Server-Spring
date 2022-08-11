@@ -57,10 +57,10 @@ class UserInfoControllerTest {
     @Test
     void signUp() throws Exception {
         UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userEmail("lsjpjs1@naver.com")
-                .userPassword("123123123a")
-                .userProfileBody("im hoon")
-                .userNickname("huni")
+                .userEmail("mhpark0220@naver.com")
+                .userPassword("12345678")
+                .userProfileBody("im minho")
+                .userNickname("adminm")
                 .promotionMailAgreement(Boolean.TRUE)
                 .build();
         String content = objectMapper.writeValueAsString(signUpRequest);
