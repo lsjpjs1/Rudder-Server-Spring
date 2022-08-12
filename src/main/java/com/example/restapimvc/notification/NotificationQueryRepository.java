@@ -1,7 +1,6 @@
 package com.example.restapimvc.notification;
 
 import com.example.restapimvc.comment.command.domain.QComment;
-import com.example.restapimvc.domain.QNotification;
 import com.example.restapimvc.domain.QPostMessage;
 import com.example.restapimvc.dto.NotificationDto;
 import com.example.restapimvc.dto.NotificationPayload;
