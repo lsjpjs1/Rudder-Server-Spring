@@ -36,7 +36,7 @@ public class S3FileUploadRepository implements FileUploadRepository {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(S3_IMAGE_BUCKET)
                     .key(metaData.getFileName())
-                    .contentType(metaData.getContentType())
+//                    .contentType(metaData.getContentType())
                     .overrideConfiguration(override)
                     .build();
             PutObjectPresignRequest putObjectPresignRequest = PutObjectPresignRequest.builder()
