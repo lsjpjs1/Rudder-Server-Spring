@@ -1,5 +1,6 @@
 package com.example.restapimvc.dto;
 
+import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.domain.School;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.domain.UserProfile;
@@ -37,6 +38,17 @@ public class UserInfoDto {
     @NoArgsConstructor
     public static class UpdateNicknameRequest {
         private String nickname;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @Builder
+    @NoArgsConstructor
+    public static class ChangePasswordRequest extends WithUserInfo.AbstractWithUserInfo {
+        private String currentPassword;
+        private String newPassword;
+
     }
 
     @Getter

@@ -85,6 +85,11 @@ public class UserInfo {
         return newPassword;
     }
 
+    public void changePassword(String newPassword){
+        userPassword = newPassword;
+        passwordEncoding();
+    }
+
     public void verifyEmail() {
         this.userType = 0;
     }

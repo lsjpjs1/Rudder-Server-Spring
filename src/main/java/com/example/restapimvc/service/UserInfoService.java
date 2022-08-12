@@ -10,6 +10,7 @@ import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.repository.*;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
+import com.example.restapimvc.security.Sha1PasswordEncoder;
 import com.example.restapimvc.util.MailUtil;
 import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
@@ -56,6 +57,19 @@ public class UserInfoService {
         targetUserInfo.get().setUserNickname(updateNicknameRequest.getNickname());
         userInfoRepository.save(targetUserInfo.get());
         return userInfoMapper.entityToUserInfoResponse(targetUserInfo.get());
+    }
+
+    @Transactional
+    public void changePassword(UserInfo userInfo, UserInfoDto.ChangePasswordRequest changePasswordRequest) {
+        changePasswordRequest.setAllUserInfo(userInfo);
+        UserInfo userInfoPersistence = userInfoRepository.findById(userInfo.getUserInfoId())
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+        if(userInfoPersistence.getUserPassword().equals(Sha1PasswordEncoder.getInstance().encode(changePasswordRequest.getCurrentPassword()))){
+            userInfoPersistence.changePassword(changePasswordRequest.getNewPassword());
+            userInfoRepository.save(userInfoPersistence);
+        }else{
+            throw new CustomException(ErrorCode.USER_PASSWORD_INCORRECT);
+        }
     }
 
     public void logout() {

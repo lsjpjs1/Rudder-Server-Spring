@@ -42,6 +42,7 @@ public enum ErrorCode {
     NOT_CLUB_CATEGORY(HttpStatus.NOT_ACCEPTABLE,"CategoryId does not club"),
     PARTY_MEMBER_TOO_SMALL(HttpStatus.NOT_ACCEPTABLE,"The number of people should be more than 5."),
     PARTY_CANCELED(HttpStatus.NOT_ACCEPTABLE,"This party was canceled"),
+    USER_PASSWORD_INCORRECT(HttpStatus.NOT_ACCEPTABLE,"UserPassword is incorrect"),
 
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),

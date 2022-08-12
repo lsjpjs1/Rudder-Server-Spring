@@ -1,7 +1,9 @@
 package com.example.restapimvc.controller;
 
+import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.UserInfoDto;
 import com.example.restapimvc.exception.ErrorResponse;
+import com.example.restapimvc.security.CustomSecurityContextHolder;
 import com.example.restapimvc.service.UserInfoService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +34,23 @@ public class UserInfoController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userInfoService.updateUserNickname(updateNicknameRequest))
+                ;
+    }
+
+    @Operation(summary = "패스워드 변경")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 404, message = "1.USER_INFO_NOT_FOUND(존재하지 않는 userInfo)", response = ErrorResponse.class),
+            @ApiResponse(code = 406, message = "1.USER_PASSWORD_INCORRECT(현재 패스워드 틀림)", response = ErrorResponse.class)
+    })
+    @PatchMapping(value = "/password", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePassword(@RequestBody UserInfoDto.ChangePasswordRequest changePasswordRequest) {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        userInfoService.changePassword(userInfoFromToken,changePasswordRequest);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
                 ;
     }
 
