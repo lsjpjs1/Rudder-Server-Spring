@@ -10,7 +10,7 @@ import lombok.Setter;
 @Builder
 public class SocketMessage {
     private String messageType;
-    private Object payload;
+    private SocketPayload payload;
 
     public static SocketMessage from(SocketPayload socketPayload) {
         return SocketMessage.builder()

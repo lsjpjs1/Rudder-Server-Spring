@@ -21,7 +21,7 @@ public class NotificationPayload implements SocketPayload {
     private Timestamp notificationTime;
     private Long itemId;
     private String notificationBody;
-
+    private String notificationTitle;
     @JsonIgnore
     @Override
     public String getMessageType() {

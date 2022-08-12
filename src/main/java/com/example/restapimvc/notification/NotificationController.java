@@ -1,4 +1,4 @@
-package com.example.restapimvc.controller;
+package com.example.restapimvc.notification;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.NotificationDto;

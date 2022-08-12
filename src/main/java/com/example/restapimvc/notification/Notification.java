@@ -1,4 +1,4 @@
-package com.example.restapimvc.domain;
+package com.example.restapimvc.notification;
 
 import com.example.restapimvc.enums.NotificationType;
 import com.example.restapimvc.util.converter.NotificationTypeConverter;
@@ -23,4 +23,7 @@ public class Notification {
     private Timestamp notificationTime;
     private Long itemId;
     private Long userInfoId;
+
+    private String notificationTitle;
+    private String notificationBody;
 }

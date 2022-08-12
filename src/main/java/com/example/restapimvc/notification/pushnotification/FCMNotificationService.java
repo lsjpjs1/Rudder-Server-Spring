@@ -1,4 +1,4 @@
-package com.example.restapimvc.pushnotification;
+package com.example.restapimvc.notification.pushnotification;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

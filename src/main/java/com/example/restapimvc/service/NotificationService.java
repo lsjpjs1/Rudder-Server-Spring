@@ -1,11 +1,8 @@
 package com.example.restapimvc.service;
 
 import com.example.restapimvc.domain.UserInfo;
-import com.example.restapimvc.dto.NoticeDTO;
 import com.example.restapimvc.dto.NotificationDto;
-import com.example.restapimvc.enums.NoticeMention;
-import com.example.restapimvc.enums.UserInfoOsType;
-import com.example.restapimvc.repository.NotificationQueryRepository;
+import com.example.restapimvc.notification.NotificationQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

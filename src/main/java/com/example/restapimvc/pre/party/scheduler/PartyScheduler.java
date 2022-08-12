@@ -2,7 +2,7 @@ package com.example.restapimvc.pre.party.scheduler;
 
 import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyQueryRepository;
-import com.example.restapimvc.pushnotification.FCMNotificationService;
+import com.example.restapimvc.notification.pushnotification.FCMNotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 

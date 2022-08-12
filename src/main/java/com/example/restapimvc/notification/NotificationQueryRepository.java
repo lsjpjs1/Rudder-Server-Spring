@@ -1,4 +1,4 @@
-package com.example.restapimvc.repository;
+package com.example.restapimvc.notification;
 
 import com.example.restapimvc.comment.command.domain.QComment;
 import com.example.restapimvc.domain.QNotification;
@@ -33,8 +33,9 @@ public class NotificationQueryRepository {
                                 notification.notificationId,
                                 notification.notificationType,
                                 notification.notificationTime,
-                                getItemId(),
-                                getNotificationBody()
+                                notification.itemId,
+                                notification.notificationBody,
+                                notification.notificationTitle
                                 )
                 )
                 .from(notification)
