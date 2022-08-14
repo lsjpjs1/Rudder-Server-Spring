@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Table
 @AllArgsConstructor
 @Builder
+@Setter
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +27,6 @@ public class Notification {
 
     private String notificationTitle;
     private String notificationBody;
+
+    private Boolean isRead;
 }

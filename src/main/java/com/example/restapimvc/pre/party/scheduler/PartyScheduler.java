@@ -1,5 +1,7 @@
 package com.example.restapimvc.pre.party.scheduler;
 
+import com.example.restapimvc.notification.NotificationPayload;
+import com.example.restapimvc.notification.SocketPayload;
 import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyQueryRepository;
 import com.example.restapimvc.notification.pushnotification.FCMNotificationService;
@@ -35,7 +37,7 @@ public class PartyScheduler {
         parties.stream()
                 .forEach(party -> {
                     try {
-                        fcmNotificationService.sendMessage(party.getPartyHostUserInfo().getNotificationToken(), "","오늘 파티 모집 종료됨","알겠냐");
+                        fcmNotificationService.sendMessage(party.getPartyHostUserInfo().getNotificationToken(), NotificationPayload.builder().build(),"오늘 파티 모집 종료됨","알겠냐");
                     }catch (Exception e){
                         e.printStackTrace();
                     }

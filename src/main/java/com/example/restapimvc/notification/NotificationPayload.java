@@ -1,7 +1,7 @@
-package com.example.restapimvc.dto;
+package com.example.restapimvc.notification;
 
 import com.example.restapimvc.enums.NotificationType;
-import com.example.restapimvc.pre.SocketPayload;
+import com.example.restapimvc.notification.SocketPayload;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

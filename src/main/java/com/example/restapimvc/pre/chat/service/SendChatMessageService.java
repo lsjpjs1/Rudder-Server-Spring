@@ -3,6 +3,7 @@ package com.example.restapimvc.pre.chat.service;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.notification.SocketMessageWrapper;
 import com.example.restapimvc.pre.chat.ChatDto;
 import com.example.restapimvc.pre.chat.CustomMessage;
 import com.example.restapimvc.pre.chat.SocketMessage;
@@ -50,10 +51,11 @@ public class SendChatMessageService {
                 .chatRoomId(chatMessage.getChatRoomId())
                 .build();
         SocketMessage socketMessage = SocketMessage.from(chatMessageDto);
+        SocketMessageWrapper socketMessageWrapper = SocketMessageWrapper.builder().socketMessage(socketMessage).build();
 
         List<ChatRoomMember> chatRoomMembers = chatRoomMemberRepository.findByChatRoomId(chatMessageDto.getChatRoomId());
         for(ChatRoomMember chatRoomMember: chatRoomMembers) {
-            messageSendingOperations.convertAndSend("/queue/user." + chatRoomMember.getUserInfoId(), socketMessage);
+            messageSendingOperations.convertAndSend("/queue/user." + chatRoomMember.getUserInfoId(), socketMessageWrapper);
         }
 
 

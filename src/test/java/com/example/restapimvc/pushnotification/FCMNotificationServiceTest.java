@@ -15,6 +15,6 @@ class FCMNotificationServiceTest {
     private FCMNotificationService fcmNotificationService;
     @Test
     void sendMessage() throws JsonProcessingException {
-        fcmNotificationService.sendMessage("","aaaa","title","body");
+//        fcmNotificationService.sendMessage("","aaaa","title","body");
     }
 }

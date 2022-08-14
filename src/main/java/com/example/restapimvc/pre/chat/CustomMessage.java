@@ -1,6 +1,5 @@
 package com.example.restapimvc.pre.chat;
 
-import com.example.restapimvc.pre.SocketPayload;
 import lombok.*;
 
 import java.sql.Timestamp;

@@ -1,5 +1,6 @@
 package com.example.restapimvc.notification.pushnotification;
 
+import com.example.restapimvc.notification.SocketPayload;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -51,7 +52,7 @@ public class FCMNotificationService {
         }
     }
 
-    public void sendMessage(String token,Object payload,String notificationTitle, String notificationBody) throws JsonProcessingException {
+    public void sendMessage(String token, SocketPayload payload, String notificationTitle, String notificationBody) throws JsonProcessingException {
 
         String stringPayload = objectMapper.writeValueAsString(payload);
         Message message = Message.builder()

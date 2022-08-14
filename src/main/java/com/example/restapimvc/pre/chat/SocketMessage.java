@@ -1,6 +1,6 @@
 package com.example.restapimvc.pre.chat;
 
-import com.example.restapimvc.pre.SocketPayload;
+import com.example.restapimvc.notification.SocketPayload;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

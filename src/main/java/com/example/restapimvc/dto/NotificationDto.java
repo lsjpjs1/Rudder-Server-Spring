@@ -1,13 +1,12 @@
 package com.example.restapimvc.dto;
 
 import com.example.restapimvc.common.WithUserInfo;
+import com.example.restapimvc.notification.NotificationPayload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class NotificationDto {

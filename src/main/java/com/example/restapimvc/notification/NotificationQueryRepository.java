@@ -3,7 +3,6 @@ package com.example.restapimvc.notification;
 import com.example.restapimvc.comment.command.domain.QComment;
 import com.example.restapimvc.domain.QPostMessage;
 import com.example.restapimvc.dto.NotificationDto;
-import com.example.restapimvc.dto.NotificationPayload;
 import com.example.restapimvc.enums.NotificationType;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -35,7 +34,7 @@ public class NotificationQueryRepository {
                                 notification.itemId,
                                 notification.notificationBody,
                                 notification.notificationTitle
-                                )
+                        )
                 )
                 .from(notification)
                 .where(
@@ -44,6 +43,22 @@ public class NotificationQueryRepository {
                 )
                 .orderBy(notification.notificationId.desc())
                 .limit(20)
+                .fetch();
+
+
+
+    }
+
+    public List<Notification> findNotificationsNotRead(NotificationDto.GetNotificationRequest getNotificationRequest) {
+        return jpaQueryFactory
+                .select(
+                       notification
+                )
+                .from(notification)
+                .where(
+                        notification.userInfoId.eq(getNotificationRequest.getUserInfoId()),
+                        notification.isRead.eq(false)
+                )
                 .fetch();
 
 

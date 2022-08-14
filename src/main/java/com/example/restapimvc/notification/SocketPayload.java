@@ -1,4 +1,4 @@
-package com.example.restapimvc.pre;
+package com.example.restapimvc.notification;
 
 public interface SocketPayload {
     String getMessageType();

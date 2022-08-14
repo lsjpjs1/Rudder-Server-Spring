@@ -2,7 +2,7 @@ package com.example.restapimvc.pre.chat;
 
 import com.example.restapimvc.common.WithUserInfo;
 import com.example.restapimvc.enums.ChatRoomType;
-import com.example.restapimvc.pre.SocketPayload;
+import com.example.restapimvc.notification.SocketPayload;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
