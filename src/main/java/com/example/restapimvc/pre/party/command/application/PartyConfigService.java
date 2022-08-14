@@ -32,6 +32,9 @@ public class PartyConfigService {
         if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
+        if(!party.getCurrentNumberOfMember().equals(1)) {
+            throw new CustomException(ErrorCode.PARTY_CANCEL_NOT_ALLOW);
+        }
         party.cancel();
         partyRepository.save(party);
     }
@@ -43,6 +46,9 @@ public class PartyConfigService {
                 .orElseThrow(() -> new CustomException(ErrorCode.PARTY_NOT_FOUND));
         if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
+        }
+        if(party.getCurrentNumberOfMember().equals(1)) {
+            throw new CustomException(ErrorCode.STOP_RECRUIT_NOT_ALLOW);
         }
         party.stopRecruit();
         partyRepository.save(party);

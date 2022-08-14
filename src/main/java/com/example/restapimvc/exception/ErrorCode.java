@@ -43,6 +43,8 @@ public enum ErrorCode {
     PARTY_MEMBER_TOO_SMALL(HttpStatus.NOT_ACCEPTABLE,"The number of people should be more than 5."),
     PARTY_CANCELED(HttpStatus.NOT_ACCEPTABLE,"This party was canceled"),
     USER_PASSWORD_INCORRECT(HttpStatus.NOT_ACCEPTABLE,"UserPassword is incorrect"),
+    PARTY_CANCEL_NOT_ALLOW(HttpStatus.NOT_ACCEPTABLE,"Party member exists"),
+    STOP_RECRUIT_NOT_ALLOW(HttpStatus.NOT_ACCEPTABLE,"Party member does not exists"),
 
 
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT, "Data already exists."),
