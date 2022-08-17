@@ -72,7 +72,7 @@ public class GetChatRoomService {
                 .recentMessage(tuple.get(2, String.class))
                 .recentMessageTime(tuple.get(3, Timestamp.class))
                 .notReadMessageCount(tuple.get(4, BigInteger.class).intValue())
-                .chatRoomImageUrl("http://d17a6yjghl1rix.cloudfront.net/1657524178034514172")
+                .chatRoomImageUrl("http://d17a6yjghl1rix.cloudfront.net/1660714564504420051")
                 .chatRoomTitle(party.getPartyTitle()+" "+ tuple.get(5, BigInteger.class))
                 .build();
     }
