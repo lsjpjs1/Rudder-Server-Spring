@@ -24,7 +24,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static com.querydsl.core.types.dsl.Expressions.FALSE;
 import static com.querydsl.core.types.dsl.Expressions.nullExpression;
+import static java.lang.Boolean.TRUE;
 
 @Repository
 @RequiredArgsConstructor
@@ -106,7 +108,13 @@ public class PartyQueryRepository {
                         .otherwise(Expressions.nullExpression())
                         .max()
                         .coalesce("NONE") ,
-                party.partyChatRoomId.max()
+                party.partyChatRoomId.max(),
+                new CaseBuilder().when(partyMember.isChatExist.isTrue()).then(1)
+                        .otherwise(0)
+                        .max()
+                        .eq(1)
+
+
         );
     }
 

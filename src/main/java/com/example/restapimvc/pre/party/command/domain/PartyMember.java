@@ -36,6 +36,9 @@ public class PartyMember {
     @JoinColumn(name = "payment_history_id")
     private PaymentHistory paymentHistory;
 
+    @Setter
+    private Boolean isChatExist;
+
     public void approve() {
         if(party.getAlcoholId().equals(1l)){
             partyStatus = PartyStatus.HOST_APPROVE;

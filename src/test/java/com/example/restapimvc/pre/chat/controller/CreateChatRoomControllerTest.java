@@ -31,9 +31,9 @@ class CreateChatRoomControllerTest {
         String content = objectMapper.writeValueAsString(
                 ChatDto.CreateChatRoomRequest
                         .builder()
-                        .userInfoIdList(Arrays.asList(35l,218l))
+                        .userInfoIdList(Arrays.asList(350l,347l))
                         .chatRoomType(ChatRoomType.PARTY_ONE_TO_ONE)
-                        .chatRoomItemId(2l)
+                        .chatRoomItemId(17l)
                         .build()
         );
 
