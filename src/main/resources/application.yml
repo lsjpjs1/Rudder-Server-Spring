@@ -1,37 +1,37 @@
 
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
-    password: ${JASYPT_PASSWORD}
-
-
-server:
-  port: 8080
-spring:
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: rudderverify@gmail.com
-    password: ENC(ahvZfWw0s1T488hy8iokxniRZHbDAtqmHmG/hKbiIZU=)
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-  rabbitmq:
-    host: ENC(Bq5J5icpRMeR1pS5JZ36T/hHAeDjAsBt)
-    port: 61613
-    username: ENC(Fh/ZsnqAK+fQuORD/JNqsA==)
-    password: ENC(nsM1itGQWPBdBosvDENCCQ==)
-
-fcm:
-  key:
-    path: ENC(u3He/Vry/W2Yv0lIZq6keAtj+QlVRmmarnqqQKbdxOA93T4XKT/L9A==)
-    scope: ENC(aZmM4IMQuGgOE8FbyAqPz41NVwYeJhXgdaN/jrFE01Jwuj7ToOIoZv6Pp6xsbpbpjuF4g5QO0gk=)
+#jasypt:
+#  encryptor:
+#    bean: jasyptStringEncryptor
+#    password: ${JASYPT_PASSWORD}
+#
+#
+#server:
+#  port: 8080
+#spring:
+#  jackson:
+#    serialization:
+#      fail-on-empty-beans: false
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: rudderverify@gmail.com
+#    password: ENC(ahvZfWw0s1T488hy8iokxniRZHbDAtqmHmG/hKbiIZU=)
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#  rabbitmq:
+#    host: ENC(Bq5J5icpRMeR1pS5JZ36T/hHAeDjAsBt)
+#    port: 61613
+#    username: ENC(Fh/ZsnqAK+fQuORD/JNqsA==)
+#    password: ENC(nsM1itGQWPBdBosvDENCCQ==)
+#
+#fcm:
+#  key:
+#    path: ENC(u3He/Vry/W2Yv0lIZq6keAtj+QlVRmmarnqqQKbdxOA93T4XKT/L9A==)
+#    scope: ENC(aZmM4IMQuGgOE8FbyAqPz41NVwYeJhXgdaN/jrFE01Jwuj7ToOIoZv6Pp6xsbpbpjuF4g5QO0gk=)
 
 ---
 
