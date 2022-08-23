@@ -109,7 +109,7 @@ public class PartyQueryRepository {
                         .max()
                         .coalesce("NONE") ,
                 party.partyChatRoomId.max(),
-                new CaseBuilder().when(partyMember.isChatExist.isTrue()).then(1)
+                new CaseBuilder().when(partyMember.isChatExist.isTrue().and(partyMember.userInfo.userInfoId.eq(userInfoId))).then(1)
                         .otherwise(0)
                         .max()
                         .eq(1)
