@@ -40,8 +40,9 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
             "from chat_room_member crm " +
             "left join chat_message cm on cm.chat_room_id = crm.chat_room_id " +
             "left join chat_room cr on cr.chat_room_id = crm.chat_room_id " +
-            "left join party p on p.party_chat_room_id = cr.chat_room_id " +
-            "where p.party_host_user_info_id = (:userInfoId) and chat_room_type = 'PARTY_ONE_TO_ONE' " +
+            "left join party p on p.party_id = cr.chat_room_item_id " +
+            "left join party_member pm on p.party_id = pm.party_id " +
+            "where pm.user_info_id = (:userInfoId) and pm.party_status = 'PENDING' and cr.chat_room_type = 'PARTY_ONE_TO_ONE' " +
             "order by crm.chat_room_id,cm.chat_message_id desc) as res " +
             "order by res.chat_message_id desc "
             , nativeQuery = true)

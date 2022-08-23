@@ -41,7 +41,7 @@ public class PartyMember {
 
     public void approve() {
         if(party.getAlcoholId().equals(1l)){
-            partyStatus = PartyStatus.HOST_APPROVE;
+            partyStatus = PartyStatus.FINAL_APPROVE;
         }else{
             partyStatus = PartyStatus.ALCOHOL_PENDING;
         }
