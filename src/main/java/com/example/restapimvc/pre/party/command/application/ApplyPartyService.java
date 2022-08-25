@@ -1,8 +1,11 @@
 package com.example.restapimvc.pre.party.command.application;
 
 import com.example.restapimvc.domain.UserInfo;
+import com.example.restapimvc.enums.NotificationType;
 import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
+import com.example.restapimvc.notification.Notification;
+import com.example.restapimvc.notification.service.SendNotificationService;
 import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyApplyGroup;
 import com.example.restapimvc.pre.party.command.domain.PartyApplyGroupMember;
@@ -27,6 +30,7 @@ public class ApplyPartyService {
     private final PartyApplyGroupRepository partyApplyGroupRepository;
     private final PartyApplyGroupMemberRepository partyApplyGroupMemberRepository;
     private final UserInfoRepository userInfoRepository;
+    private final SendNotificationService sendNotificationService;
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -39,6 +43,16 @@ public class ApplyPartyService {
         party.throwIfCanceled();
         party.apply(userInfo, applyPartyRequest.getNumberApplicants());
         partyRepository.save(party);
+
+        Notification notification = Notification.builder()
+                .notificationType(NotificationType.PARTY_APPLY)
+                .itemId(party.getPartyId())
+                .notificationTitle(userInfo.getUserNickname()+" has applied to your pre")
+                .notificationBody("Accept")
+                .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
+                .build();
+        sendNotificationService.sendNotificationAsync(notification);
+
     }
 
     @Transactional

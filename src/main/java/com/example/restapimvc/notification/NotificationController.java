@@ -21,6 +21,7 @@ public class NotificationController {
     @GetMapping("/notifications")
     public ResponseEntity<NotificationDto.GetNotificationResponse> getNotifications(@ModelAttribute NotificationDto.GetNotificationRequest getNotificationRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        notificationService.readNotifications(userInfoFromToken, getNotificationRequest);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(notificationService.getNotifications(userInfoFromToken,getNotificationRequest))

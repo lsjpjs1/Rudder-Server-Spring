@@ -33,7 +33,8 @@ public class NotificationQueryRepository {
                                 notification.notificationTime,
                                 notification.itemId,
                                 notification.notificationBody,
-                                notification.notificationTitle
+                                notification.notificationTitle,
+                                notification.userInfoId
                         )
                 )
                 .from(notification)
@@ -72,18 +73,7 @@ public class NotificationQueryRepository {
         return notification.notificationId.lt(notificationId);
     }
 
-    private NumberExpression<Long> getItemId() {
-        return notification.itemId;
-    }
 
-    private StringExpression getNotificationBody() {
-        return new CaseBuilder()
-                .when(notification.notificationType.eq(NotificationType.PARTY_APPLY)).then("누군가가 파티에 지원했어요~")
-                .when(notification.notificationType.eq(NotificationType.PARTY_ACCEPTED)).then("파티 신청이 수락되었습니다")
-                .when(notification.notificationType.eq(NotificationType.PARTY_RECRUIT_END_IN_24H)).then("파티 모집이 24시간 뒤에 종료됩니다")
-                .when(notification.notificationType.eq(NotificationType.PARTY_ALCOHOL_PAY_REQUEST)).then("파티 모집 완료됐으니 결제하쇼")
-                .otherwise("case빌더 잘 만들었는지 확인하세요~");
-    }
 
 
 }

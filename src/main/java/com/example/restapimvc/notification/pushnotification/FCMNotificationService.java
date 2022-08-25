@@ -52,9 +52,15 @@ public class FCMNotificationService {
         }
     }
 
-    public void sendMessage(String token, SocketPayload payload, String notificationTitle, String notificationBody) throws JsonProcessingException {
+    public void sendMessage(String token, SocketPayload payload, String notificationTitle, String notificationBody){
+        String stringPayload;
+        try {
+            stringPayload = objectMapper.writeValueAsString(payload);
+        } catch (JsonProcessingException jsonProcessingException){
+            jsonProcessingException.printStackTrace();
+            return;
+        }
 
-        String stringPayload = objectMapper.writeValueAsString(payload);
         Message message = Message.builder()
                 .putData("payload", stringPayload)
                 .setNotification(Notification.builder().setTitle(notificationTitle).setBody(notificationBody).build())

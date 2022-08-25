@@ -1,7 +1,10 @@
 package com.example.restapimvc.pre.party.scheduler;
 
+import com.example.restapimvc.enums.NotificationType;
+import com.example.restapimvc.notification.Notification;
 import com.example.restapimvc.notification.NotificationPayload;
 import com.example.restapimvc.notification.SocketPayload;
+import com.example.restapimvc.notification.service.SendNotificationService;
 import com.example.restapimvc.pre.party.command.domain.Party;
 import com.example.restapimvc.pre.party.command.domain.PartyQueryRepository;
 import com.example.restapimvc.notification.pushnotification.FCMNotificationService;
@@ -22,25 +25,28 @@ public class PartyScheduler {
 
 
     private final PartyQueryRepository partyQueryRepository;
-    private final FCMNotificationService fcmNotificationService;
+    private final SendNotificationService sendNotificationService;
 
     @Scheduled(cron = "0 0 0 * * ?")
     @Transactional
     public void partyRecruitNotificationScheduler() {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,1);
+        calendar.add(Calendar.DATE, 1);
         setMidnight(calendar);
         Calendar calendar2 = Calendar.getInstance();
         setMidnight(calendar2);
-        calendar2.add(Calendar.DATE,2);
-        List<Party> parties = partyQueryRepository.findPartyByDate(new Timestamp(calendar.getTimeInMillis()),new Timestamp(calendar2.getTimeInMillis()));
+        calendar2.add(Calendar.DATE, 2);
+        List<Party> parties = partyQueryRepository.findPartyByDate(new Timestamp(calendar.getTimeInMillis()), new Timestamp(calendar2.getTimeInMillis()));
         parties.stream()
                 .forEach(party -> {
-                    try {
-                        fcmNotificationService.sendMessage(party.getPartyHostUserInfo().getNotificationToken(), NotificationPayload.builder().build(),"오늘 파티 모집 종료됨","알겠냐");
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    Notification notification = Notification.builder()
+                            .notificationType(NotificationType.PARTY_RECRUIT_END_IN_24H)
+                            .itemId(party.getPartyId())
+                            .notificationTitle("24시간 뒤 모집 종료")
+                            .notificationBody("")
+                            .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
+                            .build();
+                    sendNotificationService.sendNotificationAsync(notification);
                 });
 
     }
@@ -48,14 +54,34 @@ public class PartyScheduler {
     @Scheduled(cron = "0 0 10 * * ?")
     @Transactional
     public void partyRatingNotificationScheduler() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        setMidnight(calendar);
+        Calendar calendar2 = Calendar.getInstance();
+        setMidnight(calendar2);
+        List<Party> parties = partyQueryRepository.findPartyByDate(new Timestamp(calendar.getTimeInMillis()), new Timestamp(calendar2.getTimeInMillis()));
+        parties.stream()
+                .forEach(party -> {
+                    party.getPartyMembers().forEach((userInfoId, partyMember) -> {
+                        Notification notification = Notification.builder()
+                                .notificationType(NotificationType.PARTY_RATING)
+                                .itemId(party.getPartyId())
+                                .notificationTitle("파티 평점 매기셈")
+                                .notificationBody("")
+                                .userInfoId(userInfoId)
+                                .build();
+                        sendNotificationService.sendNotificationAsync(notification);
+                    });
+
+                });
 
     }
 
-    private void setMidnight(Calendar calendar){
-        calendar.set(Calendar.HOUR,0);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
-        calendar.set(Calendar.HOUR_OF_DAY,0);
+    private void setMidnight(Calendar calendar) {
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
     }
 }

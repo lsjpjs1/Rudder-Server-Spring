@@ -60,7 +60,8 @@ public class PartyQueryRepository {
                 .select(party)
                 .from(party)
                 .where(
-                       party.partyTime.between(startDate,endDate)
+                       party.partyTime.between(startDate,endDate),
+                        party.partyPhase.eq(PartyPhase.FIX_MEMBERS)
                 )
                 .fetch();
     }

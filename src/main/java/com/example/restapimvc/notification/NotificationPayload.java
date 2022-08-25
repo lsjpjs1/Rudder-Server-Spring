@@ -22,9 +22,21 @@ public class NotificationPayload implements SocketPayload {
     private Long itemId;
     private String notificationBody;
     private String notificationTitle;
+    private Long userInfoId;
     @JsonIgnore
     @Override
     public String getMessageType() {
         return "NOTIFICATION";
+    }
+
+    public static NotificationPayload from(Notification notification) {
+        return NotificationPayload.builder()
+                .notificationId(notification.getNotificationId())
+                .notificationTime(notification.getNotificationTime())
+                .itemId(notification.getItemId())
+                .notificationBody(notification.getNotificationBody())
+                .notificationTitle(notification.getNotificationTitle())
+                .userInfoId(notification.getUserInfoId())
+                .build();
     }
 }
