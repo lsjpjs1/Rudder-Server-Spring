@@ -115,6 +115,8 @@ public class PartyDto {
         private String partyStatus;
         private Long partyChatRoomId;
         private Boolean isChatExist;
+        @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyPhase")
+        private String partyPhase;
     }
 
     @Getter
@@ -190,6 +192,8 @@ public class PartyDto {
         private String partyDescription;
         @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
         private String partyStatus;
+        @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyPhase")
+        private String partyPhase;
     }
 
     @Getter

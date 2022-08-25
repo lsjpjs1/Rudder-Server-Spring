@@ -112,7 +112,8 @@ public class PartyQueryRepository {
                 new CaseBuilder().when(partyMember.isChatExist.isTrue().and(partyMember.userInfo.userInfoId.eq(userInfoId))).then(1)
                         .otherwise(0)
                         .max()
-                        .eq(1)
+                        .eq(1),
+                party.partyPhase.stringValue().max()
 
 
         );
@@ -193,7 +194,8 @@ public class PartyQueryRepository {
                                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
                                         .otherwise(Expressions.nullExpression())
                                         .max()
-                                        .coalesce("NONE")
+                                        .coalesce("NONE"),
+                                party.partyPhase.stringValue().max()
                         )
                 )
                 .from(party)
