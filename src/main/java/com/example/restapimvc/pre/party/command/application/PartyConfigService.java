@@ -68,6 +68,7 @@ public class PartyConfigService {
         CustomerRequest customerRequest = CustomerRequest.builder().customerRequestType(sendCustomerSoundRequest.getCustomerSoundType())
                 .customerRequestBody(sendCustomerSoundRequest.getCustomerSoundBody())
                 .userInfoId(userInfo.getUserInfoId())
+                .itemId(sendCustomerSoundRequest.getPartyId())
                 .build();
         customerRequestRepository.save(customerRequest);
 

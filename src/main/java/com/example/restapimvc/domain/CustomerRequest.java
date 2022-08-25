@@ -20,4 +20,6 @@ public class CustomerRequest {
     private String customerRequestBody;
 
     private Long userInfoId;
+
+    private Long itemId;
 }
