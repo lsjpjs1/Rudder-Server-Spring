@@ -45,6 +45,12 @@ public class PartyScheduler {
 
     }
 
+    @Scheduled(cron = "0 0 10 * * ?")
+    @Transactional
+    public void partyRatingNotificationScheduler() {
+
+    }
+
     private void setMidnight(Calendar calendar){
         calendar.set(Calendar.HOUR,0);
         calendar.set(Calendar.MINUTE,0);
