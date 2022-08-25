@@ -44,8 +44,7 @@ public class PartyConfigController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "성공"),
             @ApiResponse(code = 404, message = "1.PARTY_NOT_FOUND(존재하지 않는 파티)", response = ErrorResponse.class),
-            @ApiResponse(code = 403, message = "1.NO_PERMISSION(파티장이 아님)", response = ErrorResponse.class),
-            @ApiResponse(code = 406, message = "1.STOP_RECRUIT_NOT_ALLOW(파티원 아무도 없어서 모집 중단 불가)", response = ErrorResponse.class),
+            @ApiResponse(code = 403, message = "1.NO_PERMISSION(파티장이 아님)", response = ErrorResponse.class)
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/parties/{partyId}/stop-recruit")

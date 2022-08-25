@@ -47,9 +47,6 @@ public class PartyConfigService {
         if(!party.getPartyHostUserInfo().getUserInfoId().equals(userInfo.getUserInfoId())){
             throw new CustomException(ErrorCode.NO_PERMISSION);
         }
-        if(party.getCurrentNumberOfMember().equals(1)) {
-            throw new CustomException(ErrorCode.STOP_RECRUIT_NOT_ALLOW);
-        }
         party.stopRecruit();
         partyRepository.save(party);
     }
