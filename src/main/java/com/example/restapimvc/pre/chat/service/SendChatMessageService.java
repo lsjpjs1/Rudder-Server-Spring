@@ -13,6 +13,7 @@ import com.example.restapimvc.pre.chat.repository.ChatMessageRepository;
 import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SendChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
@@ -55,6 +57,7 @@ public class SendChatMessageService {
 
         List<ChatRoomMember> chatRoomMembers = chatRoomMemberRepository.findByChatRoomId(chatMessageDto.getChatRoomId());
         for(ChatRoomMember chatRoomMember: chatRoomMembers) {
+            log.info(chatRoomMember.getUserInfoId().toString());
             messageSendingOperations.convertAndSend("/queue/user." + chatRoomMember.getUserInfoId(), socketMessageWrapper);
         }
 

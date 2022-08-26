@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@ToString
 public class CustomMessage {
     private String sender;
     private String body;

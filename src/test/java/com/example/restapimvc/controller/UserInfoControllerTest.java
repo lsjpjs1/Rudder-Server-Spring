@@ -57,7 +57,7 @@ class UserInfoControllerTest {
     @Test
     void signUp() throws Exception {
         UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userEmail("mhpark0221@naver.com")
+                .userEmail("mhpark0225@naver.com")
                 .userPassword("12345678")
                 .userProfileBody("im minho")
                 .userNickname("adminm1")
@@ -74,41 +74,7 @@ class UserInfoControllerTest {
                 .andDo(print())
         ;
 
-        signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userEmail("mhpark0222@naver.com")
-                .userPassword("12345678")
-                .userProfileBody("im minho")
-                .userNickname("adminm2")
-                .promotionMailAgreement(Boolean.TRUE)
-                .build();
-        content = objectMapper.writeValueAsString(signUpRequest);
 
-        mockMvc.perform(
-                        post("/user-infos")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .content(content)
-                )
-                .andDo(print())
-        ;
-
-        signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userEmail("mhpark0223@naver.com")
-                .userPassword("12345678")
-                .userProfileBody("im minho")
-                .userNickname("adminm3")
-                .promotionMailAgreement(Boolean.TRUE)
-                .build();
-        content = objectMapper.writeValueAsString(signUpRequest);
-
-        mockMvc.perform(
-                        post("/user-infos")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .content(content)
-                )
-                .andDo(print())
-        ;
 //
 //        signUpRequest = UserInfoDto.SignUpRequest.builder()
 //                .userEmail("lsjpjs1@korea.ac.kr")

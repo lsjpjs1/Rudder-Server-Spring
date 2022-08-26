@@ -30,7 +30,7 @@ class SocketMessageWrapperTest {
 //        SocketMessage socketMessage = SocketMessage.from(chatMessageDto);
 //        SocketMessageWrapper socketMessageWrapper = SocketMessageWrapper.builder().socketMessage(socketMessage).build();
 
-        NotificationPayload notificationPayload = NotificationPayload.builder().notificationId(1l).notificationBody("알림 본문").notificationTitle("알림 제목").notificationTime(new Timestamp(System.currentTimeMillis()))
+        NotificationPayload notificationPayload = NotificationPayload.builder().notificationId(1l).notificationBody("너무 그러지 말어~~").notificationTitle("너무 그러지 말어~~").notificationTime(new Timestamp(System.currentTimeMillis()))
                 .notificationType(NotificationType.PARTY_ACCEPTED).itemId(12l).build();
         SocketMessage socketMessage = SocketMessage.from(notificationPayload);
         SocketMessageWrapper socketMessageWrapper = SocketMessageWrapper.builder().socketMessage(socketMessage).build();
