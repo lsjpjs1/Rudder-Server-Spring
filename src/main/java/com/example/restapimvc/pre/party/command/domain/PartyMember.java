@@ -5,6 +5,8 @@ import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.payment.PaymentHistory;
 import com.example.restapimvc.util.converter.PartyStatusConverter;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,6 +16,8 @@ import javax.persistence.*;
 @Table
 @Builder
 @AllArgsConstructor
+@DynamicUpdate
+@DynamicInsert
 public class PartyMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
