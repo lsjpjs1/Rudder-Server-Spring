@@ -15,6 +15,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -24,12 +27,15 @@ public class SendNotificationService {
     private final FCMNotificationService fcmNotificationService;
     private final UserInfoRepository userInfoRepository;
     private final SimpMessageSendingOperations messageSendingOperations;
-
-    @Async
+    @PersistenceContext
+    private final EntityManager entityManager;
+//    @Async
     @Transactional
     public void sendNotificationAsync(Notification notification){
         Notification notificationPersist = notificationRepository.save(notification);
+        entityManager.refresh(notificationPersist);
         NotificationPayload notificationPayload = NotificationPayload.from(notificationPersist);
+        log.info(notificationPayload.toString());
         UserInfo userInfo = userInfoRepository.findById(notificationPayload.getUserInfoId()).get();
         fcmNotificationService.sendMessage(userInfo.getNotificationToken(),notificationPayload,notificationPayload.getNotificationTitle(),notificationPayload.getNotificationBody());
         SocketMessageWrapper socketMessageWrapper = SocketMessageWrapper.builder()

@@ -58,7 +58,7 @@ class ApplyPartyControllerTest {
                 PartyDto.ApplyPartyRequest.builder().numberApplicants(2).build()
         );
 
-        mockMvc.perform(post("/parties/3/apply")
+        mockMvc.perform(post("/parties/27/apply")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content)

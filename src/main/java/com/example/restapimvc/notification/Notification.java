@@ -3,6 +3,8 @@ package com.example.restapimvc.notification;
 import com.example.restapimvc.enums.NotificationType;
 import com.example.restapimvc.util.converter.NotificationTypeConverter;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,6 +16,8 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Setter
+@DynamicInsert
+@DynamicUpdate
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,16 +3,14 @@ package com.example.restapimvc.notification;
 import com.example.restapimvc.enums.NotificationType;
 import com.example.restapimvc.notification.SocketPayload;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 @Getter
 @AllArgsConstructor
 @Builder
 @Setter
+@ToString
 public class NotificationPayload implements SocketPayload {
 
     private Long notificationId;
@@ -37,6 +35,7 @@ public class NotificationPayload implements SocketPayload {
                 .notificationBody(notification.getNotificationBody())
                 .notificationTitle(notification.getNotificationTitle())
                 .userInfoId(notification.getUserInfoId())
+                .notificationType(notification.getNotificationType())
                 .build();
     }
 }
