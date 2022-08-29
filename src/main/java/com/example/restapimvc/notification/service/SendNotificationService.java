@@ -29,7 +29,7 @@ public class SendNotificationService {
     private final SimpMessageSendingOperations messageSendingOperations;
     @PersistenceContext
     private final EntityManager entityManager;
-//    @Async
+    @Async
     @Transactional
     public void sendNotificationAsync(Notification notification){
         Notification notificationPersist = notificationRepository.save(notification);
