@@ -58,7 +58,7 @@ public class PartyDashBoardService {
                 .itemId(party.getPartyId())
                 .notificationTitle("Your application has been accepted")
                 .notificationBody("")
-                .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
+                .userInfoId(partyMember.getUserInfo().getUserInfoId())
                 .build();
         sendNotificationService.sendNotificationAsync(notification);
 
