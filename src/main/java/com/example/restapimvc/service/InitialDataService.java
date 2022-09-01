@@ -19,18 +19,24 @@ public class InitialDataService {
     private final NotificationRepository notificationRepository;
     public InitialDataDto.InitialDataResponse getInitialData(UserInfo userInfo, InitialDataDto.InitialDataRequest initialDataRequest) {
         List<Notification> notifications = notificationRepository.findByUserInfoIdAndIsRead(userInfo.getUserInfoId(), Boolean.FALSE);
-        return InitialDataDto.InitialDataResponse
-                .builder()
+        InitialDataDto.TempShell tempShell = InitialDataDto.TempShell.builder()
                 .notReadNotificationCount(notifications.size())
                 .isNewest(checkNewest(initialDataRequest))
+                .build();
+        return InitialDataDto.InitialDataResponse
+                .builder()
+                .results(tempShell)
                 .build();
     }
 
     public InitialDataDto.InitialDataResponse getInitialDataForGuest(InitialDataDto.InitialDataRequest initialDataRequest) {
-        return InitialDataDto.InitialDataResponse
-                .builder()
+        InitialDataDto.TempShell tempShell = InitialDataDto.TempShell.builder()
                 .notReadNotificationCount(0)
                 .isNewest(checkNewest(initialDataRequest))
+                .build();
+        return InitialDataDto.InitialDataResponse
+                .builder()
+                .results(tempShell)
                 .build();
     }
 
