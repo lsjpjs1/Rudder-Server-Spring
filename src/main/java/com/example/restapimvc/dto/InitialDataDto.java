@@ -7,6 +7,18 @@ import java.util.List;
 
 public class InitialDataDto {
 
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @ToString
+    public static class InitialDataRequest {
+        private String os;
+        private String appVersion;
+    }
+
     @Getter
     @Setter
     @AllArgsConstructor
@@ -15,5 +27,6 @@ public class InitialDataDto {
     @ToString
     public static class InitialDataResponse {
         private Integer notReadNotificationCount;
+        private Boolean isNewest;
     }
 }

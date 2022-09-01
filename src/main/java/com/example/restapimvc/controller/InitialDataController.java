@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,19 +22,19 @@ public class InitialDataController {
 
     @Operation(summary = "초기 데이터 조회")
     @GetMapping(value = "/initial-data")
-    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialData() {
+    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialData(@ModelAttribute InitialDataDto.InitialDataRequest initialDataRequest) {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(initialDataService.getInitialData(userInfoFromToken));
+                .body(initialDataService.getInitialData(userInfoFromToken,initialDataRequest));
     }
 
     @Operation(summary = "초기 데이터 조회(비회원용)")
     @GetMapping(value = "/initial-data/guest")
-    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialDataForGuest() {
+    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialDataForGuest(@ModelAttribute InitialDataDto.InitialDataRequest initialDataRequest) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(initialDataService.getInitialDataForGuest());
+                .body(initialDataService.getInitialDataForGuest(initialDataRequest));
     }
 
 }

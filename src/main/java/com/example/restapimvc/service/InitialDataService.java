@@ -17,18 +17,38 @@ import java.util.List;
 public class InitialDataService {
 
     private final NotificationRepository notificationRepository;
-    public InitialDataDto.InitialDataResponse getInitialData(UserInfo userInfo) {
+    public InitialDataDto.InitialDataResponse getInitialData(UserInfo userInfo, InitialDataDto.InitialDataRequest initialDataRequest) {
         List<Notification> notifications = notificationRepository.findByUserInfoIdAndIsRead(userInfo.getUserInfoId(), Boolean.FALSE);
         return InitialDataDto.InitialDataResponse
                 .builder()
                 .notReadNotificationCount(notifications.size())
+                .isNewest(checkNewest(initialDataRequest))
                 .build();
     }
 
-    public InitialDataDto.InitialDataResponse getInitialDataForGuest() {
+    public InitialDataDto.InitialDataResponse getInitialDataForGuest(InitialDataDto.InitialDataRequest initialDataRequest) {
         return InitialDataDto.InitialDataResponse
                 .builder()
                 .notReadNotificationCount(0)
+                .isNewest(checkNewest(initialDataRequest))
                 .build();
+    }
+
+    private Boolean checkNewest(InitialDataDto.InitialDataRequest initialDataRequest){
+        if(initialDataRequest.getOs()!=null){
+            if(initialDataRequest.getAppVersion()!=null){
+                if(initialDataRequest.getOs().equals("IOS")){
+                    if(initialDataRequest.getAppVersion().equals("")){
+                        return true;
+                    }
+                }else{
+                    if(initialDataRequest.getAppVersion().equals("")){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
