@@ -24,4 +24,11 @@ public class InitialDataService {
                 .notReadNotificationCount(notifications.size())
                 .build();
     }
+
+    public InitialDataDto.InitialDataResponse getInitialDataForGuest() {
+        return InitialDataDto.InitialDataResponse
+                .builder()
+                .notReadNotificationCount(0)
+                .build();
+    }
 }

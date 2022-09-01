@@ -2,7 +2,6 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.dto.InitialDataDto;
-import com.example.restapimvc.dto.PartyProfileDto;
 import com.example.restapimvc.security.CustomSecurityContextHolder;
 import com.example.restapimvc.service.InitialDataService;
 import io.swagger.annotations.Api;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,6 +26,14 @@ public class InitialDataController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(initialDataService.getInitialData(userInfoFromToken));
+    }
+
+    @Operation(summary = "초기 데이터 조회(비회원용)")
+    @GetMapping(value = "/initial-data/guest")
+    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialDataForGuest() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(initialDataService.getInitialDataForGuest());
     }
 
 }
