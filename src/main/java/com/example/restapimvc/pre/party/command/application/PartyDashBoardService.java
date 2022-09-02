@@ -7,6 +7,8 @@ import com.example.restapimvc.exception.CustomException;
 import com.example.restapimvc.exception.ErrorCode;
 import com.example.restapimvc.notification.Notification;
 import com.example.restapimvc.notification.service.SendNotificationService;
+import com.example.restapimvc.pre.chat.domain.ChatRoomMember;
+import com.example.restapimvc.pre.chat.repository.ChatRoomMemberRepository;
 import com.example.restapimvc.pre.party.command.domain.*;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -24,7 +28,11 @@ public class PartyDashBoardService {
     private final PartyQueryRepository partyQueryRepository;
     private final PartyRepository partyRepository;
     private final SendNotificationService sendNotificationService;
+    private final ChatRoomMemberRepository chatRoomMemberRepository;
 
+
+    @PersistenceContext
+    private final EntityManager entityManager;
     @Transactional
     public void getApplyList(UserInfo userInfo, PartyDto.GetApplyListRequest getApplyListRequest) {
         getApplyListRequest.setAllUserInfo(userInfo);
@@ -52,6 +60,14 @@ public class PartyDashBoardService {
         partyMember.approve();
 
         partyMemberRepository.save(partyMember);
+
+        entityManager.refresh(partyMember);
+
+        ChatRoomMember chatRoomMember = ChatRoomMember.builder()
+                .userInfoId(partyMember.getUserInfo().getUserInfoId())
+                .chatRoomId(party.getPartyChatRoomId())
+                .build();
+        chatRoomMemberRepository.save(chatRoomMember);
 
         Notification notification = Notification.builder()
                 .notificationType(NotificationType.PARTY_ACCEPTED)
