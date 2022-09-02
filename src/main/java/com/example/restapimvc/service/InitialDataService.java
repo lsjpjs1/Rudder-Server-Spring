@@ -55,6 +55,6 @@ public class InitialDataService {
             }
         }
 
-        return false;
+        return true;
     }
 }
