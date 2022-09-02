@@ -22,11 +22,11 @@ public class InitialDataController {
 
     @Operation(summary = "초기 데이터 조회")
     @GetMapping(value = "/initial-data")
-    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialData(@ModelAttribute InitialDataDto.InitialDataRequest initialDataRequest) {
+    public ResponseEntity<InitialDataDto.InitialDataResponse> getInitialData() {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(initialDataService.getInitialData(userInfoFromToken,initialDataRequest));
+                .body(initialDataService.getInitialData(userInfoFromToken));
     }
 
     @Operation(summary = "초기 데이터 조회(비회원용)")

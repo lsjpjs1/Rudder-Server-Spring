@@ -17,11 +17,11 @@ import java.util.List;
 public class InitialDataService {
 
     private final NotificationRepository notificationRepository;
-    public InitialDataDto.InitialDataResponse getInitialData(UserInfo userInfo, InitialDataDto.InitialDataRequest initialDataRequest) {
+    public InitialDataDto.InitialDataResponse getInitialData(UserInfo userInfo) {
         List<Notification> notifications = notificationRepository.findByUserInfoIdAndIsRead(userInfo.getUserInfoId(), Boolean.FALSE);
         InitialDataDto.TempShell tempShell = InitialDataDto.TempShell.builder()
                 .notReadNotificationCount(notifications.size())
-                .isNewest(checkNewest(initialDataRequest))
+                .isNewest(true)
                 .build();
         return InitialDataDto.InitialDataResponse
                 .builder()
