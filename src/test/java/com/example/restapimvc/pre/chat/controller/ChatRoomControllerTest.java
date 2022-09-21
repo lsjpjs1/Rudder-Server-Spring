@@ -52,7 +52,7 @@ class ChatRoomControllerTest {
                         get("/chat-rooms/party-one-to-one")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJwcm9tb3Rpb25NYWlsQWdyZWVtZW50IjpmYWxzZSwib3MiOiJJT1MiLCJhdXRoIjoiUk9MRV9VU0VSIiwic2Nob29sIjp7InNjaG9vbElkIjo0LCJzY2hvb2xOYW1lIjoibmF2ZXIiLCJyZWdleCI6Il5bYS16QS1aMC05XFwuXFxfXFwtXStAbmF2ZXJcXC5jb20kIn0sInVzZXJOaWNrbmFtZSI6InRlc3QyIiwidXNlckVtYWlsIjoidGVzdDJAbmF2ZXIuY29tIiwidXNlclR5cGUiOjAsInVzZXJJZCI6InRlc3QyQG5hdmVyLmNvbSIsInVzZXJJbmZvSWQiOjM2Miwibm90aWZpY2F0aW9uVG9rZW4iOiJBcG5Ub2tlbkZhaWwifQ.pBFvrlRCMlmJQjjKaI2NgcngXfOBH80aZrEXvcuAHrIk9jF5zKXzCnmc-M2dheFsh8Bh86FA0cbu2IzoIAj3PQ")
+                                .header("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJwcm9tb3Rpb25NYWlsQWdyZWVtZW50IjpmYWxzZSwib3MiOiJJT1MiLCJhdXRoIjoiUk9MRV9VU0VSIiwic2Nob29sIjp7InNjaG9vbElkIjo0LCJzY2hvb2xOYW1lIjoibmF2ZXIiLCJyZWdleCI6Il5bYS16QS1aMC05XFwuXFxfXFwtXStAbmF2ZXJcXC5jb20kIn0sInVzZXJOaWNrbmFtZSI6ImFkbWlubTEiLCJ1c2VyRW1haWwiOiJtaHBhcmswMjIxQG5hdmVyLmNvbSIsInVzZXJUeXBlIjowLCJ1c2VySWQiOiJtaHBhcmswMjIxQG5hdmVyLmNvbSIsInVzZXJJbmZvSWQiOjM0OSwibm90aWZpY2F0aW9uVG9rZW4iOiJBcG5Ub2tlbkZhaWwifQ.kONaIyW_LGK1L-ZK8ZptMj-z47B16Eq3_D6HKUhaMqdRIv7PyAC6tC3xEfqtoORGROq_IHkzAqepLpXmFq_7nQ")
                 )
                 .andDo(print())
         ;

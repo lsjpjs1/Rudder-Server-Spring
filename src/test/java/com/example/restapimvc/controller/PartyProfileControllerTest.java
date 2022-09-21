@@ -33,7 +33,7 @@ class PartyProfileControllerTest {
                 FileMetaData.builder().fileName("one").contentType("image/heic").build()
         );
 
-        String content = objectMapper.writeValueAsString(PartyProfileDto.PartyProfileImageUploadUrlRequest.builder().userInfoId(327l).imageMetaData(fileMetaData).build());
+        String content = objectMapper.writeValueAsString(PartyProfileDto.PartyProfileImageUploadUrlRequest.builder().userInfoId(366l).imageMetaData(fileMetaData).build());
         System.out.println(content);
         mockMvc.perform(post("/party-profile-image/image-upload-url/generate")
                         .contentType(MediaType.APPLICATION_JSON)
