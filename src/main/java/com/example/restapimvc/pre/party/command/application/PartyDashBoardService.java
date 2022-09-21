@@ -61,7 +61,6 @@ public class PartyDashBoardService {
 
         partyMemberRepository.save(partyMember);
 
-        entityManager.refresh(partyMember);
 
         ChatRoomMember chatRoomMember = ChatRoomMember.builder()
                 .userInfoId(partyMember.getUserInfo().getUserInfoId())

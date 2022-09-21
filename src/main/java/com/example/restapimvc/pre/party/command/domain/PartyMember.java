@@ -18,6 +18,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @DynamicUpdate
 @DynamicInsert
+@ToString
 public class PartyMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
