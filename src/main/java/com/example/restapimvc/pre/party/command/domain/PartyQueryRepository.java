@@ -234,8 +234,7 @@ public class PartyQueryRepository {
                                 partyMember.numberApplicants.max(),
                                 partyMember.userInfo.userNickname.max(),
                                 partyMember.partyMemberId,
-                                partyMember.isChatExist,
-                                partyMember.partyStatus.stringValue().max()
+                                partyMember.isChatExist
                         )
                 )
                 .from(partyMember)
