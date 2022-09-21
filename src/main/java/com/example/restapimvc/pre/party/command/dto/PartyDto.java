@@ -83,6 +83,9 @@ public class PartyDto {
         private Integer numberApplicants;
         private String userNickname;
         private Long partyMemberId;
+        private Boolean isChatExist;
+        @ApiModelProperty(dataType = "com.example.restapimvc.enums.PartyStatus")
+        private String partyStatus;
     }
 
     @Getter

@@ -233,7 +233,9 @@ public class PartyQueryRepository {
                                 partyProfileImage.partyProfileImageName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
                                 partyMember.numberApplicants.max(),
                                 partyMember.userInfo.userNickname.max(),
-                                partyMember.partyMemberId
+                                partyMember.partyMemberId,
+                                partyMember.isChatExist,
+                                partyMember.partyStatus.stringValue().max()
                         )
                 )
                 .from(partyMember)
