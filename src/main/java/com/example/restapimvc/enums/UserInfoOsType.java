@@ -13,7 +13,7 @@ import java.util.function.Function;
 @Getter
 public enum UserInfoOsType implements EnumEntityConvertable {
     ANDROID("android", "3.0"),
-    IOS("ios", "3.0.9");
+    IOS("ios", "4.2");
 
     private String str;
     private String newestVersion;
