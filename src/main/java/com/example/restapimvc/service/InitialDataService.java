@@ -43,7 +43,7 @@ public class InitialDataService {
     private Boolean checkNewest(InitialDataDto.InitialDataRequest initialDataRequest){
         if(initialDataRequest.getOs()!=null){
             if(initialDataRequest.getAppVersion()!=null){
-                if(initialDataRequest.getOs().equals("IOS")){
+                if(initialDataRequest.getOs().equals("ios")){
                     if(initialDataRequest.getAppVersion().equals("4.1")){
                         return true;
                     }
