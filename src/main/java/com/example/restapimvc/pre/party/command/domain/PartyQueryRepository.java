@@ -234,10 +234,7 @@ public class PartyQueryRepository {
                                 partyMember.numberApplicants.max(),
                                 partyMember.userInfo.userNickname.max(),
                                 partyMember.partyMemberId,
-                                new CaseBuilder().when(partyMember.isChatExist).then(1)
-                                        .otherwise(0)
-                                        .max()
-                                        .eq(1)
+                                partyMember.isChatExist
 
                         )
                 )
@@ -247,7 +244,7 @@ public class PartyQueryRepository {
                         partyMember.partyStatus.eq(PartyStatus.PENDING),
                         equalPartyId(getPartyApplicantsRequest.getPartyId())
                 )
-                .groupBy(partyMember.partyMemberId)
+                .groupBy(partyMember.partyMemberId,partyMember.isChatExist)
                 .fetch();
     }
 
