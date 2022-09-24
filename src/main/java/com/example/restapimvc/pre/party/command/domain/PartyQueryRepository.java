@@ -234,7 +234,11 @@ public class PartyQueryRepository {
                                 partyMember.numberApplicants.max(),
                                 partyMember.userInfo.userNickname.max(),
                                 partyMember.partyMemberId,
-                                partyMember.isChatExist
+                                new CaseBuilder().when(partyMember.isChatExist).then(1)
+                                        .otherwise(0)
+                                        .max()
+                                        .eq(1)
+
                         )
                 )
                 .from(partyMember)
