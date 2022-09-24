@@ -29,7 +29,7 @@ spring:
     show-sql: true
     database-platform: com.example.restapimvc.querydsl.CustomPGDialect
 
-server-url: https://test.rudderuni.com/user-infos/
+
 
   h2:
     console:
@@ -89,3 +89,5 @@ cloud-front:
 
 square:
   access-token: ENC(A6cxITK2TarZau6HtKTRWINOsGZu0xyz7h1u3ColyU4XMei6bEcwN6PsB0D5k5G6nK7ztFsLAtGjI9Z+BDZLwr7VtTbOiiDVJ2x6ZxowhyY=)
+
+server-url: https://test.rudderuni.com/user-infos/
