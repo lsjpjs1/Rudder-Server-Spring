@@ -61,6 +61,9 @@ public class PartyDashBoardService {
 
         partyMemberRepository.save(partyMember);
 
+        party.addCurrentNumberOfMember(partyMember.getNumberApplicants());
+        partyRepository.save(party);
+
 
         ChatRoomMember chatRoomMember = ChatRoomMember.builder()
                 .userInfoId(partyMember.getUserInfo().getUserInfoId())

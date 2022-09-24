@@ -96,7 +96,7 @@ public class PartyQueryRepository {
                 party.partyTime.max(),
                 party.totalNumberOfMember.max(),
                 party.currentNumberOfMember.max(),
-                new CaseBuilder().when(partyMember.partyStatus.eq(PartyStatus.PENDING)).then(partyMember.numberApplicants)
+                new CaseBuilder().when(partyMember.partyStatus.in(PartyStatus.PENDING,PartyStatus.FINAL_APPROVE)).then(partyMember.numberApplicants)
                         .otherwise(0)
                         .sum(),
                 JPAExpressions.select(school.schoolName)

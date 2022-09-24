@@ -109,6 +109,10 @@ public class Party {
         }
     }
 
+    public void addCurrentNumberOfMember(Integer number){
+        currentNumberOfMember = currentNumberOfMember+number;
+    }
+
 
 
 }
