@@ -16,6 +16,7 @@ import com.example.restapimvc.util.RandomNumber;
 import com.example.restapimvc.util.mapper.UserInfoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserInfoService {
 
-    private static final String EMAIL_VERIFICATION_URL = "https://test.rudderuni.com/user-infos/";
+
+    @Value("${server-url}")
+    private String EMAIL_VERIFICATION_URL;
+
     private final UserInfoRepository userInfoRepository;
     private final SchoolRepository schoolRepository;
     private final UserProfileRepository userProfileRepository;

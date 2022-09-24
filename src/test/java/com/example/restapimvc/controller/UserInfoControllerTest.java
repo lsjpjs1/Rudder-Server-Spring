@@ -57,7 +57,7 @@ class UserInfoControllerTest {
     @Test
     void signUp() throws Exception {
         UserInfoDto.SignUpRequest signUpRequest = UserInfoDto.SignUpRequest.builder()
-                .userEmail("mhpark0226@naver.com")
+                .userEmail("mhpark0227@naver.com")
                 .userPassword("12345678")
                 .userProfileBody("im minho")
                 .userNickname("adminm1")
