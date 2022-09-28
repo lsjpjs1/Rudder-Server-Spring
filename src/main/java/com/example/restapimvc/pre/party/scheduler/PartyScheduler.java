@@ -42,7 +42,7 @@ public class PartyScheduler {
                     Notification notification = Notification.builder()
                             .notificationType(NotificationType.PARTY_RECRUIT_END_IN_24H)
                             .itemId(party.getPartyId())
-                            .notificationTitle("24시간 뒤 모집 종료")
+                            .notificationTitle("Your pre recruitment ends in 24hrs")
                             .notificationBody("")
                             .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
                             .build();
@@ -51,7 +51,7 @@ public class PartyScheduler {
 
     }
 
-    @Scheduled(cron = "0 0 10 * * ?")
+//    @Scheduled(cron = "0 0 10 * * ?")
     @Transactional
     public void partyRatingNotificationScheduler() {
         Calendar calendar = Calendar.getInstance();
@@ -66,7 +66,7 @@ public class PartyScheduler {
                         Notification notification = Notification.builder()
                                 .notificationType(NotificationType.PARTY_RATING)
                                 .itemId(party.getPartyId())
-                                .notificationTitle("파티 평점 매기셈")
+                                .notificationTitle("Party rating plz")
                                 .notificationBody("")
                                 .userInfoId(userInfoId)
                                 .build();
