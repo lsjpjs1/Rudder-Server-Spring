@@ -139,7 +139,33 @@ public class UserInfoController {
         userInfoService.verifyUser(userInfoId, verificationCode);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Verification success!");
+                .body("<!DOCTYPE html>\n" +
+                        "<html>\n" +
+                        "<head><meta http-equiv=\"cache-control\" content=\"no-cache\"><meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expires\" content=\"-1\"><style type=\"text/css\">.bL { font-size: 45px; font-family: Helvetica, Dotum, '돋움', Apple SD Gothic Neo, sans-serif; text-align: center; }\n" +
+                        "\n" +
+                        ".sL {font-size: 25px; font-family: Helvetica, Dotum, '돋움', Apple SD Gothic Neo, sans-serif; text-align: center; color: #808080; margin-left: 5px; margin-right: 5px;}\n" +
+                        "\n" +
+                        ".upperDiv { margin-top: 150px; height: 100px; width: 100%; }\n" +
+                        "\n" +
+                        ".checkImg { height: 150; width: 150px;  }\n" +
+                        "\n" +
+                        ".imgDiv {text-align: center;}</style>\n" +
+                        "\n" +
+                        "\n" +
+                        "<title>HTML, CSS and JavaScript demo</title>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<!-- Start your code here -->\n" +
+                        "\n" +
+                        "  <div class=\"upperDiv\">\n" +
+                        "\n" +
+                        "  </div>\n" +
+                        "  <div class=\"imgDiv\">\n" +
+                        "  <img class=\"checkImg\" src=\"https://d17a6yjghl1rix.cloudfront.net/checked.png\">\n" +
+                        "    </div>\n" +
+                        "<p class=\"bL\">Email Verification</p>\n" +
+                        " <p class=\"sL\">Your uni email is now verified</p>\n" +
+                        "   <p class=\"sL\">Welcome to Rudder</p>");
     }
 
     /**
