@@ -44,7 +44,7 @@ public class InitialDataService {
         if(initialDataRequest.getOs()!=null){
             if(initialDataRequest.getAppVersion()!=null){
                 if(initialDataRequest.getOs().equals("ios")){
-                    if(initialDataRequest.getAppVersion().equals("4.2")){
+                    if(initialDataRequest.getAppVersion().equals("4.2")||initialDataRequest.getAppVersion().equals("4.2.1")){
                         return true;
                     }
                 }else{
