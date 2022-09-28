@@ -99,12 +99,8 @@ public class PartyQueryRepository {
                 new CaseBuilder().when(partyMember.partyStatus.in(PartyStatus.PENDING,PartyStatus.FINAL_APPROVE)).then(partyMember.numberApplicants)
                         .otherwise(0)
                         .sum(),
-                JPAExpressions.select(school.schoolName)
-                        .from(school)
-                        .where(school.schoolId.eq(schoolId)),
-                JPAExpressions.select(school.schoolThumbnailName.prepend(CLOUD_FRONT_POST_IMAGE_URL))
-                        .from(school)
-                        .where(school.schoolId.eq(schoolId)),
+                party.partyHostUserInfo.school.schoolName.max(),
+                party.partyHostUserInfo.school.schoolThumbnailName.max().prepend(CLOUD_FRONT_POST_IMAGE_URL),
                 new CaseBuilder().when(partyMember.userInfo.userInfoId.eq(userInfoId)).then(partyMember.partyStatus.stringValue())
                         .otherwise(Expressions.nullExpression())
                         .max()
