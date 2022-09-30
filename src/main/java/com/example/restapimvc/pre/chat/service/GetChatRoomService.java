@@ -45,6 +45,7 @@ public class GetChatRoomService {
                         .chatRoomImageUrl(CLOUD_FRONT_POST_IMAGE_URL+userPartyProfileImageRepository.findById(userInfoRepository.findById(tuple.get(7,Integer.class).longValue()).get().getUserPartyProfile().getUserPartyProfileImageId()).get().getPartyProfileImageName())
                         .chatRoomTitle(tuple.get(5,String.class)+" + "+tuple.get(6,Integer.class))
                         .otherUserInfoId(tuple.get(7,Integer.class).longValue())
+                        .partyId(partyId)
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -63,6 +64,7 @@ public class GetChatRoomService {
                         .chatRoomImageUrl(CLOUD_FRONT_POST_IMAGE_URL+userPartyProfileImageRepository.findById(userInfoRepository.findById(tuple.get(6,Integer.class).longValue()).get().getUserPartyProfile().getUserPartyProfileImageId()).get().getPartyProfileImageName())
                         .chatRoomTitle(tuple.get(5,String.class))
                         .otherUserInfoId(tuple.get(6,Integer.class).longValue())
+                        .partyId(tuple.get(7,Integer.class).longValue())
                         .build()
                 )
                 .collect(Collectors.toList());

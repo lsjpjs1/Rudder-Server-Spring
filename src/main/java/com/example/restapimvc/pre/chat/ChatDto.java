@@ -38,6 +38,7 @@ public class ChatDto {
         private String chatRoomImageUrl;
         private String chatRoomTitle;
         private Long otherUserInfoId;
+        private Long partyId;
     }
 
     @Getter
