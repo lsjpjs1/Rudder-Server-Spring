@@ -51,6 +51,8 @@ public class ApplyPartyService {
                 .notificationBody("Accept")
                 .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
                 .build();
+
+
         sendNotificationService.sendNotificationAsync(notification);
 
     }

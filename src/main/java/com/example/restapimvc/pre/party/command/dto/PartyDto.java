@@ -52,6 +52,7 @@ public class PartyDto {
         @ApiModelProperty(hidden = true)
         private Long partyId;
         private Integer numberApplicants;
+        private String recommendationCode = "";
     }
     @Getter
     @Setter
