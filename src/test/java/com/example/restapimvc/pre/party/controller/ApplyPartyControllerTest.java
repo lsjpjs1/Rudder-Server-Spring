@@ -55,10 +55,10 @@ class ApplyPartyControllerTest {
     @Test
     void applyParty() throws Exception {
         String content = objectMapper.writeValueAsString(
-                PartyDto.ApplyPartyRequest.builder().numberApplicants(2).build()
+                PartyDto.ApplyPartyRequest.builder().numberApplicants(2).recommendationCode("recocode").build()
         );
 
-        mockMvc.perform(post("/parties/27/apply")
+        mockMvc.perform(post("/parties/72/apply")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content)

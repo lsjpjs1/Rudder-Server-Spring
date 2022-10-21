@@ -1,5 +1,6 @@
 package com.example.restapimvc.pre.party.command.application;
 
+import com.example.restapimvc.domain.RecommendationCode;
 import com.example.restapimvc.domain.UserInfo;
 import com.example.restapimvc.enums.NotificationType;
 import com.example.restapimvc.exception.CustomException;
@@ -13,6 +14,7 @@ import com.example.restapimvc.pre.party.command.domain.PartyRepository;
 import com.example.restapimvc.pre.party.command.dto.PartyDto;
 import com.example.restapimvc.repository.PartyApplyGroupMemberRepository;
 import com.example.restapimvc.repository.PartyApplyGroupRepository;
+import com.example.restapimvc.repository.RecommendationCodeRepository;
 import com.example.restapimvc.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ public class ApplyPartyService {
     private final PartyApplyGroupMemberRepository partyApplyGroupMemberRepository;
     private final UserInfoRepository userInfoRepository;
     private final SendNotificationService sendNotificationService;
+    private final RecommendationCodeRepository recommendationCodeRepository;
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -52,6 +55,10 @@ public class ApplyPartyService {
                 .userInfoId(party.getPartyHostUserInfo().getUserInfoId())
                 .build();
 
+        recommendationCodeRepository.save(RecommendationCode.builder()
+                .code(applyPartyRequest.getRecommendationCode())
+                .partyMemberId(party.getPartyMembers().get(applyPartyRequest.getUserInfoId()).getPartyMemberId())
+                .build());
 
         sendNotificationService.sendNotificationAsync(notification);
 
