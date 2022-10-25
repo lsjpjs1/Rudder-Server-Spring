@@ -51,6 +51,7 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
     List<Tuple> findAppliedPartyOneToOneChatRooms(@Param("userInfoId") Long userInfoId);
 
     Optional<ChatRoomMember> findByChatRoomIdAndUserInfoId(Long chatRoomId, Long userInfoId);
+    Optional<ChatRoomMember> findByUserInfoId(Long userInfoId);
 
     List<ChatRoomMember> findByChatRoomId(Long chatRoomId);
 

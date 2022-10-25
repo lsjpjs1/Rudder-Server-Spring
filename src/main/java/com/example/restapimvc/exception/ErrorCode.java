@@ -52,6 +52,7 @@ public enum ErrorCode {
     JOB_FAVORITE_ALREADY_EXIST(HttpStatus.CONFLICT, "Already favorite this job"),
     ALREADY_CLUB_MEMBER(HttpStatus.CONFLICT, "You are already club member"),
     PARTY_ALREADY_EXIST(HttpStatus.CONFLICT, "Party already exists on that date."),
+    CHAT_ROOM_ALREADY_EXIST(HttpStatus.CONFLICT, "Chat room already exists."),
 
     SEND_EMAIL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to send email"),
     PAYMENT_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"Fail to payment")
