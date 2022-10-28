@@ -76,6 +76,15 @@ public class UserInfoService {
         }
     }
 
+
+    @Transactional
+    public void deleteAccount(UserInfo userInfo) {
+        UserInfo userInfoPersistence = userInfoRepository.findById(userInfo.getUserInfoId())
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_INFO_NOT_FOUND));
+        userInfoPersistence.setUserType(-1);
+        userInfoRepository.save(userInfoPersistence);
+    }
+
     public void logout() {
         UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
         UserInfo targetUserInfo = userInfoRepository.findUserInfoByUserInfoId(userInfoFromToken.getUserInfoId()).get();

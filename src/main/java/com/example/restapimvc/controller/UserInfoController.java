@@ -54,6 +54,22 @@ public class UserInfoController {
                 ;
     }
 
+    @Operation(summary = "계정 삭제")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 404, message = "1.USER_INFO_NOT_FOUND(존재하지 않는 userInfo)", response = ErrorResponse.class)
+    })
+    @DeleteMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteAccount() {
+        UserInfo userInfoFromToken = CustomSecurityContextHolder.getUserInfoFromToken();
+        userInfoService.deleteAccount(userInfoFromToken);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+                ;
+    }
+
     /**
      * Legacy: /signupin/logout
      *
