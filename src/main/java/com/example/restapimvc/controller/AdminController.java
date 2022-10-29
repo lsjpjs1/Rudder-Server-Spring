@@ -26,6 +26,7 @@ public class AdminController {
     @ToString
     @Builder
     public static class Tmp{
+        private String userEmail;
         private String userNickname;
         private String partyTitle;
         private String code;
@@ -34,6 +35,7 @@ public class AdminController {
         return jpaQueryFactory
                 .select(
                         Projections.constructor(Tmp.class,
+                                partyMember.userInfo.userEmail,
                                 partyMember.userInfo.userNickname,
                                 partyMember.party.partyTitle,
                                 recommendationCode.code
@@ -51,7 +53,7 @@ public class AdminController {
 
         AtomicReference<String> res = new AtomicReference<>("");
         findJobs().forEach(tmp -> {
-            res.set(res + tmp.partyTitle+" / "+tmp.userNickname+" / "+tmp.code+"<br/>");
+            res.set(res + tmp.partyTitle+" / "+ tmp.userEmail+" / "+tmp.userNickname+" / "+tmp.code+"<br/>");
         });
 
         return res.get();
