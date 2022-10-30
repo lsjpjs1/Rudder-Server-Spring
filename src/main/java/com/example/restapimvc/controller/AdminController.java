@@ -2,6 +2,7 @@ package com.example.restapimvc.controller;
 
 import com.example.restapimvc.domain.QRecommendationCode;
 import com.example.restapimvc.domain.QUserInfo;
+import com.example.restapimvc.enums.PartyStatus;
 import com.example.restapimvc.pre.party.command.domain.QPartyMember;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -29,6 +30,7 @@ public class AdminController {
         private String userEmail;
         private String userNickname;
         private String partyTitle;
+        private PartyStatus partyStatus;
         private String code;
     }
     public List<Tmp> findJobs() {
@@ -38,6 +40,7 @@ public class AdminController {
                                 partyMember.userInfo.userEmail,
                                 partyMember.userInfo.userNickname,
                                 partyMember.party.partyTitle,
+                                partyMember.partyStatus,
                                 recommendationCode.code
                         )
                 )
@@ -53,7 +56,7 @@ public class AdminController {
 
         AtomicReference<String> res = new AtomicReference<>("");
         findJobs().forEach(tmp -> {
-            res.set(res + tmp.partyTitle+" / "+ tmp.userEmail+" / "+tmp.userNickname+" / "+tmp.code+"<br/>");
+            res.set(res + tmp.partyTitle+" / "+ tmp.userEmail+" / "+tmp.userNickname+" / "+tmp.partyStatus.getStatus()+" / "+tmp.code+"<br/>");
         });
 
         return res.get();
