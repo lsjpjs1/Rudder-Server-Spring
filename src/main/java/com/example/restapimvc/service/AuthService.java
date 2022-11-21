@@ -40,7 +40,11 @@ public class AuthService {
             throw new CustomException(ErrorCode.PASSWORD_WRONG);
         }
         if (userInfo.getUserType().equals(1)) {
-           throw new CustomException(ErrorCode.EMAIL_NOT_VERIFIED);
+            throw new CustomException(ErrorCode.EMAIL_NOT_VERIFIED);
+        }
+
+        if (userInfo.getUserType().equals(-1)) {
+            throw new CustomException(ErrorCode.USER_ID_NOT_FOUND);
         }
 
         userInfo.setOs(UserInfoOsType.fromString(loginRequest.getOs()));
