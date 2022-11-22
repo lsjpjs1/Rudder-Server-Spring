@@ -46,6 +46,7 @@ public class AdminController {
                 )
                 .from(recommendationCode)
                 .leftJoin(partyMember).on(partyMember.partyMemberId.eq(recommendationCode.partyMemberId))
+                .where(recommendationCode.code.contains("Golden"))
                 .orderBy(partyMember.party.partyId.desc())
                 .fetch();
 
